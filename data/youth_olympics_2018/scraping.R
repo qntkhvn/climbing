@@ -1,6 +1,6 @@
 library(tidyverse)
 library(pdftools)
-txt <- pdf_text("https://www.dropbox.com/s/qoeoe4jwndoltpu/climbing_youth_olympics_2018.pdf?dl=1")
+txt <- pdf_text("climbing_youth_olympics_2018.pdf")
 # each index is a page
 
 # women qualification
