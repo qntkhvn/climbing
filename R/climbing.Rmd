@@ -54,8 +54,6 @@ qual %>%
   summarize(nrow(.)/nsim)
 ```
 
-9948/10000 = 0.9948
-
 ## If you win ANY event, what is the probability you advance?  
 
 ```{r}
@@ -63,8 +61,6 @@ qual %>%
   filter((e1 == 1 | e2 == 1 | e3 == 1) & qual_rank <= 8) %>% 
   nrow()
 ```
-
-28420/30000 = 0.9473333
 
 ## If you finish last in the first event, what is the probability of advancing? 
 
@@ -74,8 +70,6 @@ qual %>%
   nrow()
 ```
 
-1833/10000 = 0.1833
-
 ## If you finish last in ANY event, what is the probability you advance? 
 
 ```{r}
@@ -83,8 +77,6 @@ qual %>%
   filter((e1 == 20 | e2 == 20 | e3 == 20) & qual_rank <= 8) %>% 
   nrow()
 ```
-
-5376/30000 = 0.1792
 
 ## What is the score that guarantees that you advance / do not advance? 
 
@@ -157,8 +149,6 @@ final %>%
   nrow()
 ```
 
-21985/30000 = 0.7328333
-
 ## If you win the first event, what is the probability you win a medal?
 
 ```{r}
@@ -166,8 +156,6 @@ final %>%
   filter(e1 == 1 & final_rank <= 3) %>% 
   nrow()
 ```
-
-8508/10000 = 0.8508
 
 ## What is the distribution of the winners score if ranks are random? 
 
