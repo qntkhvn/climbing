@@ -40,7 +40,7 @@ men_qual <- txt[25] %>%
   read_lines() %>% 
   tibble(info = .) %>% 
   mutate(info = str_squish(info),
-         event = "wq") %>%
+         event = "mq") %>%
   filter(str_detect(info, "^[0-9]{1,2}\\s")) %>% 
   mutate(info = str_replace(info, "Chong Kiat ", "Chong-Kiat-"),
          info = str_replace(info, "Lukas Joris ", "Lukas-Joris-"),
