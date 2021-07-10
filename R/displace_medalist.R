@@ -1,12 +1,14 @@
 # Hannah Butler
 # 07-09-2021
 # Olympic Sport Climbing Scoring
-
-## Libraries
+##### Description #####
+# estimate the probability of a medalist being displaced if another competitor drops out
+##### Libraries #####
 library(tidyverse)
+library(ggplot2)
 ## set constants
-
-## define functions
+load("R/medal_displacement_probabilities.rdata")
+##### Define Functions #####
 assign_ranks <- function(c = 8) {
   # randomly assign ranks in 3 events & compute total
   # ranking in an event is considered to be independent from ranking in another event
@@ -33,12 +35,8 @@ drop_climber <- function(results, r = 4) {
   return(ud_results)
 }
 
-## begin code
-
+##### begin code #####
 set.seed(80085)
-first <- vector(mode = "numeric", length = 1000)
-second <- vector(mode = "numeric", length = 1000)
-third <- vector(mode = "numeric", length = 1000)
 
 displace_climber <- function(nsim = 1000, drop_rank = 4, m_place = 1) {
   # simulate 1000 rankings
@@ -57,6 +55,39 @@ displace_climber <- function(nsim = 1000, drop_rank = 4, m_place = 1) {
   return(pct_displ)
 }
 
-first <- replicate(100, displace_climber(m_place = 1))
-second <- replicate(100, displace_climber(m_place = 2))
-third <- replicate(100, displace_climber(m_place = 3))
+first <- lapply(4:8, function(x) replicate(100, displace_climber(drop_rank = x, m_place = 1)))
+second <- lapply(4:8, function(x) replicate(100, displace_climber(drop_rank = x, m_place = 2)))
+third <- lapply(4:8, function(x) replicate(100, displace_climber(drop_rank = x, m_place = 3)))
+
+# save(first, second, third, file = "R/prob_displace_medalists.rdata")
+####################################
+# format data
+gold_df <- lapply(1:5
+                  , function(x) {
+                    data.frame(medal = "gold", dropped_rank = 3+x, displ_prob = first[[x]])
+                    }
+                  ) %>%
+  do.call(rbind, .)
+  
+silv_df <- lapply(1:5
+                  , function(x) {
+                    data.frame(medal = "silver", dropped_rank = 3+x, displ_prob = second[[x]])
+                    }
+                  ) %>%
+  do.call(rbind, .)
+
+bron_df <- lapply(1:5
+                  , function(x) {
+                    data.frame(medal = "bronze", dropped_rank = 3+x, displ_prob = third[[x]])
+                    }
+                  ) %>%
+  do.call(rbind, .)
+
+displacement_probs <- rbind(gold_df, silv_df, bron_df)
+
+# save(displacement_probs, file = "R/medal_displacement_probabilities.rdata")
+#########################################
+displacement_probs %>%
+  ggplot() +
+  geom_density(aes(x = displ_prob, fill =  medal), alpha = 0.3) +
+  facet_wrap(~dropped_rank)
