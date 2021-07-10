@@ -6,8 +6,17 @@
 ##### Libraries #####
 library(tidyverse)
 library(ggplot2)
-## set constants
+##### set constants #####
+
+##### VISUALIZE #####
+# just look at this part
 load("R/medal_displacement_probabilities.rdata")
+
+displacement_probs %>%
+  ggplot() +
+  geom_density(aes(x = displ_prob, fill =  medal), alpha = 0.3) +
+  facet_wrap(~dropped_rank)
+
 ##### Define Functions #####
 assign_ranks <- function(c = 8) {
   # randomly assign ranks in 3 events & compute total
