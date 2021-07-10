@@ -3,6 +3,11 @@
 # Olympic Sport Climbing Scoring
 ##### Description #####
 # estimate the probability of a medalist being displaced if another competitor drops out
+
+##### Notes ######
+# write code to deal with ties 
+# tiebreaker: determined by number of events with highest rank (super rudimentary, update)
+# in case of continued tie it doesn't matter, given the random nature of the ranks
 ##### Libraries #####
 library(tidyverse)
 library(ggplot2)
@@ -27,7 +32,15 @@ assign_ranks <- function(c = 8) {
                        , lead = sample(1:c, c, replace = FALSE)
                        ) %>%
     mutate(total = speed*bould*lead) %>%
-    arrange(total)
+    arrange(total) %>% # some questionable tie-breaking code
+    mutate(medal_rank_speed = ifelse(total %in% total[1:3] , rank(speed[1:3]), 0)
+           , medal_rank_bould = ifelse(total %in% total[1:3] , rank(bould[1:3]), 0)
+           , medal_rank_lead = ifelse(total %in% total[1:3] , rank(lead[1:3]), 0)
+           , tiebreaker = medal_rank_speed + medal_rank_bould + medal_rank_lead
+           ) %>%
+    arrange(total
+            , tiebreaker
+            )
   
   return(output)
 }
@@ -40,12 +53,17 @@ drop_climber <- function(results, r = 4) {
            , lead = rank(lead)
            , total = speed*bould*lead
            ) %>%
-    arrange(total)
+    arrange(total)%>%
+    mutate(medal_rank_speed = ifelse(total %in% total[1:3], rank(speed[1:3]), 0)
+           , medal_rank_bould = ifelse(total %in% total[1:3], rank(bould[1:3]), 0)
+           , medal_rank_lead = ifelse(total %in% total[1:3], rank(lead[1:3]), 0)
+           , tiebreaker = medal_rank_speed + medal_rank_bould + medal_rank_lead
+           ) %>%
+    arrange(total
+            , tiebreaker
+            )
   return(ud_results)
 }
-
-##### begin code #####
-set.seed(80085)
 
 displace_climber <- function(nsim = 1000, drop_rank = 4, m_place = 1) {
   # simulate 1000 rankings
@@ -57,18 +75,19 @@ displace_climber <- function(nsim = 1000, drop_rank = 4, m_place = 1) {
   pct_displ <- sapply(1:nsim, 
                       function(x) {
                         rank_perms[[x]]$climber[m_place] != dropout_ranks[[x]]$climber[m_place]
-                        }
-                      ) %>%
+                      }
+  ) %>%
     sum()/nsim
   
   return(pct_displ)
 }
+##### begin code #####
+set.seed(80085)
 
 first <- lapply(4:8, function(x) replicate(100, displace_climber(drop_rank = x, m_place = 1)))
 second <- lapply(4:8, function(x) replicate(100, displace_climber(drop_rank = x, m_place = 2)))
 third <- lapply(4:8, function(x) replicate(100, displace_climber(drop_rank = x, m_place = 3)))
 
-# save(first, second, third, file = "R/prob_displace_medalists.rdata")
 ####################################
 # format data
 gold_df <- lapply(1:5
@@ -94,7 +113,7 @@ bron_df <- lapply(1:5
 
 displacement_probs <- rbind(gold_df, silv_df, bron_df)
 
-# save(displacement_probs, file = "R/medal_displacement_probabilities.rdata")
+#save(displacement_probs, file = "R/medal_displacement_probabilities.rdata")
 #########################################
 displacement_probs %>%
   ggplot() +
