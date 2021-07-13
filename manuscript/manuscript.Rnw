@@ -75,48 +75,60 @@ Rock Climbing scoring.
 
 \section{Results}
 
-\subsections{Simulations}
+\subsection{Simulations}
 \subsubsection{uniform ranks}
+
  - Distributions of points for qualifying and finals given uniform rankings. 
+ 
  - Conditional probabilities.  
- \subsubsections{Leave one out analysis} 
- - For n finalists, how often is the ranking preserved when a single climber is removed.  - Independence of Irrelevant groups.  (IIG)
+ 
+ \subsubsection{Leave one out analysis} 
+ 
+ - For n finalists, how often is the ranking preserved when a single climber is removed.
+ 
+ - Independence of Irrelevant groups.  (IIG)
  
 \subsection{Data Analysis} 
-\subsubsections{Leave one out analysis} 
- - How would do the ranks changes when a single particpant is removed.  (i.e. What would happed if onyl 5 people made the finals instead of 6 and performance was the exact same?)  (Independence of Irrelevant Alternatives.  (IIA))
+\subsubsection{Leave one out analysis} 
+
+ - How would do the ranks changes when a single particpant is removed.  (i.e. What would happed if onyl 5 people made the finals instead of 6 and performance was the exact same?) (Independence of Irrelevant Alternatives.  (IIA))
+ 
  - Examples where you remove the fifth ranked climber from the competition and the medals changed. 
  
  \subsubsection{Correlations}
+ 
  - So bouldering and lead as highly correlatd with each other. 
+ 
  - As a result bouldering and lead are more highly correlated with overall standings.  
+ 
  - Speed climbers are going to suffer under this format.  
+ 
  - Speed climbers are getting screwed!
  
  \subsubsection{Rank Product statistic}
+ 
 - What does Hannah have?
  
- Is there manipulability???!?!?!?
- 
+Is there manipulability???!?!?!?
 
-
-
-outline of paper: 
-Simulation stuff.  
-Distribution of scores under random ranking. 
-Probability of advancement condtional on winnin/losing first event given random ranks.  
-
-How different is the rank vs the product.  
-Borda count
-Voting properties?  
+% outline of paper: 
+% Simulation stuff.  
+% Distribution of scores under random ranking. 
+% Probability of advancement condtional on winnin/losing first event given random ranks.  
+% 
+% How different is the rank vs the product.  
+% Borda count
+% Voting properties?  
 
 \section{Proposed better scoring method}
  - Rank sum
+ 
  - Weighted ranks (sum or product)
- - 
 
 \section{Conclusion}
+
 - Speed climbers are getting screwed.  
+
 - There is a great dependence on irrelevent party. 
 
 
