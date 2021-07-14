@@ -7,6 +7,10 @@ mf <- read_csv("data/youth_olympics_2018/men_final.csv")
 library(GGally)
 
 wq %>% 
+  select(rank, speed, bould, lead) %>%
+  cor(method = "kendall")
+
+wq %>% 
   select(speed, bould, lead) %>% 
   ggpairs(diag = "blank",
           upper = list(continuous = wrap("cor", method = "kendall")),
@@ -14,21 +18,19 @@ wq %>%
   ggtitle("Kendall's rank correlations - Women's Qualification")
 
 mq %>% 
-  select(speed, bould, lead) %>% 
-  ggpairs(upper = list(continuous = wrap("cor", method = "kendall")))
+  select(rank, speed, bould, lead) %>%
+  cor(method = "kendall")
 
-wf %>% 
+mq %>% 
   select(speed, bould, lead) %>% 
-  ggpairs(upper = list(continuous = wrap("cor", method = "kendall")))
+  ggpairs(diag = "blank",
+          upper = list(continuous = wrap("cor", method = "kendall")),
+          axisLabels = "internal") +
+  ggtitle("Kendall's rank correlations - Women's Qualification")
 
-mf %>% 
-  select(speed, bould, lead) %>% 
-  ggpairs(upper = list(continuous = wrap("cor", method = "kendall")))
 
 
-wq %>% 
-  bind_rows(mq, wf, mf) %>% 
-  select(speed, bould, lead) %>% 
-  ggpairs(upper = list(continuous = wrap("cor", method = "kendall")))
+
+
 
 

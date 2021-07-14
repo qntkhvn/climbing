@@ -26,10 +26,7 @@ lead <- c(1, 4, 3, 2, 7, 8,
           18, 14, 13, 16, 10, 5, 11, 9, 6,
           15, 12, 17, 21, 22, 19, 20, 23)
 
-cor(data.frame(speed, bould, lead))
-cor(rank, speed, method = "kendall")
-cor(rank, bould, method = "kendall")
-cor(rank, lead, method = "kendall")
+cor(cbind(rank, speed, bould, lead), method = "kendall")
 
 # women's qualification
 
@@ -40,7 +37,6 @@ bould <- c(2, 1, 3.5, 11, 6, 7, 3.5, 9, 15, 14, 10,
            5, 13, 8, 12, 16, 17, 18, 19.5, 19.5)
 lead <- c(1, 3, 2, 16, 8, 4, 6, 11, 12, 7, 5,
           9, 10, 13, 14, 15, 18, 17, 19, 20)
-cor(data.frame(speed, bould, lead))
-cor(rank, speed, method = "kendall")
-cor(rank, bould, method = "kendall")
-cor(rank, lead, method = "kendall")
+
+cor(cbind(rank, speed, bould, lead), method = "kendall")
+
