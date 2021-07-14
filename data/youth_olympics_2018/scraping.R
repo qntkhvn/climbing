@@ -1,3 +1,6 @@
+# Source:
+# https://library.olympic.org/Default/digitalCollection/DigitalCollectionAttachmentDownloadHandler.ashx?parentDocumentId=177522&documentId=177531
+
 library(tidyverse)
 library(pdftools)
 txt <- pdf_text("data/youth_olympics_2018/climbing_youth_olympics_2018.pdf")
