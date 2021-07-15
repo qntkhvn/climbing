@@ -92,3 +92,46 @@ rerank_df <- women_qual %>%
   mutate(rank = row_number()) %>% 
   ungroup()
 
+
+# Simulation
+
+# In what percentage of the (8!)^3 orderings would the winner change 
+# if one of the 8 competitors was dropped and there were only 7 instead of 8?
+
+library(tidyverse)
+library(combinat)
+
+nplay <- 4
+perms <- crossing(e1 = permn(nplay), 
+                  e2 = permn(nplay), 
+                  e3 = permn(nplay))
+
+
+get_perm <- function(x) {
+  unnest_perm <- perms[x, ] %>%
+    unnest(cols = c(e1, e2, e3)) %>% 
+    mutate(total = e1 * e2 * e3,
+           initial_rank = rank(total, ties.method = "random"))
+  
+  unnest_perm %>%
+    mutate(drop = 0) %>%
+    bind_rows(unnest_perm %>% slice(-1) %>% mutate(drop = 1)) %>%
+    bind_rows(unnest_perm %>% slice(-2) %>% mutate(drop = 2)) %>%
+    bind_rows(unnest_perm %>% slice(-3) %>% mutate(drop = 3)) %>%
+    bind_rows(unnest_perm %>% slice(-4) %>% mutate(drop = 4)) %>%
+    mutate(perm = x)
+}
+
+
+perms_df <- tibble()
+for (row in 1:nrow(perms)) {
+  perms_df <- perms_df %>% 
+    bind_rows(get_perm(row))
+}
+
+f <- perms_df %>% 
+  filter(drop != 0) %>% 
+  mutate(total = e1 * e2 * e3) %>% 
+  group_by(perm, drop) %>% 
+  mutate(new_rank = rank(total, ties.method = "random"),
+         initial_rank_ordered = rank(initial_rank))
