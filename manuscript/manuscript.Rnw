@@ -63,6 +63,12 @@ Decathlon scoring: %https://research.ou.nl/en/publications/decathlon-towards-a-b
 
 Rock Climbing scoring.  
 
+\section{Data}
+
+World Championship 2018, men's and women's
+
+Asian Games 2018
+
 \section{Results}
 
 \subsection{Simulations}

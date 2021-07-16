@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2021.7.14)  15 JUL 2021 22:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2021.7.14)  16 JUL 2021 14:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -272,7 +272,7 @@ Here is how much of TeX's memory you used:
  20660 multiletter control sequences out of 15000+600000
  409096 words of font info for 48 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 61i,5n,70p,1192b,112s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 61i,5n,70p,1192b,114s stack positions out of 5000i,500n,10000p,200000b,80000s
 </Users/qntkhvn/Library/TinyTeX/texmf-dist/fonts/type1/
 public/amsfonts/cm/cmbx10.pfb></Users/qntkhvn/Library/TinyTeX/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmbx12.pfb></Users/qntkhvn/Library/TinyTeX/texmf-dist/
@@ -280,7 +280,7 @@ fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/qntkhvn/Library/TinyTeX/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></Users/qntkhvn/Library/TinyTeX/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/qntkhvn/Library/Tin
 yTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on manuscript.pdf (3 pages, 85515 bytes).
+Output written on manuscript.pdf (3 pages, 85807 bytes).
 PDF statistics:
  44 PDF objects out of 1000 (max. 8388607)
  26 compressed objects within 1 object stream
