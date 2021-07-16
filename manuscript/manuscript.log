@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2021.7.13)  13 JUL 2021 16:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2021.7.14)  15 JUL 2021 22:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **/Users/qntkhvn/Desktop/climbing/manuscript/manuscript.tex
 (/Users/qntkhvn/Desktop/climbing/manuscript/manuscript.tex
 LaTeX2e <2021-06-01> patch level 1
-L3 programming layer <2021-06-18> (/Users/qntkhvn/Library/TinyTeX/texmf-dist/te
+L3 programming layer <2021-07-12> (/Users/qntkhvn/Library/TinyTeX/texmf-dist/te
 x/latex/base/article.cls
 Document Class: article 2021/02/12 v1.4n Standard LaTeX document class
 (/Users/qntkhvn/Library/TinyTeX/texmf-dist/tex/latex/base/size10.clo
@@ -172,7 +172,7 @@ Package: placeins 2005/04/18  v 2.2
 )
 (/Users/qntkhvn/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex
 .def
-File: l3backend-pdftex.def 2021-05-07 L3 backend support: PDF output (pdfTeX)
+File: l3backend-pdftex.def 2021-07-12 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count273
 \l__pdf_internal_box=\box56
 ) (./manuscript.aux)
@@ -235,9 +235,9 @@ fg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Overfull \hbox (10.47292pt too wide) in paragraph at lines 64--65
-\OT1/cmr/m/n/10 (https://olympics.com/ioc/news/ioc-approves-five-new-sports-for
--olympic-games-
+Overfull \hbox (9.16736pt too wide) in paragraph at lines 64--65
+\OT1/cmr/m/n/10 sports (https://olympics.com/ioc/news/ioc-approves-five-new-spo
+rts-for-olympic-
  []
 
 LaTeX Font Info:    Trying to load font information for U+msa on input line 79.
@@ -254,7 +254,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 {/Users/qntkhvn/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 
 Package natbib Warning: Citation `BoudreauEtAl2018' on page 2 undefined on inpu
-t line 118.
+t line 109.
 
 [2] (./manuscript.bbl
 
@@ -266,10 +266,10 @@ Package natbib Warning: There were undefined citations.
 
 [3] (./manuscript.aux) ) 
 Here is how much of TeX's memory you used:
- 3044 strings out of 480477
- 44850 string characters out of 5898251
- 349470 words of memory out of 5000000
- 20685 multiletter control sequences out of 15000+600000
+ 3044 strings out of 480502
+ 44850 string characters out of 5898752
+ 346834 words of memory out of 5000000
+ 20660 multiletter control sequences out of 15000+600000
  409096 words of font info for 48 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  61i,5n,70p,1192b,112s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -280,7 +280,7 @@ fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/qntkhvn/Library/TinyTeX/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></Users/qntkhvn/Library/TinyTeX/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/qntkhvn/Library/Tin
 yTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on manuscript.pdf (3 pages, 85292 bytes).
+Output written on manuscript.pdf (3 pages, 85515 bytes).
 PDF statistics:
  44 PDF objects out of 1000 (max. 8388607)
  26 compressed objects within 1 object stream
