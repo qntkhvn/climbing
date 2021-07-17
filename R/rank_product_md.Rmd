@@ -105,3 +105,45 @@ data.frame(last = f_fin_rp$last
 ```
 
 # Computing the Rank-Product For Qualifiers
+```{r}
+n_perm <- 1000
+# Rank Product for Finals (n = 6, k = 3)
+fin_perms <- lapply(1:n_perm, function(x) assign_ranks(21) %>% mutate(rp = total^(1/3))
+                    )
+
+# list of rank-products for each total rank
+rp_sets <- lapply(1:21, function(r) sapply(fin_perms, function(x) x$rp[r])
+                  )
+```
+
+## Men's Qualifiers
+```{r}
+E_m <- sapply(1:21, function(x) mean(m_qual_rp$rp[x] >= rp_sets[[x]]) # false discovery rate: /x
+              )
+```
+
+```{r, echo = FALSE}
+data.frame(last = m_qual_rp$last
+           , first = m_qual_rp$first
+           , rank = m_qual_rp$rank
+           , rp = m_qual_rp$rp
+           , pval = E_m
+           ) %>% 
+  knitr::kable()
+```
+
+## Women's Qualifiers
+```{r}
+E_f <- sapply(1:21, function(x) mean(f_qual_rp$rp[x] >= rp_sets[[x]]) # false discovery rate: /x
+              )
+```
+
+```{r, echo = FALSE}
+data.frame(last = f_qual_rp$last
+           , first = f_qual_rp$first
+           , rank = f_qual_rp$rank
+           , rp = f_qual_rp$rp
+           , pval = E_f
+           ) %>% 
+  knitr::kable()
+```
