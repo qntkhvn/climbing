@@ -1,0 +1,59 @@
+---
+title: "Remove Climber"
+author: "Hannah Butler"
+date: "7/20/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ggplot2)
+
+# load data
+load("medal_displacement_probabilities.rdata")
+load("top3_displace_probs.rdata")
+load("medal_displacement_probabilities.rdata")
+```
+
+## Intro
+A scoring system that multiplies the ranks across events is interesting because it does not possess the property that it is invariant to reordering when a competitor is removed. Examples of this can be found in existing combined climbing event data, where when a climber with a total rank of $r > 1$, higher ranks change order.
+
+We can test this in simulation to see how often we would expect there to be a reordering in competitors when a competitor of a lower rank is removed. In particular, we can estimate the probability that the set of finalists will change if a non-finalist is removed from the rankings, and we can estimate the probability of medalists being displaced if a non-medalist is removed. 
+
+## Methodology
+As it is the relevant upcoming event, we will focus the parameters of the simulation on those of sport climbing 2020 Tokyo Olympics (taking place in August, 2021). Namely, the qualifying round will consist of 40 individuals (20 men, 20 women) and the finals will consist of the 12(16?) (6(8?) men, 6(8?) women) climbers with the highest ranking in the qualifying round. For our simulations, we will naively assume that the ranks in all three events are assigned randomly and independently. (see the section on rank-product statistic which tests this assumption).
+
+## Results
+
+```{r, echo = FALSE}
+# probability that medalists are displaced (changed or reordered)
+
+displace_probs %>%
+  group_by(dropped_rank) %>%
+  rename("Dropped Rank" = dropped_rank) %>%
+  summarize("# Simulations" = n()
+            , "Mean Probability" = mean(displ_prob)
+            , "Standard Deviation" = sd(displ_prob)
+            ) %>%
+  knitr::kable()
+
+```
+
+On average, regardless of which rank competitor is removed, there is a significant chance that the medalists will permute or change. This can be refined to specific medalist placement
+
+```{r, echo = FALSE}
+displacement_probs %>%
+  group_by(medal, dropped_rank) %>%
+  rename("Medal" = medal
+         , "Dropped Rank" = dropped_rank) %>%
+  summarize("# Simulations" = n()
+            , "Mean Probability" = mean(displ_prob)
+            , "Standard_Deviation" = sd(displ_prob)
+            ) %>%
+  knitr::kable()
+```
+
+### How often would a finalist be replaced
+### How often does someone who wasn't a medalist before become a medalist 
+### How often do we see a flip (two consecutive climbers switch places), jump (a climber jumps up more than one rank), drop (a climber drops down more than one rank)
