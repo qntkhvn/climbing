@@ -9,7 +9,7 @@ output:
     fig_caption: yes
     keep_tex: yes
 abstract: This manuscript... The main results are...
-fontsize: 11pt
+fontsize: 12pt
 ---
 
 <!-- | Author 1^[Corresponding author: Name, Dept, Univ, Email, etc.] , Author 2^[Name, etc.] , and Author 3^[Name, etc.] -->
