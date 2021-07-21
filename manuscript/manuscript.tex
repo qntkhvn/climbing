@@ -153,25 +153,6 @@ Asian Games 2018
 
 \subsubsection{Rank Product Statistic}
 
-The Rank-Product test is a nonparametric test developed with the use in replicated gene expression experiments in mind. The idea is that there are $k$ sets of rankings for $n$ genes and there is interest in knowing if a gene is differentially expressed. (A gene is declared differentially expressed if an observed difference or change in read counts or expression levels between two experimental conditions is statistically significant [ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4827276/ ]). For example, a gene may be differentially expressed if it is consistently highly ranked across replicates in a microarray experiment.
-\\
-\\
-Outside of biology, this test also has applications in statistical meta-analysis and feature selection.
-\\
-\\
-Because of the unique nature of scoring in Olympic sport climbing (and hence, combined climbing competitions), we believe this test can be applied to identify "differentially expressed" climbers. That is, we are interested in knowing if a climber's performance is unlikely under the assumption of uniform random chance. In this scenario, each event (speed, bouldering, lead) is considered a replicate so that $k=3$. Because interest is typically in the highly ranked items, we will only be considering finals data, so that $n=6$. (In the Olympic events, there are 8 finalist slots).
-\\
-\\
-If the rankings across replicates are balanced, then the rank-product statistic for climber $i$ can be computed as the geometric mean across rankings $r_{ij}$:
-
-$$ RP_i = \Big( \prod_{j=1}^k r_{ij} \Big)^{1/k} $$
-
-Simulating a large number of ranking permutations, we can estimate a null distribution of rank-products which the climbers' own rank-products can be compared to.
-
-\textbf{Results}
-
-
-
 Is there manipulability???!?!?!?
 
 % outline of paper: 
