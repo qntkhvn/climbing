@@ -1,0 +1,190 @@
+---
+title: Climbing
+
+# to produce blinded version set to 1
+blinded: 0
+
+authors: 
+- name: Author 1
+  thanks: 
+  affiliation: 
+  
+- name: Author 2
+  affiliation: 
+  
+- name: Author 3
+  affiliation:
+
+keywords:
+- sport climbing
+- scoring system
+
+abstract: |
+  This manuscript... The main results are... 
+# bibliography: bib_example.bib
+output: rticles::asa_article
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, 
+                      message = FALSE, 
+                      warning = FALSE,
+                      comment = "",
+                      fig.width = 5,
+                      fig.height = 4,
+                      results = "asis")
+options(xtable.comment = FALSE,
+        xtable.caption.placement = "top", 
+        xtable.include.rownames = FALSE)
+```
+
+# Introduction
+
+Copy from Rnw + Edit
+
+# Data and Methods
+
+
+# Results
+
+## Simulations: Uniform Ranks
+
+```{r}
+library(tidyverse)
+library(knitr)
+library(xtable)
+theme_set(theme_bw())
+```
+
+```{r}
+set.seed(1)
+nsim <- 10000
+nplay <- 20
+qual_sim <- list()
+for (i in 1:nsim) {
+  qual_sim[[i]] <-
+    bind_cols(
+      player = 1:nplay,
+      e1 = sample(1:nplay, replace = FALSE),
+      e2 = sample(1:nplay, replace = FALSE),
+      e3 = sample(1:nplay, replace = FALSE)
+    ) %>%
+    mutate(sim = i)
+}
+
+qual <- bind_rows(qual_sim) %>% 
+  mutate(qual_score = e1 * e2 * e3) %>% 
+  group_by(sim) %>% 
+  mutate(qual_rank = rank(qual_score, ties.method = "random")) %>%
+  ungroup()
+```
+
+```{r}
+set.seed(1)
+nsim <- 10000
+nplay <- 8
+final_sim <- list()
+for (i in 1:nsim) {
+  final_sim[[i]] <-
+    bind_cols(
+      player = 1:nplay,
+      e1 = sample(1:nplay, replace = FALSE),
+      e2 = sample(1:nplay, replace = FALSE),
+      e3 = sample(1:nplay, replace = FALSE)
+    ) %>%
+    mutate(sim = i)
+}
+
+final <- bind_rows(final_sim) 
+
+final <- final %>% 
+  mutate(final_score = e1 * e2 * e3) %>% 
+  group_by(sim) %>% 
+  mutate(final_rank = rank(final_score, ties.method = "random")) %>%
+  ungroup()
+```
+
+We conducted a simulation study to examine the rankings and scoring for climbers in both qualification and final rounds. For each round, we performed 10000 simulations, and this was accomplished by randomly assigning the ranks of each event to every participant, with the assumption that the ranks are uniformly distributed. After the completion of the simulations, we calculated the final scores for every simulated round, as well as the final standings for the climbing athletes. This data would then enable us to answer questions about various topics, including the distributions of scores for qualifying and final rounds, and the probabilities of advancing to the finals or winning a medal, given certain conditions.
+
+```{r, fig.cap = "Distribution of qualification scores"}
+qual %>%
+  ggplot(aes(qual_score)) +
+  geom_histogram(bins = 20, color = "white") + 
+  labs(x = "Qualification Score",
+       y = "Frequency")
+  # theme(axis.title = element_text(size = 9),
+  #       axis.text = element_text(size = 8))
+```
+
+For the qualification round, a climber is almost guaranteed to make the final round if they win the first event (with a 99.51% chance of advancing) or if they win at least one of the three climbing concentrations (99.48%). On the other hand, finishing last in the first event or in any event would certainly hurt an athlete's chance of finishing in the top 8, as the probabilities of a climber advancing given they finish last in the first and in any event are 0.1830 and 0.1885, respectively. In addition, the average score for qualification positions 1 to 8 are displayed in Table 1. We notice that on average, the minimum score that one should aim for in order to move on to the final round is 435 (for 8th rank). 
+
+```{r}
+qual %>% 
+  group_by(qual_rank) %>% 
+  summarize(avg_adv_score = mean(qual_score)) %>% 
+  filter(qual_rank <= 8) %>% 
+  xtable(caption = "Average score for each qualifying rank") %>% 
+  print()
+```
+
+Regarding the finals, a climber is very likely to earn a medal (finish in the top 3) if they win the first event (83.03% chance) or any event (85.01%). In order to obtain a climbing medal, the average score for getting gold, silver, and bronze are 9.6748, 20.4143, and 33.2648, respectively (Table 2). A notable trend we observe for both qualification and final rounds is as the rank increases, the distribution of the scores becomes more spread out. (Figure..., facet)
+
+```{r}
+final %>% 
+  group_by(final_rank) %>% 
+  summarize(avg_score = mean(final_score)) %>% 
+  xtable(caption = "Average score of medalists") %>% 
+  print()
+```
+
+```{r, fig.cap = "Boxplots of scoring distribution for every qualification rank"}
+qual %>% 
+  mutate(qual_rank = factor(qual_rank)) %>% 
+  ggplot(aes(x = qual_score, y = qual_rank)) +
+  geom_boxplot()
+```
+
+## Drawbacks of the scoring system
+
+### Why product of ranks instead of sum
+
+We performed the same tasks as we did for products
+
+Probabilities of advancing, winning medals are all lower
+
+Most notably for qualifications, 
+
+Obvious that the average score between the ranks are closer to each other
+
+The amount of variability doesn't seem to be different as the rank increases
+
+### Speed climbing vs lead and bouldering
+
+We collected data on major climbing competitions from 2018 to 2020, including the 2020 Continental Championships of Europe, Africa, Oceania, Pan-America; 2019 and 2018 World Championships; 2018 Asian Games; and 2018 Asian Games. We are interested in looking at the relationships between the ranks of the individual events and the final standings, and we computed Kendall’s Tau (Kendall Rank Correlation Coefficient).
+
+
+Figure 3 is a scatterplot and correlation matrix between the ranks for the 2018 Youth Olympics Women's Qualification.
+
+It is evidently clear that there is a strong and positive correlation between the ranks of bouldering and lead climbing, and as a results, the standings of these two events are highly correlated with the final rankings. On the other hand, the relationship is not as strong for speed climbing. Thus, speed climbers are facing a huge disadvantage in this scoring system, compared to those that are specialized in the other two concentrations. 
+
+```{r}
+wq <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2018_youth_olympics/women_qual.csv")
+library(GGally)
+```
+
+```{r, fig.cap = "Kendall's rank correlations - 2018 World Championship, Women's Qualification"}
+wq %>% 
+  select(rank, speed, bould, lead) %>% 
+  ggpairs(diag = "blank",
+          upper = list(continuous = wrap("cor", method = "kendall")))
+```
+
+```{r}
+# wq %>% 
+#   select(rank, speed:lead) %>% 
+#   cor(method = "kendall") %>% 
+#   data.frame()
+```
+
+### Drop and re-rank
