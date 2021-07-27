@@ -83,8 +83,8 @@ This manuscript\ldots{} The main results are\ldots{}
 \hypertarget{sport-climbing}{%
 \subsection{Sport Climbing}\label{sport-climbing}}
 
-\hypertarget{other-scoring-methods}{%
-\subsection{Other Scoring Methods}\label{other-scoring-methods}}
+\hypertarget{other-scoring-systems}{%
+\subsection{Other Scoring Systems}\label{other-scoring-systems}}
 
 \hypertarget{data-and-methods}{%
 \section{Data and Methods}\label{data-and-methods}}
@@ -188,9 +188,9 @@ final\_rank & avg\_score \\
 \subsection{Drawbacks of the scoring
 system}\label{drawbacks-of-the-scoring-system}}
 
-\hypertarget{why-product-of-ranks-instead-of-sum}{%
-\subsubsection{Why product of ranks instead of
-sum}\label{why-product-of-ranks-instead-of-sum}}
+\hypertarget{sum-of-ranks-instead-of-product}{%
+\subsubsection{Sum of ranks instead of
+product}\label{sum-of-ranks-instead-of-product}}
 
 We performed the same tasks as we did for products
 
@@ -208,21 +208,21 @@ increases
 \subsubsection{Speed climbing vs lead and
 bouldering}\label{speed-climbing-vs-lead-and-bouldering}}
 
-Using past competitions data, w are interested in looking at the
-relationships between the ranks of the individual events and the final
-standings, and we computed Kendall's Tau (Kendall Rank Correlation
-Coefficient).
-
-Figure 3 is a scatterplot and correlation matrix between the ranks for
-the 2018 Youth Olympics Women's Qualification.
-
-It is evidently clear that there is a strong and positive correlation
-between the ranks of bouldering and lead climbing, and as a results, the
-standings of these two events are highly correlated with the final
-rankings. On the other hand, the relationship is not as strong for speed
+For our analysis on the relationship between the rankings of the events
+and the final result, we used data from the 2018 Youth Olympics Women's
+Qualification. Figure 3 is a scatterplot and correlation matrix between
+the ranks of the individual events and the final standings, with
+Kendall's Tau (Kendall Rank Correlation Coefficient) as our measure of
+ordinal association between the quantities. It is evidently clear that
+there is a strong and positive correlation between the ranks of
+bouldering and lead climbing, and as a results, the standings of these
+two events are highly correlated with the final rankings. On the other
+hand, the correlation with the final rank is not as strong for speed
 climbing. Thus, speed climbers are facing a huge disadvantage in this
 scoring system, compared to those that are specialized in the other two
 concentrations.
+
+This trend also holds for most of the past competitions.
 
 \begin{figure}
 \centering
@@ -234,14 +234,17 @@ Qualification}
 \hypertarget{drop-and-re-rank}{%
 \subsubsection{Drop and re-rank}\label{drop-and-re-rank}}
 
-A single climber excluded changes things drastically, espcially order of
-medalists.
+A single climber excluded changes things drastically, especially order
+of medalists.
 
 The cases where someone behind you drops out and your ranking changes.
 
+Example from 2018 youth, women's final dropping ranks 3 and 5 change the
+medalist order
+
 \begin{figure}
 \centering
-\includegraphics{draft_files/figure-latex/unnamed-chunk-12-1.pdf}
+\includegraphics{draft_files/figure-latex/unnamed-chunk-11-1.pdf}
 \caption{Original rankings and rankings after each rank is dropped}
 \end{figure}
 
