@@ -10,10 +10,10 @@
 ##### Libraries #####
 library(tidyverse)
 ##### Set Constants #####
-m_qual_path <- "data/youth_olympics_2018/men_qual.csv"
-m_fin_path <- "data/youth_olympics_2018/men_final.csv"
-f_qual_path <- "data/youth_olympics_2018/women_qual.csv"
-f_fin_path <- "data/youth_olympics_2018/women_final.csv"
+m_qual_path <- "data/2018_youth_olympics/men_qual.csv"
+m_fin_path <- "data/2018_youth_olympics/men_final.csv"
+f_qual_path <- "data/2018_youth_olympics/women_qual.csv"
+f_fin_path <- "data/2018_youth_olympics/women_final.csv"
 ##### Define Functions #####
 geo_mean <- function(x, l = length(x)) {
   geomean <- prod(x)^(1/l)
