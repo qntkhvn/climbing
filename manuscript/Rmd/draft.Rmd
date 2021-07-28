@@ -1,15 +1,16 @@
 ---
-title: Climbing
+title: An Examination of Sport Climbing Scoring System
 
 # to produce blinded version set to 1
 blinded: 0
 
 authors: 
 - name: Author 1
-  thanks: 
+  thanks: "Corresponding author: Name. Email:"
   affiliation: 
   
 - name: Author 2
+  thanks: 
   affiliation: 
   
 - name: Author 3
@@ -20,11 +21,12 @@ keywords:
 - scoring system
 
 abstract: |
-  This manuscript... The main results are... 
+  The purpose of this paper is to investigate sport climbing, a new sport featured in the 2020 Tokyo Summer Olympics. Simulation. Data Analysis: drop and re-rank, correlation
 # bibliography: bib_example.bib
 output: rticles::asa_article
 ---
 
+\normalsize
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, 
@@ -39,21 +41,32 @@ options(xtable.comment = FALSE,
         xtable.include.rownames = FALSE)
 ```
 
-# Introduction
+# Introduction (sport climbing, other scoring system, mention rank product)
 
-(Copy from Rnw + Edit)
+In 2016, the International Olympic Committee announced the addition of five new sports to the 2020 Summer Olympics in Tokyo, Japan, which would then reschedule for 2021 due to the impact of the COVID-19 global pandemic. The five new features to Tokyo 2020's competitions program include baseball/softball, karate, skateboard, sports climbing, and surfing. One of the new sports, sport climbing, got our attention, specifically because of its unique scoring system and the fact that only one set of medals is awarded for each gender. 
 
-## Sport Climbing
+Sport climbing at the 2020 Tokyo Olympics consists of three disciplines: speed climbing, bouldering, and lead climbing. Speed climbing takes place on a standardized course and competitors try to reach the top of the course as fast as possible. For Tokyo 2020, speed climbing is being contested in a head-to-head format with ranks determined by how far a competitor advances in the bracket. In bouldering, contestants have a fixed amount of time to complete as many courses as they can. Winners are determined based on who completes the most courses and ties are broken based on who had the fewest attempts. Ties are further broken by the competitor achieved the most "zone holds", which are holds approximately halfway through each course. Finally, in lead climbing, an athlete gets one point for each hold that they reach, so whoever reaches the highest point on the wall is the winner. Each lead climber only gets one attempt and when they fall their attempt is over. These three different climbing disciplines demand different sets of skills and, often, athletes specialize in a single event. However, since only one set of Olympic medals is awarded to sport climbing, rather than choosing only one of these disciplines to include in the Olympics, all three events were chosen to be included as a sort of climbing triathlon.
 
-## Other Scoring Systems
+In the Olympic sport climbing, there are 20 competitors at the start (in both men's and women's).  All 20 competitors compete in each of the three events in the qualification round, and their performances in each event are ranked from 1 to 20.  A competitors final score is then computed as the product of their ranks in the three events and the lower product is better.  Specifically, $$Score_i = R^S_i\times R^B_i\times R^L_i,$$ where $R^S_i$, $R^B_i$, and $R^L_i$ are the ranks of the $i$-th competitor in speed climbing, bouldering, and lead climbing, respectively.  
+
+The top 8 finishers in the qualification round advance to the finals where they once again compete in all three events, they are again ranked from 1 to 8, and their final score is the product of these three ranks in the final.  Whoever has the lowest product of ranks in the final wins the gold medal. This type of scoring system heavily rewards high finishes and relatively ignores poor finishes.  For instance, if climber A finished 1st, 20th, and 20th and climber B finished 10th, 10th, and 10th, climber B would have a score of 1000 whereas climber A would have a much better score of 400, despite finishing last in 2 out of 3 of the events.  
+
+Heavily criticized
+
+Other sports scoring methods
+
 
 # Data and Methods
 
+## Data Collection
+
 We collected data on major climbing competitions from 2018 to 2020, including the 2020 Continental Championships of Europe, Africa, Oceania, Pan-America; 2019 and 2018 World Championships; 2018 Asian Games; and 2018 Asian Games.
+
+## EDA
 
 # Results
 
-## Simulations: Uniform Ranks
+## Simulations
 
 ```{r}
 library(tidyverse)
@@ -133,7 +146,9 @@ qual %>%
   print()
 ```
 
-Regarding the finals, a climber is very likely to earn a medal (finish in the top 3) if they win the first event (83.03% chance) or any event (85.01%). In order to obtain a climbing medal, the average score for getting gold, silver, and bronze are 9.6748, 20.4143, and 33.2648, respectively (Table 2). A notable trend we observe for both qualification and final rounds is as the rank increases, the distribution of the scores becomes more spread out. (Figure..., facet)
+Regarding the finals, a climber is very likely to earn a medal (finish in the top 3) if they win the first event (83.03% chance) or any event (85.01%). In order to obtain a climbing medal, the average score for getting gold, silver, and bronze are 9.6748, 20.4143, and 33.2648, respectively (Table 2). 
+
+<!-- A notable trend we observe for both qualification and final rounds is as the rank increases, the distribution of the scores becomes more spread out. (Figure..., facet) -->
 
 ```{r}
 final %>% 
@@ -150,19 +165,19 @@ qual %>%
   geom_boxplot()
 ```
 
-## Drawbacks of the scoring system
+## Data Analysis
 
-### Sum of ranks instead of product
+<!-- ### Sum of ranks instead of product -->
 
-We performed the same tasks as we did for products
+<!-- We performed the same tasks as we did for products -->
 
-Probabilities of advancing, winning medals are all lower
+<!-- Probabilities of advancing, winning medals are all lower -->
 
-Most notably for qualifications, 
+<!-- Most notably for qualifications,  -->
 
-Obvious that the average score between the ranks are closer to each other
+<!-- Obvious that the average score between the ranks are closer to each other -->
 
-The amount of variability doesn't seem to be different as the rank increases
+<!-- The amount of variability doesn't seem to be different as the rank increases -->
 
 ### Speed climbing vs lead and bouldering
 
@@ -226,10 +241,11 @@ rerank_df %>%
   mutate(last = fct_reorder(last, -rank)) %>% 
   # filter(rank_drop %in% c(0, 5)) %>% 
   ggplot(aes(x = last, y = total)) +
-  geom_col() +
-  geom_text(aes(label = rank), hjust = -0.1, size = 3) +
+  geom_col(show.legend = FALSE) +
+  geom_text(aes(label = rank), hjust = -0.2, size = 3) +
   coord_flip() +
   facet_wrap(~ rank_drop) +
+  expand_limits(y = 65) +
   labs(y = "Score",
        x = "Climber")
 ```
