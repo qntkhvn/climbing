@@ -10,7 +10,7 @@ authors:
   affiliation: 
   
 - name: Author 2
-  thanks: 
+  thanks:
   affiliation: 
   
 - name: Author 3
