@@ -5,7 +5,6 @@
 \usepackage{enumerate}
 \usepackage{natbib}
 \usepackage{textcomp}
-\usepackage{float}
 \usepackage[hyphens]{url} % not crucial - just used below for the URL
 \usepackage{hyperref}
 \providecommand{\tightlist}{%
@@ -71,9 +70,8 @@ Scoring System}
 The purpose of this paper is to investigate sport climbing, one of the
 sports making its debut on the Olympics stage at Tokyo 2020. In
 particular, we take a closer look at the controversial competition
-format and scoring system of sport climbing.
-
-\ldots{} Simulation. Data Analysis: drop and re-rank, correlations
+format and scoring system of sport climbing\ldots{} Simulation. Data
+Analysis: drop and re-rank, correlations
 \end{abstract}
 
 \noindent%
@@ -115,112 +113,118 @@ set of Olympic medals is awarded to sport climbing, rather than choosing
 only one of these disciplines to include in the Olympics, all three
 events were chosen to be included as a sort of climbing triathlon.
 
-In the Olympic sport climbing, there are 20 competitors at the start (in
-both men's and women's). All 20 competitors compete in each of the three
-events in the qualification round, and their performances in each event
-are ranked from 1 to 20. A competitors final score is then computed as
-the product of their ranks in the three events and the lower product is
-better. Specifically, \begin{equation}
+At the 2020 Summer Olympics, both men's and women's sport climbing
+competitions begin with 20 climbers who has previously qualified for the
+Olympics from qualifying events held in 2019 and 2020. All 20 athletes
+compete in each of the three disciplines in the qualification round, and
+their performances in each concentration are ranked from 1 to 20. A
+competitor's total score is then computed as the product of their ranks
+in the three events and the lower product is better; specifically,
+\begin{equation}
 Score_i = R^S_i\times R^B_i\times R^L_i,
 \end{equation} where \(R^S_i\), \(R^B_i\), and \(R^L_i\) are the ranks
 of the \(i\)-th competitor in speed climbing, bouldering, and lead
 climbing, respectively.
 
 The top 8 finishers in the qualification round advance to the finals
-where they once again compete in all three events, they are again ranked
-from 1 to 8, and their final score is the product of these three ranks
-in the final. Whoever has the lowest product of ranks in the final wins
-the gold medal. This type of scoring system heavily rewards high
-finishes and relatively ignores poor finishes. For instance, if climber
-A finished 1st, 20th, and 20th and climber B finished 10th, 10th, and
-10th, climber B would have a score of 1000 whereas climber A would have
-a much better score of 400, despite finishing last in 2 out of 3 of the
-events.
+where they once again compete in all three of speed climbing,
+bouldering, and lead climbing. The total score for each climber in the
+final stage is determined by multiplying their ranks in each discipline,
+similar to the qualification round. This implies that the climber with
+the lowest product of ranks in the final wins the gold medal. This type
+of scoring system heavily rewards high finishes and relatively ignores
+poor finishes. For instance, if climber A finished 1st, 20th, and 20th
+and climber B finished 10th, 10th, and 10th, climber B would have a
+score of 1000 whereas climber A would have a much better score of 400,
+despite finishing last in 2 out of 3 of the events.
 
 Heavily criticized
 
 Other sports scoring methods
 
-As a side note, rank product, genes
+The manuscript is outlined as follows. We first begin with some
+descriptions of the data and methods in Section 2. Our analyses and
+results are then presented in Sections 3 and 4. Finally, in Section 5,
+we summarize up of main findings and give a discussion to close out the
+paper.
 
 \hypertarget{data-and-methods}{%
 \section{Data and Methods}\label{data-and-methods}}
 
-We collected data on major climbing competitions from 2018 to 2020,
-including the 2020 Continental Championships of Europe, Africa, Oceania,
-Pan-America; 2019 and 2018 World Championships; 2018 Asian Games; and
-2018 Youth Olympics. Data were obtained from various sources, including
-the event websites, Wikipedia, and the International Federation of Sport
-Climbing (IFSC). The main attributes of our datasets are the name and
-nationality of the climbers; bib number (for some competitions); the
-finishing place of climbers in speed climbing, bouldering, and lead
-climbing; the total score (which equals the product of event ranks); and
-the final rank. We utilize this data to compute the correlations between
-the event ranks and final table position, as well as to look at how
-often the final orderings change if one athlete is dropped and the ranks
-for each discipline are re-computed.
+The first sets of data that we rely on are historical results from major
+climbing competitions in the past. We collected data on climbing
+contests that took place between 2018 and 2020, where the combined
+format was used to determine the scores and ranks of climbers. The
+events include the 2020 Continental Championships of Europe, Africa,
+Oceania, Pan-America; 2019 and 2018 World Championships; 2018 Asian
+Games; and 2018 Youth Olympics. Data were obtained from various sources,
+including the event websites, Wikipedia, and the International
+Federation of Sport Climbing (IFSC). The main attributes of our datasets
+are the name and nationality of the climbers; bib number (for some
+competitions); the finishing place of climbers in speed climbing,
+bouldering, and lead climbing; the total score (which equals the product
+of event ranks); and the final rank. We utilize this data to compute the
+correlations between the event ranks and final table position, as well
+as to look at how often the final orderings change if one athlete is
+dropped and the ranks for each discipline are re-computed.
 
-EDA
+Our second data source comes from a simulation study that we conducted,
+with the purpose of examining the rankings and scoring for climbers in
+both qualification and final rounds. For each round, we performed 10000
+simulations, and this was accomplished by randomly assigning the ranks
+of each event to every participant, with the assumption that the ranks
+are uniformly distributed. After the completion of the simulations, we
+calculated the total scores for every simulated round, as well as the
+final standings for the climbing athletes. The simulation results allow
+to answer questions about various topics, including the distributions of
+scores for qualifying and final rounds, and the probabilities of
+advancing to the finals or winning a medal, given certain conditions.
 
-Corr
-
-Drop 1
-
-\hypertarget{results}{%
-\section{Results}\label{results}}
-
-\hypertarget{simulations}{%
-\subsection{Simulations}\label{simulations}}
-
-We conducted a simulation study to examine the rankings and scoring for
-climbers in both qualification and final rounds. For each round, we
-performed 10000 simulations, and this was accomplished by randomly
-assigning the ranks of each event to every participant, with the
-assumption that the ranks are uniformly distributed. After the
-completion of the simulations, we calculated the total scores for every
-simulated round, as well as the final standings for the climbing
-athletes. Table and Figure are numerical and visual summaries of final
-scores obtaining from our simulated data for the qualification round.
+Table 1 and Figure 1 are numerical and visual summaries of climbing
+total score obtained from our simulated data for the qualification
+round.
 
 \begin{table}[ht]
 \centering
-\caption{Descriptive statistics of simulated qualification scores} 
-\begin{tabular}{rrrrrrrr}
+\caption{Descriptive statistics of simulated scores for qualification and final rounds} 
+\begin{tabular}{lrrrrrrrr}
   \hline
-min & Q1 & median & Q3 & max & mean & sd & n \\ 
+round & min & Q1 & median & Q3 & max & mean & sd & n \\ 
   \hline
-1.00 & 240.00 & 684.00 & 1638.00 & 8000.00 & 1158.84 & 1273.48 & 200000 \\ 
+Qualification & 1.00 & 240.00 & 684.00 & 1638.00 & 8000.00 & 1158.84 & 1273.48 & 200000 \\ 
+  Final & 1.00 & 24.00 & 60.00 & 126.00 & 512.00 & 91.12 & 91.35 & 80000 \\ 
    \hline
 \end{tabular}
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}
 \centering
 \includegraphics{draft_files/figure-latex/unnamed-chunk-5-1.pdf}
-\caption{Histogram of qualification scores}
+\caption{Histogram of simulated scores for qualification and final
+rounds}
 \end{figure}
 
-The simulation results allow to answer questions about various topics,
-including the distributions of scores for qualifying and final rounds,
-and the probabilities of advancing to the finals or winning a medal,
-given certain conditions. For the qualification round, a climber is
-almost guaranteed to make the final round if they win the first event
-(with a 99.51\% chance of advancing) or if they win at least one of the
-three climbing concentrations (99.48\%). On the other hand, finishing
-last in the first event or in any event would certainly hurt an
-athlete's chance of finishing in the top 8, as the probabilities of a
-climber advancing given they finish last in the first and in any event
-are 0.1830 and 0.1885, respectively. In addition, the average score for
-qualification positions 1 to 8 are displayed in Table 1. We notice that
-on average, the minimum score that one should aim for in order to move
-on to the final round is 435 (for 8th rank).
+\hypertarget{simulations}{%
+\section{Simulations}\label{simulations}}
+
+For the qualification round, a climber is almost guaranteed to make the
+final round if they win the first event (with a 99.51\% chance of
+advancing) or if they win at least one of the three climbing
+concentrations (99.48\%). On the other hand, finishing last in the first
+event or in any event would certainly hurt an athlete's chance of
+finishing in the top 8, as the probabilities of a climber advancing
+given they finish last in the first and in any event are 0.1830 and
+0.1885, respectively. In addition, the average score for qualification
+positions 1 to 8 are displayed in Table 1. We notice that on average,
+the minimum score that one should aim for in order to move on to the
+final round is 435 (for 8th rank).
 
 \begin{table}[ht]
 \centering
 \caption{Average score for each qualifying rank} 
 \begin{tabular}{rr}
   \hline
-qual\_rank & avg\_adv\_score \\ 
+rank & avg\_adv\_score \\ 
   \hline
   1 & 36.02 \\ 
     2 & 73.61 \\ 
@@ -245,7 +249,7 @@ respectively (Table 2).
 \caption{Average score of medalists} 
 \begin{tabular}{rr}
   \hline
-final\_rank & avg\_score \\ 
+rank & avg\_score \\ 
   \hline
   1 & 9.67 \\ 
     2 & 20.41 \\ 
@@ -259,17 +263,15 @@ final\_rank & avg\_score \\
 \end{tabular}
 \end{table}
 
-\begin{figure}[H]
-\centering
-\includegraphics{draft_files/figure-latex/unnamed-chunk-8-1.pdf}
-\caption{Boxplots of scoring distribution for every qualification rank}
-\end{figure}
-
 \hypertarget{data-analysis}{%
-\subsection{Data Analysis}\label{data-analysis}}
+\section{Data Analysis}\label{data-analysis}}
+
+Corr
+
+Drop 1
 
 \hypertarget{speed-climbing-vs-lead-and-bouldering}{%
-\subsubsection{Speed climbing vs lead and
+\subsection{Speed climbing vs lead and
 bouldering}\label{speed-climbing-vs-lead-and-bouldering}}
 
 For our analysis on the relationship between the rankings of the events
@@ -288,7 +290,7 @@ concentrations.
 
 This trend also holds for most of the past competitions.
 
-\begin{figure}[H]
+\begin{figure}
 \centering
 \includegraphics{draft_files/figure-latex/unnamed-chunk-10-1.pdf}
 \caption{Kendall's rank correlations - 2018 World Championship, Women's
@@ -296,7 +298,7 @@ Qualification}
 \end{figure}
 
 \hypertarget{drop-and-re-rank}{%
-\subsubsection{Drop and re-rank}\label{drop-and-re-rank}}
+\subsection{Drop and re-rank}\label{drop-and-re-rank}}
 
 A single climber excluded changes things drastically, especially order
 of medalists.
@@ -306,7 +308,7 @@ The cases where someone behind you drops out and your ranking changes.
 Example from 2018 youth, women's final dropping ranks 3 and 5 change the
 medalist order
 
-\begin{figure}[H]
+\begin{figure}
 \centering
 \includegraphics{draft_files/figure-latex/unnamed-chunk-12-1.pdf}
 \caption{This figure shows the rankings of the Men's Sport Climbing
@@ -315,7 +317,7 @@ rank, with 0 being the original final standings. The cases where a
 change in ordering happened are highlighted.}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}
 \centering
 \includegraphics{draft_files/figure-latex/unnamed-chunk-13-1.pdf}
 \caption{This figure shows the final rankings of 2018 Youth Olympics
