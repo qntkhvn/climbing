@@ -7,9 +7,6 @@
 \usepackage{textcomp}
 \usepackage[hyphens]{url} % not crucial - just used below for the URL
 \usepackage{hyperref}
-\usepackage{caption}
-\captionsetup[table]{skip=3pt}
-\usepackage{float}
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
@@ -154,24 +151,7 @@ the paper.
 \hypertarget{data-and-methods}{%
 \section{Data and Methods}\label{data-and-methods}}
 
-The first sets of data that we rely on are historical results from major
-climbing competitions in the past. We collected data on climbing
-contests that took place between 2018 and 2020, where the combined
-format was used to determine the scores and ranks of climbers. The
-events include the 2020 Continental Championships of Europe, Africa,
-Oceania, Pan-America; 2019 and 2018 World Championships; 2018 Asian
-Games; and 2018 Youth Olympics. Data were obtained from various sources,
-including the event websites, Wikipedia, and the International
-Federation of Sport Climbing (IFSC). The main attributes of our datasets
-are the name and nationality of the climbers; bib number (for some
-competitions); the finishing place of climbers in speed climbing,
-bouldering, and lead climbing; the total score (which equals the product
-of event ranks); and the final rank. We utilize this data to compute the
-correlations between the event ranks and final table position, as well
-as to look at how often the final orderings change if one athlete is
-dropped and the ranks for each discipline are re-computed.
-
-Our second data source comes from a simulation study that we conducted,
+Our first sets of data come from a simulation study that we conducted,
 with the purpose of examining the rankings and scoring for climbers in
 both qualification and final rounds. For each round, we performed 10000
 simulations, and this was accomplished by randomly assigning the ranks
@@ -200,12 +180,29 @@ Qualification & 1.00 & 240.00 & 684.00 & 1638.00 & 8000.00 & 1158.84 & 1273.48 &
 \end{tabular}
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}
 \centering
 \includegraphics{draft_files/figure-latex/unnamed-chunk-5-1.pdf}
 \caption{Histogram of simulated scores for qualification and final
 rounds}
 \end{figure}
+
+Additionally, we rely historical results from major climbing
+competitions in recent years. We collected data on climbing contests
+that took place between 2018 and 2020, where the combined format was
+used to determine the scores and ranks of climbers. The events include
+the 2020 Continental Championships of Europe, Africa, Oceania,
+Pan-America; 2019 and 2018 World Championships; 2018 Asian Games; and
+2018 Youth Olympics. Data were obtained from various sources, including
+the event websites, Wikipedia, and the International Federation of Sport
+Climbing (IFSC). The main attributes of our datasets are the name and
+nationality of the climbers; bib number (for some competitions); the
+finishing place of climbers in speed climbing, bouldering, and lead
+climbing; the total score (which equals the product of event ranks); and
+the final rank. We utilize this data to compute the correlations between
+the event ranks and final table position, as well as to look at how
+often the final orderings change if one athlete is dropped and the ranks
+for each discipline are re-computed.
 
 \hypertarget{simulations}{%
 \section{Simulations}\label{simulations}}
@@ -213,7 +210,9 @@ rounds}
 \hypertarget{uniform-ranks}{%
 \subsection{Uniform Ranks}\label{uniform-ranks}}
 
-For the qualification round, a climber is almost guaranteed to make the
+In this section, we discuss the results of our simulations described in
+Section \ref{data-and-methods}. For the qualification round, our
+simulation study shows that a climber is almost guaranteed to make the
 final round if they win the first event (with a 99.51\% chance of
 advancing) or if they win at least one of the three climbing
 concentrations (99.48\%). On the other hand, finishing last in the first
@@ -221,16 +220,16 @@ event or in any event would certainly hurt an athlete's chance of
 finishing in the top 8, as the probabilities of a climber advancing
 given they finish last in the first and in any event are 0.1830 and
 0.1885, respectively. In addition, the average score for qualification
-positions 1 to 8 are displayed in Table 1. We notice that on average,
+positions 1 to 8 are displayed in Table 2. We notice that on average,
 the minimum score that one should aim for in order to move on to the
-final round is 435 (for 8th rank).
+final round is about 435 (for 8th rank).
 
 \begin{table}[ht]
 \centering
-\caption{Average score for each qualifying rank} 
+\caption{The average scores for the top 10 qualification ranks according to our simulations. A climber will secure a finalist spot if they finish in the top 8.} 
 \begin{tabular}{rr}
   \hline
-rank & avg\_adv\_score \\ 
+Rank & Average score \\ 
   \hline
   1 & 36.02 \\ 
     2 & 73.61 \\ 
@@ -240,22 +239,25 @@ rank & avg\_adv\_score \\
     6 & 278.16 \\ 
     7 & 350.33 \\ 
     8 & 434.59 \\ 
+    9 & 532.14 \\ 
+   10 & 642.33 \\ 
    \hline
 \end{tabular}
 \end{table}
 
-Regarding the finals, a climber is very likely to earn a medal (finish
-in the top 3) if they win the first event (83.03\% chance) or any event
-(85.01\%). In order to obtain a climbing medal, the average score for
-getting gold, silver, and bronze are 9.6748, 20.4143, and 33.2648,
-respectively (Table 2).
+Regarding the finals, a climber is very likely to finish in the top 3
+and hence earn a medal if they win the first event (83.03\% chance) or
+any event (85.01\% chance). Furthermore, according to our final
+simulations, in order to obtain a climbing medal, the average scores
+that put an athlete in position to receive gold, silver, and bronze
+medals are 9.6748, 20.4143, and 33.2648, respectively (see Table 3).
 
 \begin{table}[ht]
 \centering
-\caption{Average score of medalists} 
+\caption{The average scores for all final ranks according to our simulations. Ranks 1, 2, and 3 are table positions that guarantee medalist status for climbers.} 
 \begin{tabular}{rr}
   \hline
-rank & avg\_score \\ 
+Rank & Average score \\ 
   \hline
   1 & 9.67 \\ 
     2 & 20.41 \\ 
@@ -272,21 +274,33 @@ rank & avg\_score \\
 \hypertarget{leave-one-climber-out}{%
 \subsection{Leave-one-climber-out}\label{leave-one-climber-out}}
 
-We would expect that if a climber with a high combined ranking is removed from the list of competitors, the placement of lower-ranked climbers will shift. In the most trivial case, if we were to remove the 3rd place climber, we would see 4th place climber shift to 3rd, 5th place climber shift to 4th, etc. It is maybe less trivial that when a climber is removed from the list, the placement of their higher-ranking competitors may also shift. In other words, there is a non-zero probability of seeing a change in the placement - particularly of medalists - regardless of the fact that no changes occurred in the performance of the remaining climbers. Real examples are given in section 4.2. In this section, we conduct simulations to analyze the probability of seeing a reordering of medalists when one non-medalist is removed from the list of finalists.
+We would expect that if a climber with a high combined ranking is
+removed from the list of competitors, the placement of lower-ranked
+climbers will shift. In the most trivial case, if we were to remove the
+3rd place climber, we would see 4th place climber shift to 3rd, 5th
+place climber shift to 4th, etc. It is maybe less trivial that when a
+climber is removed from the list, the placement of their higher-ranking
+competitors may also shift. In other words, there is a non-zero
+probability of seeing a change in the placement - particularly of
+medalists - regardless of the fact that no changes occurred in the
+performance of the remaining climbers. Real examples are given in
+section 4.2. In this section, we conduct simulations to analyze the
+probability of seeing a reordering of medalists when one non-medalist is
+removed from the list of finalists.
 
 \hypertarget{data-analysis}{%
 \section{Data Analysis}\label{data-analysis}}
 
-\hypertarget{correlations}{%
-\subsection{Correlations}\label{correlations}}
+\hypertarget{rank-correlation}{%
+\subsection{Rank Correlation}\label{rank-correlation}}
 
 For our analysis on the relationship between the rankings of the events
 and the final result, we used data from the 2018 Youth Olympics Women's
-Qualification. Figure 3 is a scatterplot and correlation matrix between
+Qualification. Figure 2 is a scatterplot and correlation matrix between
 the ranks of the individual events and the final standings, with
 Kendall's Tau (Kendall Rank Correlation Coefficient) as our measure of
 ordinal association between the quantities. It is evidently clear that
-there is a strong and positive correlation between the ranks of
+there exists a strong and positive correlation between the ranks of
 bouldering and lead climbing, and as a results, the standings of these
 two events are highly correlated with the final rankings. On the other
 hand, the correlation with the final rank is not as strong for speed
@@ -294,11 +308,9 @@ climbing. Thus, speed climbers are facing a huge disadvantage in this
 scoring system, compared to those that are specialized in the other two
 concentrations.
 
-This trend also holds for most of the past competitions.
-
-\begin{figure}[H]
+\begin{figure}
 \centering
-\includegraphics{draft_files/figure-latex/unnamed-chunk-10-1.pdf}
+\includegraphics{draft_files/figure-latex/unnamed-chunk-9-1.pdf}
 \caption{Kendall's rank correlations - 2018 World Championship, Women's
 Qualification}
 \end{figure}
@@ -307,16 +319,26 @@ Qualification}
 \subsection{Leave-one-climber-out
 Analysis}\label{leave-one-climber-out-analysis}}
 
+Another interesting question that we are interested in investigating is
+``What would happen to the rankings if a single climber is removed?''.
+
+This illustrates the idea of IIA
+
+We once again make use of data from the 2018 Youth Olympics for this
+analysis, but this time we examine the final round of both men's and
+women's competitions.
+
+Figure 3 shows the plots
+
 A single climber excluded changes things drastically, especially order
 of medalists.
 
 The cases where someone behind you drops out and your ranking changes.
-Example from 2018 youth, women's final dropping ranks 3 and 5 change the
-medalist order
+Figure
 
-\begin{figure}[H]
+\begin{figure}
 \centering
-\includegraphics{draft_files/figure-latex/unnamed-chunk-13-1.pdf}
+\includegraphics{draft_files/figure-latex/unnamed-chunk-12-1.pdf}
 \caption{This figure illustrates the changes to the final rankings of
 the 2018 Youth Olympics Men's and Women's Finals when we leave out a
 single climber. For each gender competition, each panel represents the
