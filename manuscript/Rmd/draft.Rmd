@@ -5,16 +5,14 @@ title: An Examination of Sport Climbing Competition Format and Scoring System
 blinded: 0
 
 authors: 
-- name: Author 1
-  thanks: "Corresponding author: Name. Email:"
-  affiliation: 
+- name: Quang Nguyen
+  affiliation: LUC
   
-- name: Author 2
-  thanks:
-  affiliation: 
+- name: Hannah Butler
+  affiliation: CSU
   
-- name: Author 3
-  affiliation:
+- name: Gregory Matthews
+  affiliation: LUC
 
 keywords:
 - sport climbing

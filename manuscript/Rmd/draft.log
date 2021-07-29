@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2021.7.26)  29 JUL 2021 17:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2021.7.26)  29 JUL 2021 17:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -310,7 +310,7 @@ Non-PDF special ignored!
 
 {/Users/qntkhvn/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] 
 [2]
-<draft_files/figure-latex/unnamed-chunk-5-1.pdf, id=57, 461.725pt x 230.8625pt>
+<draft_files/figure-latex/unnamed-chunk-5-1.pdf, id=55, 461.725pt x 230.8625pt>
 
 File: draft_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file (type pdf)
 <use draft_files/figure-latex/unnamed-chunk-5-1.pdf>
@@ -318,14 +318,14 @@ Package pdftex.def Info: draft_files/figure-latex/unnamed-chunk-5-1.pdf  used o
 n input line 185.
 (pdftex.def)             Requested size: 461.72388pt x 230.86192pt.
 [3] [4 <./draft_files/figure-latex/unnamed-chunk-5-1.pdf>] [5] [6]
-<draft_files/figure-latex/unnamed-chunk-9-1.pdf, id=89, 361.35pt x 289.08pt>
+<draft_files/figure-latex/unnamed-chunk-9-1.pdf, id=87, 361.35pt x 289.08pt>
 File: draft_files/figure-latex/unnamed-chunk-9-1.pdf Graphic file (type pdf)
 <use draft_files/figure-latex/unnamed-chunk-9-1.pdf>
 Package pdftex.def Info: draft_files/figure-latex/unnamed-chunk-9-1.pdf  used o
 n input line 313.
 (pdftex.def)             Requested size: 361.34912pt x 289.07928pt.
 [7 <./draft_files/figure-latex/unnamed-chunk-9-1.pdf>]
-<draft_files/figure-latex/unnamed-chunk-12-1.pdf, id=103, 469.755pt x 542.025pt
+<draft_files/figure-latex/unnamed-chunk-12-1.pdf, id=101, 469.755pt x 542.025pt
 >
 File: draft_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type pdf)
 <use draft_files/figure-latex/unnamed-chunk-12-1.pdf>
@@ -346,28 +346,26 @@ Package rerunfilecheck Info: File `draft.out' has not changed.
 (rerunfilecheck)             Checksum: 1AADA47CF6C0A8C60D64EF3DB33E3F2E;1078.
  ) 
 Here is how much of TeX's memory you used:
- 8743 strings out of 480502
- 129867 string characters out of 5898752
+ 8737 strings out of 480502
+ 129786 string characters out of 5898752
  436425 words of memory out of 5000000
- 26283 multiletter control sequences out of 15000+600000
- 411579 words of font info for 55 fonts, out of 8000000 for 9000
+ 26279 multiletter control sequences out of 15000+600000
+ 410678 words of font info for 52 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 60i,11n,66p,566b,331s stack positions out of 5000i,500n,10000p,200000b,80000s
- </Users/qntkhvn/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm07
-00.600pk> </Users/qntkhvn/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec
-/tcrm1000.600pk></Users/qntkhvn/Library/TinyTeX/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmbx10.pfb></Users/qntkhvn/Library/TinyTeX/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmbx12.pfb></Users/qntkhvn/Library/TinyTeX/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmmi12.pfb></Users/qntkhvn/Library/TinyTeX/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmmi8.pfb></Users/qntkhvn/Library/TinyTeX/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/qntkhvn/Library/TinyTeX/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></Users/qntkhvn/Library/TinyTe
-X/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/qntkhvn/Library/
-TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on draft.pdf (9 pages, 141969 bytes).
+ 60i,8n,66p,566b,331s stack positions out of 5000i,500n,10000p,200000b,80000s
+</Users/qntkhvn/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmb
+x10.pfb></Users/qntkhvn/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmbx12.pfb></Users/qntkhvn/Library/TinyTeX/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmmi12.pfb></Users/qntkhvn/Library/TinyTeX/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmmi8.pfb></Users/qntkhvn/Library/TinyTeX/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmr10.pfb></Users/qntkhvn/Library/TinyTeX/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmr12.pfb></Users/qntkhvn/Library/TinyTeX/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmsy10.pfb></Users/qntkhvn/Library/TinyTeX/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on draft.pdf (9 pages, 141124 bytes).
 PDF statistics:
- 171 PDF objects out of 1000 (max. 8388607)
- 134 compressed objects within 2 object streams
+ 161 PDF objects out of 1000 (max. 8388607)
+ 126 compressed objects within 2 object streams
  33 named destinations out of 1000 (max. 500000)
  80 words of extra memory for PDF output out of 10000 (max. 10000000)
 
