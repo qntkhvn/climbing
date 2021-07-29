@@ -15,13 +15,11 @@ perms_expand <- perms %>%
   mutate(perm = row_number()) %>% 
   unnest(cols = c(e1, e2, e3))
 
-perms_expand %>% 
+perms_expand <- perms_expand %>% 
   mutate(total = e1 * e2 * e3) %>% 
   group_by(perm) %>% 
   mutate(rank = rank(total)) %>%  # need to fix ties
   ungroup()
-
-
 
 # get_perm <- function(x) {
 #   unnest_perm <- perms[x, ] %>%
