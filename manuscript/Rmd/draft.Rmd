@@ -147,7 +147,7 @@ Additionally, we rely historical results from major climbing competitions in rec
 
 ## Uniform Ranks
 
-In this section, we discuss the results of our simulations described in Section \ref{data-and-methods}. For the qualification round, our simulation study shows that a climber is almost guaranteed to make the final round if they win the first event (with a 99.51% chance of advancing) or if they win at least one of the three climbing concentrations (99.48%). On the other hand, finishing last in the first event or in any event would certainly hurt an athlete's chance of finishing in the top 8, as the probabilities of a climber advancing given they finish last in the first and in any event are 0.1830 and 0.1885, respectively. In addition, the average score for qualification positions 1 to 8 are displayed in Table 2. We notice that on average, the minimum score that one should aim for in order to move on to the final round is about 435 (for 8th rank). 
+In this section, we discuss the results of our simulations described in Section \ref{data-and-methods}. For the qualification round, our simulation study shows that a climber is almost guaranteed to make the final round if they win the first event (with a 99.51% chance of advancing) or if they win at least one of the three climbing concentrations (99.48%). On the other hand, finishing last in the first event or in any event would certainly hurt an athlete's chance of finishing in the top 8, as the probabilities of a climber advancing given they finish last in the first and in any event are 0.1830 and 0.1885, respectively. In addition, the average score for qualification positions 1 to 8 are displayed in Table 2. We notice that on average, the minimum score that one should aim for in order to move on to the final round is about 434 (for 8th rank). 
 
 ```{r}
 qual %>% 
@@ -159,7 +159,7 @@ qual %>%
   print()
 ```
 
-Regarding the finals, a climber is very likely to finish in the top 3 and hence earn a medal if they win the first event (83.03% chance) or any event (85.01% chance). Furthermore, according to our final simulations, in order to obtain a climbing medal, the average scores that put an athlete in position to receive gold, silver, and bronze medals are 9.6748, 20.4143, and 33.2648, respectively (see Table 3). 
+Regarding the finals, a climber is very likely to finish in the top 3 and hence earn a medal if they win the first event (83.03% chance) or any event (85.01% chance). Furthermore, according to our final simulations, in order to obtain a climbing medal, the average scores (rounded down) that put an athlete in position to receive gold, silver, and bronze medals are 9, 20, and 33, respectively (see Table 3). 
 
 ```{r}
 final %>% 
@@ -301,7 +301,7 @@ wf_gg <- drop_rerank(wf) %>%
         panel.grid.minor = element_blank())
 ```
 
-```{r, fig.cap = "This figure illustrates the changes to the final rankings of the 2018 Youth Olympics Men's and Women's Finals when we leave out a single climber. For each gender competition, each panel represents the rank of the drop-out athlete, with 0 being the original final results. Each case with a change in rank orderings is highlighted by a black panel border, and any player with a rank change is represented by a red-filled bar", fig.width = 6.5, fig.height = 7.5}
+```{r, fig.cap = "This figure illustrates the changes to the final rankings of the 2018 Youth Olympics Men's and Women's Finals when we leave out one climber. For each gender competition, each panel represents the rank of the drop-out athlete, with 0 being the original final results. Each case with a change in rank orderings is highlighted by a black panel border, and any player with a rank change is represented by a red-filled bar", fig.width = 6.5, fig.height = 7.5}
 library(patchwork)
 mf_gg + wf_gg +
   plot_layout(nrow = 2)

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2021.7.26)  29 JUL 2021 17:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2021.7.26)  29 JUL 2021 18:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -333,12 +333,12 @@ Package pdftex.def Info: draft_files/figure-latex/unnamed-chunk-12-1.pdf  used
 on input line 341.
 (pdftex.def)             Requested size: 469.75386pt x 542.02367pt.
 
-Overfull \hbox (7.48387pt too wide) in paragraph at lines 341--348
+Overfull \hbox (7.48387pt too wide) in paragraph at lines 341--347
  [][] 
  []
 
 
-LaTeX Warning: Float too large for page by 17.0305pt on input line 349.
+LaTeX Warning: Float too large for page by 17.0305pt on input line 348.
 
 No file draft.bbl.
 [8] [9 <./draft_files/figure-latex/unnamed-chunk-12-1.pdf>] (./draft.aux)
@@ -352,7 +352,7 @@ Here is how much of TeX's memory you used:
  26279 multiletter control sequences out of 15000+600000
  410678 words of font info for 52 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 60i,8n,66p,566b,331s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,8n,66p,561b,331s stack positions out of 5000i,500n,10000p,200000b,80000s
 </Users/qntkhvn/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmb
 x10.pfb></Users/qntkhvn/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmbx12.pfb></Users/qntkhvn/Library/TinyTeX/texmf-dist/fonts/type1/public/ams
@@ -362,7 +362,7 @@ ic/amsfonts/cm/cmmi8.pfb></Users/qntkhvn/Library/TinyTeX/texmf-dist/fonts/type1
 type1/public/amsfonts/cm/cmr12.pfb></Users/qntkhvn/Library/TinyTeX/texmf-dist/f
 onts/type1/public/amsfonts/cm/cmsy10.pfb></Users/qntkhvn/Library/TinyTeX/texmf-
 dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on draft.pdf (9 pages, 141124 bytes).
+Output written on draft.pdf (9 pages, 141138 bytes).
 PDF statistics:
  161 PDF objects out of 1000 (max. 8388607)
  126 compressed objects within 2 object streams
