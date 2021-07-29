@@ -1,15 +1,16 @@
 ---
-title: Climbing
+title: An Examination of Sport Climbing Competition Format and Scoring System
 
 # to produce blinded version set to 1
 blinded: 0
 
 authors: 
 - name: Author 1
-  thanks: 
+  thanks: "Corresponding author: Name. Email:"
   affiliation: 
   
 - name: Author 2
+  thanks:
   affiliation: 
   
 - name: Author 3
@@ -18,21 +19,21 @@ authors:
 keywords:
 - sport climbing
 - scoring system
+- 2020 Summer Olympics
 
 abstract: |
-  This manuscript... The main results are... 
+  The purpose of this paper is to investigate sport climbing, one of the sports making its debut on the Olympics stage at Tokyo 2020. In particular, we take a closer look at the controversial competition format and scoring system of sport climbing... Simulation. Data Analysis: drop and re-rank, correlations
 # bibliography: bib_example.bib
 output: rticles::asa_article
 ---
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, 
                       message = FALSE, 
                       warning = FALSE,
                       comment = "",
-                      # fig.width = 5,
-                      # fig.height = 4,
+                      fig.height = 4,
+                      fig.width = 5,
                       results = "asis")
 options(xtable.comment = FALSE,
         xtable.caption.placement = "top", 
@@ -41,19 +42,31 @@ options(xtable.comment = FALSE,
 
 # Introduction
 
-(Copy from Rnw + Edit)
+In 2016, the International Olympic Committee announced the addition of five new sports to the 2020 Summer Olympics in Tokyo, Japan, which would then reschedule for 2021 due to the impact of the COVID-19 global pandemic. The five new features to Tokyo 2020's competitions program include baseball/softball, karate, skateboard, sports climbing, and surfing. One of the new sports, sport climbing, got our attention, specifically because of its unique scoring system and the fact that only one set of medals is awarded for each gender. 
 
-## Sport Climbing
+Sport climbing at the 2020 Tokyo Olympics consists of three disciplines: speed climbing, bouldering, and lead climbing. Speed climbing takes place on a standardized course and competitors try to reach the top of the course as fast as possible. For Tokyo 2020, speed climbing is being contested in a head-to-head format with ranks determined by how far a competitor advances in the bracket. In bouldering, contestants have a fixed amount of time to complete as many courses as they can. Winners are determined based on who completes the most courses and ties are broken based on who had the fewest attempts. Ties are further broken by the competitor achieved the most "zone holds", which are holds approximately halfway through each course. Finally, in lead climbing, an athlete gets one point for each hold that they reach, so whoever reaches the highest point on the wall is the winner. Each lead climber only gets one attempt and when they fall their attempt is over. These three different climbing disciplines demand different sets of skills and, often, athletes specialize in a single event. However, since only one set of Olympic medals is awarded to sport climbing, rather than choosing only one of these disciplines to include in the Olympics, all three events were chosen to be included as a sort of climbing triathlon.
 
-## Other Scoring Systems
+At the 2020 Summer Olympics, both men's and women's sport climbing competitions begin with 20 climbers who has previously qualified for the Olympics from qualifying events held in 2019 and 2020. All 20 athletes compete in each of the three disciplines in the qualification round, and their performances in each concentration are ranked from 1 to 20.  A competitor's total score is then computed as the product of their ranks in the three events and the lower product is better; specifically, 
+\begin{equation}
+Score_i = R^S_i\times R^B_i\times R^L_i,
+\end{equation} 
+where $R^S_i$, $R^B_i$, and $R^L_i$ are the ranks of the $i$-th competitor in speed climbing, bouldering, and lead climbing, respectively.  
+
+The top 8 finishers in the qualification round advance to the finals where they once again compete in all three of speed climbing, bouldering, and lead climbing. The total score for each climber in the final stage is determined by multiplying their ranks in each discipline, similar to the qualification round. This implies that the climber with the lowest product of ranks in the final wins the gold medal. This type of scoring system heavily rewards high finishes and relatively ignores poor finishes.  For instance, if climber A finished 1st, 20th, and 20th and climber B finished 10th, 10th, and 10th, climber B would have a score of 1000 whereas climber A would have a much better score of 400, despite finishing last in 2 out of 3 of the events.  
+
+Heavily criticized
+
+Other sports scoring methods
+
+The manuscript is outlined as follows. We first begin with some descriptions of the data and methods in Section 2. Our analyses and results are then presented in Sections 3 and 4. Finally, in Section 5, we summarize up our main findings and provide a discussion to close out the paper.
 
 # Data and Methods
 
-We collected data on major climbing competitions from 2018 to 2020, including the 2020 Continental Championships of Europe, Africa, Oceania, Pan-America; 2019 and 2018 World Championships; 2018 Asian Games; and 2018 Asian Games.
+The first sets of data that we rely on are historical results from major climbing competitions in the past. We collected data on climbing contests that took place between 2018 and 2020, where the combined format was used to determine the scores and ranks of climbers. The events include the 2020 Continental Championships of Europe, Africa, Oceania, Pan-America; 2019 and 2018 World Championships; 2018 Asian Games; and 2018 Youth Olympics. Data were obtained from various sources, including the event websites, Wikipedia, and the International Federation of Sport Climbing (IFSC). The main attributes of our datasets are the name and nationality of the climbers; bib number (for some competitions); the finishing place of climbers in speed climbing, bouldering, and lead climbing; the total score (which equals the product of event ranks); and the final rank. We utilize this data to compute the correlations between the event ranks and final table position, as well as to look at how often the final orderings change if one athlete is dropped and the ranks for each discipline are re-computed. 
 
-# Results
+Our second data source comes from a simulation study that we conducted, with the purpose of examining the rankings and scoring for climbers in both qualification and final rounds. For each round, we performed 10000 simulations, and this was accomplished by randomly assigning the ranks of each event to every participant, with the assumption that the ranks are uniformly distributed. After the completion of the simulations, we calculated the total scores for every simulated round, as well as the final standings for the climbing athletes. The simulation results allow to answer questions about various topics, including the distributions of scores for qualifying and final rounds, and the probabilities of advancing to the finals or winning a medal, given certain conditions.
 
-## Simulations: Uniform Ranks
+Table 1 and Figure 1 are numerical and visual summaries of climbing total score obtained from our simulated data for the qualification and final rounds.
 
 ```{r}
 library(tidyverse)
@@ -79,9 +92,9 @@ for (i in 1:nsim) {
 }
 
 qual <- bind_rows(qual_sim) %>% 
-  mutate(qual_score = e1 * e2 * e3) %>% 
+  mutate(score = e1 * e2 * e3) %>% 
   group_by(sim) %>% 
-  mutate(qual_rank = rank(qual_score, ties.method = "random")) %>%
+  mutate(rank = rank(score, ties.method = "random")) %>%
   ungroup()
 ```
 
@@ -104,67 +117,85 @@ for (i in 1:nsim) {
 final <- bind_rows(final_sim) 
 
 final <- final %>% 
-  mutate(final_score = e1 * e2 * e3) %>% 
+  mutate(score = e1 * e2 * e3) %>% 
   group_by(sim) %>% 
-  mutate(final_rank = rank(final_score, ties.method = "random")) %>%
+  mutate(rank = rank(score, ties.method = "random")) %>%
   ungroup()
+
+qual_final <- qual %>% 
+  mutate(round = "Qualification") %>% 
+  bind_rows(mutate(final, round = "Final")) %>% 
+  mutate(round = fct_rev(round))
 ```
 
-We conducted a simulation study to examine the rankings and scoring for climbers in both qualification and final rounds. For each round, we performed 10000 simulations, and this was accomplished by randomly assigning the ranks of each event to every participant, with the assumption that the ranks are uniformly distributed. After the completion of the simulations, we calculated the final scores for every simulated round, as well as the final standings for the climbing athletes. This data would then enable us to answer questions about various topics, including the distributions of scores for qualifying and final rounds, and the probabilities of advancing to the finals or winning a medal, given certain conditions.
+```{r}
+mosaic::favstats(score ~ round, data = qual_final)[-10] %>% 
+  xtable(caption = "Descriptive statistics of simulated scores for qualification and final rounds") %>% 
+  print()
+```
 
-```{r, fig.cap = "Distribution of qualification scores"}
-qual %>%
-  ggplot(aes(qual_score)) +
-  geom_histogram(bins = 20, color = "white") + 
-  labs(x = "Qualification Score",
+```{r, fig.cap = "Histogram of simulated scores for qualification and final rounds", fig.width = 6.4, fig.height = 3.2}
+qual_final %>%
+  ggplot(aes(score)) +
+  geom_histogram(bins = 20, fill = "lightgray", color = "black") + 
+  facet_wrap(~ round, scales = "free") +
+  labs(x = "Score",
        y = "Frequency")
-  # theme(axis.title = element_text(size = 9),
-  #       axis.text = element_text(size = 8))
 ```
+
+# Simulations
+
+## Uniform Ranks
 
 For the qualification round, a climber is almost guaranteed to make the final round if they win the first event (with a 99.51% chance of advancing) or if they win at least one of the three climbing concentrations (99.48%). On the other hand, finishing last in the first event or in any event would certainly hurt an athlete's chance of finishing in the top 8, as the probabilities of a climber advancing given they finish last in the first and in any event are 0.1830 and 0.1885, respectively. In addition, the average score for qualification positions 1 to 8 are displayed in Table 1. We notice that on average, the minimum score that one should aim for in order to move on to the final round is 435 (for 8th rank). 
 
 ```{r}
 qual %>% 
-  group_by(qual_rank) %>% 
-  summarize(avg_adv_score = mean(qual_score)) %>% 
-  filter(qual_rank <= 8) %>% 
+  group_by(rank) %>% 
+  summarize(avg_adv_score = mean(score)) %>% 
+  filter(rank <= 8) %>% 
   xtable(caption = "Average score for each qualifying rank") %>% 
   print()
 ```
 
-Regarding the finals, a climber is very likely to earn a medal (finish in the top 3) if they win the first event (83.03% chance) or any event (85.01%). In order to obtain a climbing medal, the average score for getting gold, silver, and bronze are 9.6748, 20.4143, and 33.2648, respectively (Table 2). A notable trend we observe for both qualification and final rounds is as the rank increases, the distribution of the scores becomes more spread out. (Figure..., facet)
+Regarding the finals, a climber is very likely to earn a medal (finish in the top 3) if they win the first event (83.03% chance) or any event (85.01%). In order to obtain a climbing medal, the average score for getting gold, silver, and bronze are 9.6748, 20.4143, and 33.2648, respectively (Table 2). 
+
+<!-- A notable trend we observe for both qualification and final rounds is as the rank increases, the distribution of the scores becomes more spread out. (Figure..., facet) -->
 
 ```{r}
 final %>% 
-  group_by(final_rank) %>% 
-  summarize(avg_score = mean(final_score)) %>% 
+  group_by(rank) %>% 
+  summarize(avg_score = mean(score)) %>% 
   xtable(caption = "Average score of medalists") %>% 
   print()
 ```
 
-```{r, fig.cap = "Boxplots of scoring distribution for every qualification rank"}
+```{r, fig.cap = "Boxplots of scoring distribution for every qualification rank", eval = FALSE}
 qual %>% 
-  mutate(qual_rank = factor(qual_rank)) %>% 
-  ggplot(aes(x = qual_score, y = qual_rank)) +
+  mutate(rank = factor(rank)) %>% 
+  ggplot(aes(x = score, y = rank)) +
   geom_boxplot()
 ```
 
-## Drawbacks of the scoring system
+## Leave-one-climber-out
 
-### Sum of ranks instead of product
+6!
 
-We performed the same tasks as we did for products
+# Data Analysis
 
-Probabilities of advancing, winning medals are all lower
+<!-- ### Sum of ranks instead of product -->
 
-Most notably for qualifications, 
+<!-- We performed the same tasks as we did for products -->
 
-Obvious that the average score between the ranks are closer to each other
+<!-- Probabilities of advancing, winning medals are all lower -->
 
-The amount of variability doesn't seem to be different as the rank increases
+<!-- Most notably for qualifications,  -->
 
-### Speed climbing vs lead and bouldering
+<!-- Obvious that the average score between the ranks are closer to each other -->
+
+<!-- The amount of variability doesn't seem to be different as the rank increases -->
+
+## Correlations
 
 For our analysis on the relationship between the rankings of the events and the final result, we used data from the 2018 Youth Olympics Women's Qualification. Figure 3 is a scatterplot and correlation matrix between the ranks of the individual events and the final standings, with Kendall’s Tau (Kendall Rank Correlation Coefficient) as our measure of ordinal association between the quantities. It is evidently clear that there is a strong and positive correlation between the ranks of bouldering and lead climbing, and as a results, the standings of these two events are highly correlated with the final rankings. On the other hand, the correlation with the final rank is not as strong for speed climbing. Thus, speed climbers are facing a huge disadvantage in this scoring system, compared to those that are specialized in the other two concentrations. 
 
@@ -179,10 +210,12 @@ library(GGally)
 wq %>% 
   select(rank, speed, bould, lead) %>% 
   ggpairs(diag = "blank",
-          upper = list(continuous = wrap("cor", method = "kendall")))
+          axisLabels = "internal",
+          upper = list(continuous = wrap("cor", method = "kendall", stars = FALSE))) +
+  theme(panel.grid.major = element_blank())
 ```
 
-### Drop and re-rank
+## Leave-one-climber-out Analysis
 
 A single climber excluded changes things drastically, especially order of medalists.
 
@@ -192,45 +225,100 @@ Example from 2018 youth, women's final
 dropping ranks 3 and 5 change the medalist order
 
 ```{r}
-women_final <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2018_youth_olympics/women_final.csv")
-rerank <- list()
-for (i in 1:nrow(women_final)){
-  rerank[[i]] <- women_final[-i,] %>%
-    mutate(rank_drop = i)
-}
+wf <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2018_youth_olympics/women_final.csv")
+mf <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2018_youth_olympics/men_final.csv")
 
-rerank_df <- women_final %>% 
-  mutate(rank_drop = 0) %>% 
-  bind_rows(rerank) %>% 
-  group_by(rank_drop) %>% 
-  mutate(speed = rank(speed),
-         bould = rank(bould),
-         lead = rank(lead),
-         total = speed * bould * lead) %>% 
-  arrange(total, .by_group = TRUE) %>% 
-  ungroup() %>% 
-  group_by(rank_drop, total) %>% 
-  mutate(speed_tb = ifelse(speed < lag(speed), 1, 0),
-         bould_tb = ifelse(bould < lag(bould), 1, 0),
-         lead_tb = ifelse(lead < lag(lead), 1, 0),
-         tb = speed_tb + bould_tb + lead_tb,
-         tb = ifelse(is.na(tb), 1, tb)) %>% 
-  ungroup() %>% 
-  group_by(rank_drop) %>% 
-  arrange(total, -tb, .by_group = TRUE) %>% 
-  mutate(rank = row_number())
+drop_rerank <- function(df) {
+  rerank <- list()
+  for (i in 1:nrow(df)) {
+    rerank[[i]] <- df[-i, ] %>%
+      mutate(rank_drop = i)
+  }
+  
+  rerank_df <- df %>%
+    mutate(rank_drop = 0) %>%
+    bind_rows(rerank) %>%
+    group_by(rank_drop) %>%
+    mutate(
+      speed = rank(speed),
+      bould = rank(bould),
+      lead = rank(lead),
+      total = speed * bould * lead
+    ) %>%
+    arrange(total, .by_group = TRUE) %>%
+    ungroup() %>%
+    group_by(rank_drop, total) %>%
+    mutate(
+      speed_tb = ifelse(speed < lag(speed), 1, 0),
+      bould_tb = ifelse(bould < lag(bould), 1, 0),
+      lead_tb = ifelse(lead < lag(lead), 1, 0),
+      tb = speed_tb + bould_tb + lead_tb,
+      tb = ifelse(is.na(tb), 1, tb)
+    ) %>%
+    ungroup() %>%
+    group_by(rank_drop) %>%
+    arrange(total,-tb, .by_group = TRUE) %>%
+    mutate(rank = row_number(),
+           last = str_to_title(last))
+  
+  return(rerank_df)
+}
 ```
 
-```{r, fig.cap = "Original rankings and rankings after each rank is dropped"}
-rerank_df %>% 
-  mutate(last = fct_reorder(last, -rank)) %>% 
-  # filter(rank_drop %in% c(0, 5)) %>% 
-  ggplot(aes(x = last, y = total)) +
-  geom_col() +
-  geom_text(aes(label = rank), hjust = -0.1, size = 3) +
+```{r}
+mf_gg <- drop_rerank(mf) %>% 
+  mutate(last = fct_reorder(last, -rank),
+         rank = as.factor(rank),
+         rank_change = ifelse(
+           rank_drop %in% c(0, 4) | 
+             rank_drop == 1 & rank %in% 4:5 |
+              rank_drop == 2 & rank %in% c(1, 5) |
+                rank_drop %in% c(3, 5) & rank %in% c(1, 2, 5) |
+                  rank_drop == 6 & rank %in% 1:3, 
+           "no", "yes")) %>% 
+  ggplot(aes(x = last, y = total, fill = rank_change)) +
+  geom_col(show.legend = FALSE) +
+  geom_text(aes(label = rank), hjust = -0.2, size = 3) +
   coord_flip() +
-  facet_wrap(~ rank_drop) +
-  labs(y = "Score",
-       x = "Climber")
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf),
+            data = ~ filter(., rank_drop %in% c(1, 2, 3, 5, 6)), 
+            color = "black", size = 1.5, fill = NA, inherit.aes = FALSE) +
+  facet_wrap(~ rank_drop, nrow = 2) +
+  expand_limits(y = 102, x = 0:7) +
+  scale_fill_manual(values = c("grey", "chocolate")) +
+  labs(x = "Men", y = "") +
+  theme_minimal() +
+  theme(axis.ticks = element_blank(),
+        panel.grid.minor = element_blank())
+
+wf_gg <- drop_rerank(wf) %>% 
+  mutate(last = fct_reorder(last, -rank),
+         rank = as.factor(rank),
+         rank_change = ifelse(
+           rank_drop %in% c(0, 1, 4, 6) |
+             rank_drop == 2 & rank %in% 1:3 |
+              rank_drop == 3 & rank %in% c(1, 4, 5) |
+                rank_drop == 5 & rank %in% c(1, 5),
+           "no", "yes")) %>%
+  ggplot(aes(x = last, y = total, fill = rank_change)) +
+  geom_col(show.legend = FALSE) +
+  geom_text(aes(label = rank), hjust = -0.2, size = 3) +
+  coord_flip() +
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf),
+            data = ~ filter(., rank_drop %in% c(2, 3, 5)), 
+            color = "black", size = 1.5, fill = NA, inherit.aes = FALSE) +
+  facet_wrap(~ rank_drop, nrow = 2, ncol = 4) +
+  expand_limits(y = 62, x = 0:7) +
+  scale_fill_manual(values = c("grey", "chocolate")) +
+  labs(y = "\nScore", x = "Women") +
+  theme_minimal() +
+  theme(axis.ticks = element_blank(),
+        panel.grid.minor = element_blank())
+```
+
+```{r, fig.cap = "This figure illustrates the changes to the final rankings of the 2018 Youth Olympics Men's and Women's Finals when we leave out a single climber. For each gender competition, each panel represents the rank of the drop-out athlete, with 0 being the original final results. Each case with a change in rank orderings is highlighted by a black panel border, and any player with a rank change is represented by a red-filled bar", fig.width = 6.5, fig.height = 7.5}
+library(patchwork)
+mf_gg + wf_gg +
+  plot_layout(nrow = 2)
 ```
 
