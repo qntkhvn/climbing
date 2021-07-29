@@ -58,7 +58,7 @@ Heavily criticized
 
 Other sports scoring methods
 
-The manuscript is outlined as follows. We first begin with some descriptions of the data and methods in Section 2. Our analyses and results are then presented in Sections 3 and 4. Finally, in Section 5, we summarize up of main findings and give a discussion to close out the paper.
+The manuscript is outlined as follows. We first begin with some descriptions of the data and methods in Section 2. Our analyses and results are then presented in Sections 3 and 4. Finally, in Section 5, we summarize up our main findings and provide a discussion to close out the paper.
 
 # Data and Methods
 
@@ -66,7 +66,7 @@ The first sets of data that we rely on are historical results from major climbin
 
 Our second data source comes from a simulation study that we conducted, with the purpose of examining the rankings and scoring for climbers in both qualification and final rounds. For each round, we performed 10000 simulations, and this was accomplished by randomly assigning the ranks of each event to every participant, with the assumption that the ranks are uniformly distributed. After the completion of the simulations, we calculated the total scores for every simulated round, as well as the final standings for the climbing athletes. The simulation results allow to answer questions about various topics, including the distributions of scores for qualifying and final rounds, and the probabilities of advancing to the finals or winning a medal, given certain conditions.
 
-Table 1 and Figure 1 are numerical and visual summaries of climbing total score obtained from our simulated data for the qualification round.
+Table 1 and Figure 1 are numerical and visual summaries of climbing total score obtained from our simulated data for the qualification and final rounds.
 
 ```{r}
 library(tidyverse)
@@ -145,6 +145,8 @@ qual_final %>%
 
 # Simulations
 
+## Uniform Ranks
+
 For the qualification round, a climber is almost guaranteed to make the final round if they win the first event (with a 99.51% chance of advancing) or if they win at least one of the three climbing concentrations (99.48%). On the other hand, finishing last in the first event or in any event would certainly hurt an athlete's chance of finishing in the top 8, as the probabilities of a climber advancing given they finish last in the first and in any event are 0.1830 and 0.1885, respectively. In addition, the average score for qualification positions 1 to 8 are displayed in Table 1. We notice that on average, the minimum score that one should aim for in order to move on to the final round is 435 (for 8th rank). 
 
 ```{r}
@@ -175,11 +177,11 @@ qual %>%
   geom_boxplot()
 ```
 
+## Leave-one-climber-out
+
+6!
+
 # Data Analysis
-
-Corr
-
-Drop 1
 
 <!-- ### Sum of ranks instead of product -->
 
@@ -193,7 +195,7 @@ Drop 1
 
 <!-- The amount of variability doesn't seem to be different as the rank increases -->
 
-## Speed climbing vs lead and bouldering
+## Correlations
 
 For our analysis on the relationship between the rankings of the events and the final result, we used data from the 2018 Youth Olympics Women's Qualification. Figure 3 is a scatterplot and correlation matrix between the ranks of the individual events and the final standings, with Kendall’s Tau (Kendall Rank Correlation Coefficient) as our measure of ordinal association between the quantities. It is evidently clear that there is a strong and positive correlation between the ranks of bouldering and lead climbing, and as a results, the standings of these two events are highly correlated with the final rankings. On the other hand, the correlation with the final rank is not as strong for speed climbing. Thus, speed climbers are facing a huge disadvantage in this scoring system, compared to those that are specialized in the other two concentrations. 
 
@@ -213,7 +215,7 @@ wq %>%
   theme(panel.grid.major = element_blank())
 ```
 
-## Drop and re-rank
+## Leave-one-climber-out Analysis
 
 A single climber excluded changes things drastically, especially order of medalists.
 
@@ -263,8 +265,8 @@ drop_rerank <- function(df) {
 }
 ```
 
-```{r, fig.cap = "This figure shows the rankings of the Men's Sport Climbing Final at the 2018 Youth Olympics. Each panel represents the dropped rank, with 0 being the original final standings. The cases where a change in ordering happened are highlighted.", fig.width = 7}
-drop_rerank(mf) %>% 
+```{r}
+mf_gg <- drop_rerank(mf) %>% 
   mutate(last = fct_reorder(last, -rank),
          rank = as.factor(rank),
          rank_change = ifelse(
@@ -284,15 +286,12 @@ drop_rerank(mf) %>%
   facet_wrap(~ rank_drop, nrow = 2) +
   expand_limits(y = 102, x = 0:7) +
   scale_fill_manual(values = c("grey", "chocolate")) +
-  labs(y = "Score",
-       x = "Climber") +
+  labs(x = "Men", y = "") +
   theme_minimal() +
   theme(axis.ticks = element_blank(),
         panel.grid.minor = element_blank())
-```
 
-```{r, fig.cap = "This figure shows the final rankings of 2018 Youth Olympics Women's Final. Each panel represents the dropped rank, with 0 being the original final standings. The cases where a change in ordering happened are highlighted.", fig.width = 7}
-drop_rerank(wf) %>% 
+wf_gg <- drop_rerank(wf) %>% 
   mutate(last = fct_reorder(last, -rank),
          rank = as.factor(rank),
          rank_change = ifelse(
@@ -311,9 +310,15 @@ drop_rerank(wf) %>%
   facet_wrap(~ rank_drop, nrow = 2, ncol = 4) +
   expand_limits(y = 62, x = 0:7) +
   scale_fill_manual(values = c("grey", "chocolate")) +
-  labs(y = "Score",
-       x = "Climber") +
+  labs(y = "\nScore", x = "Women") +
   theme_minimal() +
   theme(axis.ticks = element_blank(),
         panel.grid.minor = element_blank())
 ```
+
+```{r, fig.cap = "This figure illustrates the changes to the final rankings of the 2018 Youth Olympics Men's and Women's Finals when we leave out a single climber. For each gender competition, each panel represents the rank of the drop-out athlete, with 0 being the original final results. Each case with a change in rank orderings is highlighted by a black panel border, and any player with a rank change is represented by a red-filled bar", fig.width = 6.5, fig.height = 7.5}
+library(patchwork)
+mf_gg + wf_gg +
+  plot_layout(nrow = 2)
+```
+

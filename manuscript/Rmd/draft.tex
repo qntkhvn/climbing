@@ -5,9 +5,11 @@
 \usepackage{enumerate}
 \usepackage{natbib}
 \usepackage{textcomp}
-\usepackage{float}
 \usepackage[hyphens]{url} % not crucial - just used below for the URL
 \usepackage{hyperref}
+\usepackage{caption}
+\captionsetup[table]{skip=3pt}
+\usepackage{float}
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
@@ -146,8 +148,8 @@ Other sports scoring methods
 The manuscript is outlined as follows. We first begin with some
 descriptions of the data and methods in Section 2. Our analyses and
 results are then presented in Sections 3 and 4. Finally, in Section 5,
-we summarize up of main findings and give a discussion to close out the
-paper.
+we summarize up our main findings and provide a discussion to close out
+the paper.
 
 \hypertarget{data-and-methods}{%
 \section{Data and Methods}\label{data-and-methods}}
@@ -182,8 +184,8 @@ scores for qualifying and final rounds, and the probabilities of
 advancing to the finals or winning a medal, given certain conditions.
 
 Table 1 and Figure 1 are numerical and visual summaries of climbing
-total score obtained from our simulated data for the qualification
-round.
+total score obtained from our simulated data for the qualification and
+final rounds.
 
 \begin{table}[ht]
 \centering
@@ -207,6 +209,9 @@ rounds}
 
 \hypertarget{simulations}{%
 \section{Simulations}\label{simulations}}
+
+\hypertarget{uniform-ranks}{%
+\subsection{Uniform Ranks}\label{uniform-ranks}}
 
 For the qualification round, a climber is almost guaranteed to make the
 final round if they win the first event (with a 99.51\% chance of
@@ -264,16 +269,16 @@ rank & avg\_score \\
 \end{tabular}
 \end{table}
 
+\hypertarget{leave-one-climber-out}{%
+\subsection{Leave-one-climber-out}\label{leave-one-climber-out}}
+
+6!
+
 \hypertarget{data-analysis}{%
 \section{Data Analysis}\label{data-analysis}}
 
-Corr
-
-Drop 1
-
-\hypertarget{speed-climbing-vs-lead-and-bouldering}{%
-\subsection{Speed climbing vs lead and
-bouldering}\label{speed-climbing-vs-lead-and-bouldering}}
+\hypertarget{correlations}{%
+\subsection{Correlations}\label{correlations}}
 
 For our analysis on the relationship between the rankings of the events
 and the final result, we used data from the 2018 Youth Olympics Women's
@@ -298,33 +303,27 @@ This trend also holds for most of the past competitions.
 Qualification}
 \end{figure}
 
-\hypertarget{drop-and-re-rank}{%
-\subsection{Drop and re-rank}\label{drop-and-re-rank}}
+\hypertarget{leave-one-climber-out-analysis}{%
+\subsection{Leave-one-climber-out
+Analysis}\label{leave-one-climber-out-analysis}}
 
 A single climber excluded changes things drastically, especially order
 of medalists.
 
 The cases where someone behind you drops out and your ranking changes.
-
 Example from 2018 youth, women's final dropping ranks 3 and 5 change the
 medalist order
 
 \begin{figure}[H]
 \centering
-\includegraphics{draft_files/figure-latex/unnamed-chunk-12-1.pdf}
-\caption{This figure shows the rankings of the Men's Sport Climbing
-Final at the 2018 Youth Olympics. Each panel represents the dropped
-rank, with 0 being the original final standings. The cases where a
-change in ordering happened are highlighted.}
-\end{figure}
-
-\begin{figure}[H]
-\centering
 \includegraphics{draft_files/figure-latex/unnamed-chunk-13-1.pdf}
-\caption{This figure shows the final rankings of 2018 Youth Olympics
-Women's Final. Each panel represents the dropped rank, with 0 being the
-original final standings. The cases where a change in ordering happened
-are highlighted.}
+\caption{This figure illustrates the changes to the final rankings of
+the 2018 Youth Olympics Men's and Women's Finals when we leave out a
+single climber. For each gender competition, each panel represents the
+rank of the drop-out athlete, with 0 being the original final results.
+Each case with a change in rank orderings is highlighted by a black
+panel border, and any player with a rank change is represented by a
+red-filled bar}
 \end{figure}
 
 \bibliographystyle{agsm}
