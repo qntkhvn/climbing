@@ -21,7 +21,7 @@ keywords:
 
 abstract: |
   The purpose of this paper is to investigate sport climbing, one of the sports making its debut on the Olympics stage at Tokyo 2020. In particular, we take a closer look at the controversial competition format and scoring system of sport climbing... Simulation. Data Analysis: drop and re-rank, correlations
-# bibliography: bib_example.bib
+bibliography: references.bib
 output: rticles::asa_article
 ---
 
@@ -306,3 +306,5 @@ library(patchwork)
 mf_gg + wf_gg +
   plot_layout(nrow = 2)
 ```
+
+in-text citation @Hammond2007 @Westera2006 
