@@ -160,15 +160,11 @@ and climber B finished 10th, 10th, and 10th, climber B would have a
 score of 1000 whereas climber A would have a much better score of 400,
 despite finishing last in 2 out of 3 of the events.
 
-Other sports scoring methods
+Paragraph on scoring methods in other sports: Soccer points:
+\citet{haugen2008}; Cross country scoring: \citet{hammond2007},
+\citet{boudreau2018}; Decathlon scoring: \citet{westera2006}
 
-\url{https://www.climbing.com/competition/olympics/a-guide-to-the-olympic-climbing-format/}
-
-Soccer points: \citet{haugen2008}
-
-Cross country scoring: \citet{hammond2007}, \citet{boudreau2018}
-
-Decathlon scoring: \citet{westera2006}
+As a side note, rank product, genes
 
 The manuscript is outlined as follows. We first begin with some
 descriptions of the data and methods in Section \ref{data-and-methods}.
@@ -232,7 +228,27 @@ the event ranks and final table position, as well as to look at how
 often the final orderings change if one athlete is dropped and the ranks
 for each discipline are re-computed.
 
-Brief paragraph on IIA
+Paragraph on IIA/Social Choice
+
+Suppose we have 3 people A, B, and C participating in a competition. If
+A finishes in the first place and C is later disqualified and removed, A
+should still win. If the original winner (A) loses the modified
+competition (with C removed), then the Independence of Irrelevant
+Alternatives has been violated.
+
+Economics, psychology, probability theory. Connect with cross country in
+previous section
+
+First mentioned by Arrow (1951)
+\url{https://cowles.yale.edu/sites/default/files/files/pub/mon/m12-all.pdf}
+
+Luce (1959)
+\url{http://www.scholarpedia.org/article/Luce\%27s_choice_axiom}
+
+and Luce (1977)
+\url{https://www.imbs.uci.edu/files/personnel/luce/pre1990/1977/Luce_JMP_1977a.pdf}
+
+Ray (1973) \url{https://www.jstor.org/stable/1913820}
 
 \hypertarget{simulations}{%
 \section{Simulations}\label{simulations}}
@@ -243,9 +259,9 @@ Brief paragraph on IIA
 In this section, we discuss the results of our simulations described in
 Section \ref{data-and-methods}. For the qualification round, our
 simulation study shows that a climber is almost guaranteed to make the
-final round if they win the first event (with a 99.51\% chance of
-advancing) or if they win at least one of the three climbing
-concentrations (99.48\%). On the other hand, finishing last in the first
+final round if they win the first event or if they win at least one of
+the three climbing concentrations (99.51\% and 99.48\% change of
+advancing, respectively). On the other hand, finishing last in the first
 event or in any event would certainly hurt an athlete's chance of
 finishing in the top 8, as the probabilities of a climber advancing
 given they finish last in the first and in any event are 0.1830 and
@@ -304,6 +320,11 @@ Rank & Average score \\
 \hypertarget{leave-one-climber-out}{%
 \subsection{Leave-one-climber-out}\label{leave-one-climber-out}}
 
+Another interesting question that we are interested in investigating is
+``What would happen to the rankings if a single climber is removed?''.
+This is related to the concept of independence of irrelevant
+alternatives (IIA), as mentioned in Section \ref{data-and-methods}.
+
 We would expect that if a climber with a high combined ranking is
 removed from the list of competitors, the placement of lower-ranked
 climbers will shift. In the most trivial case, if we were to remove the
@@ -314,9 +335,9 @@ competitors may also shift. In other words, there is a non-zero
 probability of seeing a change in the placement - particularly of
 medalists - regardless of the fact that no changes occurred in the
 performance of the remaining climbers. Real examples are given in
-section 4.2. In this section, we conduct simulations to analyze the
-probability of seeing a reordering of medalists when one non-medalist is
-removed from the list of finalists.
+Section \ref{data-analysis}. In this section, we conduct simulations to
+analyze the probability of seeing a reordering of medalists when one
+non-medalist is removed from the list of finalists.
 
 \hypertarget{data-analysis}{%
 \section{Data Analysis}\label{data-analysis}}
@@ -335,7 +356,9 @@ climbing, and as a results, the standings of these two events are highly
 correlated with the final rankings. On the other hand, the correlation
 with the final rank is not as strong for speed climbing. Thus, speed
 climbers are facing a huge disadvantage in this scoring system, compared
-to those that are specialized in the other two concentrations.
+to those that are specialized in the other two concentrations. This
+trend also holds for most of the past competitions. (add table in the
+appendix)
 
 \begin{figure}
 \centering
@@ -348,22 +371,29 @@ and Women's Qualifications}
 \subsection{Leave-one-climber-out
 Analysis}\label{leave-one-climber-out-analysis}}
 
-Another interesting question that we are interested in investigating is
-``What would happen to the rankings if a single climber is removed?''.
+Next, we perform analysis on the situations where a climber is dropped
+from the original standings. We once again make use of data from the
+2018 Youth Olympics for this analysis, but this time we examine the
+final round of both men's and women's competitions.
 
-This illustrates the idea of IIA
+Figure 3 shows the modified versions of the rankings after each ranked
+climber is excluded for both gender events. We have clear evidence from
+this plot that removing a single climber changes the rankings
+drastically, especially order of medalists. One particular interesting
+case is where an athlete's position change when someone who originally
+finished behind them drops out. This situation is illustrated by panel 5
+of the women's competition, where the fifth-place climber, Krasovskaia,
+was excluded; and Meul, whose final rank was fourth in real life, moved
+up to the second spot and claim the silver medal.
 
-We once again make use of data from the 2018 Youth Olympics for this
-analysis, but this time we examine the final round of both men's and
-women's competitions.
-
-Figure 3 shows the plots
-
-A single climber excluded changes things drastically, especially order
-of medalists.
-
-The cases where someone behind you drops out and your ranking changes.
-Figure
+Likewise, dropping a higher-ranked athlete could also result in a major
+shake-up to the new orderings of players. This type of ranking change is
+demonstrated by panel 1 and 2 of the men's facet. After dropping the
+first ranked male contestant, Dohi; Schenk, who previously finished
+fourth and outside of the medalist group now has the lowest score and
+become the gold medal winner. A similar situation occurs in the case
+where the second best competitor (Tanaka) was removed, which results in
+a jump from fourth place to second place for Pan.
 
 \begin{figure}
 \centering
@@ -380,6 +410,10 @@ and any player with a rank change is represented by a red-filled bar}
 \section{Conclusion and Discussion}\label{conclusion-and-discussion}}
 
 Overall
+
+Speed climbers
+
+There is a great dependence on irrelevent party.
 
 \hypertarget{supplementary-material}{%
 \section*{Supplementary Material}\label{supplementary-material}}
