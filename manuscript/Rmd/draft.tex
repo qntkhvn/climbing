@@ -7,9 +7,6 @@
 \usepackage{textcomp}
 \usepackage[hyphens]{url} % not crucial - just used below for the URL
 \usepackage{hyperref}
-\usepackage{caption}
-\captionsetup[table]{skip=3pt}
-\usepackage{float}
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
@@ -211,7 +208,7 @@ Qualification & 1.00 & 240.00 & 684.00 & 1638.00 & 8000.00 & 1158.84 & 1273.48 &
 \end{tabular}
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}
 \centering
 \includegraphics{draft_files/figure-latex/unnamed-chunk-5-1.pdf}
 \caption{Histogram of simulated scores for qualification and final
@@ -340,7 +337,7 @@ with the final rank is not as strong for speed climbing. Thus, speed
 climbers are facing a huge disadvantage in this scoring system, compared
 to those that are specialized in the other two concentrations.
 
-\begin{figure}[H]
+\begin{figure}
 \centering
 \includegraphics{draft_files/figure-latex/unnamed-chunk-9-1.pdf}
 \caption{Kendall's rank correlations - 2018 World Championship, Men's
@@ -368,7 +365,7 @@ of medalists.
 The cases where someone behind you drops out and your ranking changes.
 Figure
 
-\begin{figure}[H]
+\begin{figure}
 \centering
 \includegraphics{draft_files/figure-latex/unnamed-chunk-12-1.pdf}
 \caption{This figure illustrates the changes to the final rankings of
@@ -383,6 +380,13 @@ and any player with a rank change is represented by a red-filled bar}
 \section{Conclusion and Discussion}\label{conclusion-and-discussion}}
 
 Overall
+
+\hypertarget{supplementary-material}{%
+\section*{Supplementary Material}\label{supplementary-material}}
+\addcontentsline{toc}{section}{Supplementary Material}
+
+All of the materials related to this research are publicly available on
+GitHub at \newline \url{https://github.com/qntkhvn/climbing}.
 
 \bibliographystyle{agsm}
 \bibliography{references.bib}

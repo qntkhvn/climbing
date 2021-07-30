@@ -335,3 +335,7 @@ mf_gg + wf_gg +
 # Conclusion and Discussion
 
 Overall
+
+# Supplementary Material {-}
+
+All of the materials related to this research are publicly available on GitHub at \newline https://github.com/qntkhvn/climbing.
