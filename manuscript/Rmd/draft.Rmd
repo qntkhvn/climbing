@@ -68,6 +68,10 @@ This type of scoring system heavily rewards high finishes and relatively ignores
 
 To the best of our knowledge, we know of no sporting event, team or individual, that uses the product of ranks to determine an overall rankings.  There are examples of team sports that use the sum of ranks to determine the winning team such as cross country, where the team with the lowest sum of ranks of the top five runners is determined to be the winner. For more detail on rank sum scoring, see @hammond2007 and @boudreau2018.
 
+Some individual sports such as the decathlon and heptathlon rely on a sum of scores from individual events, however, these scores are not determined based on the rank of a competitior.  
+
+Perhaps the 
+
 
 
 Paragraph on scoring methods in other sports: Soccer points: @haugen2008; Cross country scoring: @hammond2007, @boudreau2018; Decathlon scoring: @westera2006
