@@ -26,6 +26,7 @@ output: rticles::asa_article
 ---
 
 ```{r setup, include=FALSE}
+# install.packages(c("rticles", "xtable", "GGally", "patchwork", "cowplot"))
 knitr::opts_chunk$set(echo = FALSE, 
                       message = FALSE, 
                       warning = FALSE,
