@@ -338,4 +338,4 @@ Overall
 
 # Supplementary Material {-}
 
-All of the materials related to this research are publicly available on GitHub at \newline https://github.com/qntkhvn/climbing.
+All of the materials related to this manuscript are publicly available on GitHub at \newline https://github.com/qntkhvn/climbing.
