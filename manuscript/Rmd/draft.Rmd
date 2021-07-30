@@ -40,33 +40,39 @@ options(xtable.comment = FALSE,
 
 # Introduction
 
-In 2016, the International Olympic Committee announced the addition of five new sports to the 2020 Summer Olympics in Tokyo, Japan, which would then reschedule for 2021 due to the impact of the COVID-19 global pandemic. The five new features to Tokyo 2020's competitions program include baseball/softball, karate, skateboard, sports climbing, and surfing. One of the new sports, sport climbing, got our attention, specifically because of its unique scoring system and the fact that only one set of medals is awarded for each gender. 
+In 2016, the International Olympic Committee announced the addition of five new sports to the 2020 Summer Olympics in Tokyo, Japan, which would then reschedule for 2021 due to the impact of the COVID-19 global pandemic. The five new features to Tokyo 2020's competitions program include baseball/softball, karate, skateboard, sports climbing, and surfing [@ioc2016]. One of the new sports, sport climbing, got our attention, specifically because of its unique scoring system and the fact that only one set of medals is awarded for each gender. 
 
 Sport climbing at the 2020 Tokyo Olympics consists of three disciplines: speed climbing, bouldering, and lead climbing. Speed climbing takes place on a standardized course and competitors try to reach the top of the course as fast as possible. For Tokyo 2020, speed climbing is being contested in a head-to-head format with ranks determined by how far a competitor advances in the bracket. In bouldering, contestants have a fixed amount of time to complete as many courses as they can. Winners are determined based on who completes the most courses and ties are broken based on who had the fewest attempts. Ties are further broken by the competitor achieved the most "zone holds", which are holds approximately halfway through each course. Finally, in lead climbing, an athlete gets one point for each hold that they reach, so whoever reaches the highest point on the wall is the winner. Each lead climber only gets one attempt and when they fall their attempt is over. These three different climbing disciplines demand different sets of skills and, often, athletes specialize in a single event. However, since only one set of Olympic medals is awarded to sport climbing, rather than choosing only one of these disciplines to include in the Olympics, all three events were chosen to be included as a sort of climbing triathlon.
 
-At the 2020 Summer Olympics, both men's and women's sport climbing competitions begin with 20 climbers who has previously qualified for the Olympics from qualifying events held in 2019 and 2020. All 20 athletes compete in each of the three disciplines in the qualification round, and their performances in each concentration are ranked from 1 to 20.  A competitor's total score is then computed as the product of their ranks in the three events and the lower product is better; specifically, 
+The decision to combine the three climbing events and only award one set of medals for both men's and women's events in the Olympics has received a large amount of criticism from climbing athletes all over the world. In a series of interviews conducted by Climbing Magazine in 2016, a number of climbers shared their thoughts and concerns about the new Olympics climbing format. Climber Lynn Hill compared the idea of combining speed climbing, bouldering, and lead climbing to "asking a middle distance runner to compete in the sprint". She then added "Speed climbing is a sport within our sport". Other climbers also hold the same opinion as Hill regarding speed climbing, using words and phrases like "bogus", "a bummer", "less than ideal", "not in support", and "cheesy and unfair" to describe the new combined competition format. Courtney Woods stated "Speed climbers will have the biggest disadvantage because their realm isn’t based on difficult movements". Mike Doyle believed "Honestly, the people that will suffer the most are the ones that focus only on speed climbing. Those skills/abilities don’t transfer as well to the other disciplines". Most climbers also expressed their hope for a change in the format in future tournaments, with some calling for each discipline to have its own set of medals. See @blanchard2016 for more information on these interviews.
+
+In terms of participation and scoring, both sport climbing competitions for male and female at the 2020 Summer Olympics begin with 20 climbers who has previously qualified for the Olympics from qualifying events held in 2019 and 2020. All 20 athletes compete in each of the three disciplines in the qualification round, and their performances in each concentration are ranked from 1 to 20. A competitor's combined score is computed as the product of their ranks in the three events; specifically, 
 \begin{equation}
 Score_i = R^S_i\times R^B_i\times R^L_i,
 \end{equation} 
 where $R^S_i$, $R^B_i$, and $R^L_i$ are the ranks of the $i$-th competitor in speed climbing, bouldering, and lead climbing, respectively.  
 
-The top 8 finishers in the qualification round advance to the finals where they once again compete in all three of speed climbing, bouldering, and lead climbing. The total score for each climber in the final stage is determined by multiplying their ranks in each discipline, similar to the qualification round. This implies that the climber with the lowest product of ranks in the final wins the gold medal. This type of scoring system heavily rewards high finishes and relatively ignores poor finishes.  For instance, if climber A finished 1st, 20th, and 20th and climber B finished 10th, 10th, and 10th, climber B would have a score of 1000 whereas climber A would have a much better score of 400, despite finishing last in 2 out of 3 of the events.  
+The top 8 lowest-scoring climbers in the qualification round advance to the finals where they once again compete in all three of speed climbing, bouldering, and lead climbing. The total score for each person in the final stage is determined by multiplying their ranks in each discipline, similar to the qualification round. This implies that the climber with the lowest product of ranks in the final wins the gold medal. This type of scoring system heavily rewards high finishes and relatively ignores poor finishes.  For instance, if climber A finished 1st, 20th, and 20th and climber B finished 10th, 10th, and 10th, climber B would have a score of 1000 whereas climber A would have a much better score of 400, despite finishing last in 2 out of 3 of the events.
 
-Heavily criticized
 
 Other sports scoring methods
 
-The manuscript is outlined as follows. We first begin with some descriptions of the data and methods in Section 2. Our analyses and results are then presented in Sections 3 and 4. Finally, in Section 5, we summarize up our main findings and provide a discussion to close out the paper.
+https://www.climbing.com/competition/olympics/a-guide-to-the-olympic-climbing-format/
+
+Soccer points: @haugen2008
+
+Cross country scoring: @hammond2007, @boudreau2018
+
+Decathlon scoring: @westera2006
+
+The manuscript is outlined as follows. We first begin with some descriptions of the data and methods in Section \ref{data-and-methods}. Our analyses and results are then presented in Sections \ref{simulations} and \ref{data-analysis}. Finally, in Section \ref{conclusion-and-discussion}, we summarize up our main findings and provide a discussion to close out the paper.
 
 # Data and Methods
 
-Our first sets of data come from a simulation study that we conducted, with the purpose of examining the rankings and scoring for climbers in both qualification and final rounds. For each round, we performed 10000 simulations, and this was accomplished by randomly assigning the ranks of each event to every participant, with the assumption that the ranks are uniformly distributed. After the completion of the simulations, we calculated the total scores for every simulated round, as well as the final standings for the climbing athletes. The simulation results allow to answer questions about various topics, including the distributions of scores for qualifying and final rounds, and the probabilities of advancing to the finals or winning a medal, given certain conditions.
-
-Table 1 and Figure 1 are numerical and visual summaries of climbing total score obtained from our simulated data for the qualification and final rounds.
+Our first sets of data come from a simulation study that we conducted, with the purpose of examining the rankings and scoring for climbers in both qualification and final rounds. For each round, we performed 10000 simulations, and this was accomplished by randomly assigning the ranks of each event to every participant, with the assumption that the ranks are uniformly distributed. After the completion of the simulations, we calculated the total scores for every simulated round, as well as the final standings for the climbing athletes. The simulation results allow to answer questions about various topics, including the distributions of scores for qualifying and final rounds, and the probabilities of advancing to the finals or winning a medal, given certain conditions. First of all, Table 1 and Figure 1 are numerical and visual summaries of climbing total score obtained from our simulated data for the qualification and final rounds.
 
 ```{r}
 library(tidyverse)
-library(knitr)
 library(xtable)
 theme_set(theme_minimal())
 ```
@@ -143,6 +149,8 @@ qual_final %>%
 
 Additionally, we rely historical results from major climbing competitions in recent years. We collected data on climbing contests that took place between 2018 and 2020, where the combined format was used to determine the scores and ranks of climbers. The events include the 2020 Continental Championships of Europe, Africa, Oceania, Pan-America; 2019 and 2018 World Championships; 2018 Asian Games; and 2018 Youth Olympics. Data were obtained from various sources, including the event websites, Wikipedia, and the International Federation of Sport Climbing (IFSC). The main attributes of our datasets are the name and nationality of the climbers; bib number (for some competitions); the finishing place of climbers in speed climbing, bouldering, and lead climbing; the total score (which equals the product of event ranks); and the final rank. We utilize this data to compute the correlations between the event ranks and final table position, as well as to look at how often the final orderings change if one athlete is dropped and the ranks for each discipline are re-computed. 
 
+Brief paragraph on IIA 
+
 # Simulations
 
 ## Uniform Ranks
@@ -179,22 +187,39 @@ We would expect that if a climber with a high combined ranking is removed from t
 
 ## Rank Correlation
 
-For our analysis on the relationship between the rankings of the events and the final result, we used data from the 2018 Youth Olympics Women's Qualification. Figure 2 is a scatterplot and correlation matrix between the ranks of the individual events and the final standings, with Kendall’s Tau (Kendall Rank Correlation Coefficient) as our measure of ordinal association between the quantities. It is evidently clear that there exists a strong and positive correlation between the ranks of bouldering and lead climbing, and as a results, the standings of these two events are highly correlated with the final rankings. On the other hand, the correlation with the final rank is not as strong for speed climbing. Thus, speed climbers are facing a huge disadvantage in this scoring system, compared to those that are specialized in the other two concentrations. 
+For our analysis on the relationship between the rankings of the events and the final result, we used data from the 2018 Youth Olympics Women's Qualification. Figure 2 is a scatterplot and correlation matrix between the ranks of the individual events and the final standings, with Kendall’s Tau [@kendall1938] as our measure of ordinal association between the quantities. It is evidently clear that there exists a strong and positive correlation between the ranks of bouldering and lead climbing, and as a results, the standings of these two events are highly correlated with the final rankings. On the other hand, the correlation with the final rank is not as strong for speed climbing. Thus, speed climbers are facing a huge disadvantage in this scoring system, compared to those that are specialized in the other two concentrations. 
 <!-- This trend also holds for most of the past competitions. -->
 
 ```{r}
-wq <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2018_youth_olympics/women_qual.csv")
 library(GGally)
+mq <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2018_youth_olympics/men_qual.csv")
+wq <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2018_youth_olympics/women_qual.csv")
 ```
 
-```{r, fig.cap = "Kendall's rank correlations - 2018 World Championship, Women's Qualification"}
-wq %>% 
-  select(rank, speed, bould, lead) %>% 
+```{r, fig.cap = "Kendall's rank correlations - 2018 World Championship, Men's and Women's Qualifications", fig.height=8, fig.width=6}
+mcor <- mq %>% 
+  select(Overall = rank, Speed = speed, Bouldering = bould, Lead = lead) %>% 
   ggpairs(diag = "blank",
           axisLabels = "internal",
           upper = list(continuous = wrap("cor", method = "kendall", stars = FALSE))) +
-  theme_bw() +
-  theme(panel.grid.major = element_blank())
+  theme(panel.grid.major = element_blank()) +
+  labs(y = "Men\n")
+
+wcor <- wq %>% 
+  select(Overall = rank, Speed = speed, Bouldering = bould, Lead = lead) %>% 
+  ggpairs(diag = "blank",
+          axisLabels = "internal",
+          upper = list(continuous = wrap("cor", method = "kendall", stars = FALSE))) +
+  theme(panel.grid.major = element_blank())  +
+  labs(y = "Women\n")
+
+library(cowplot)
+
+plot_grid(
+  ggmatrix_gtable(mcor),
+  ggmatrix_gtable(wcor),
+  nrow = 2
+)
 ```
 
 ## Leave-one-climber-out Analysis
@@ -295,7 +320,7 @@ wf_gg <- drop_rerank(wf) %>%
             color = "black", size = 1.5, fill = NA, inherit.aes = FALSE) +
   facet_wrap(~ rank_drop, nrow = 2, ncol = 4) +
   expand_limits(y = 62, x = 0:7) +
-  scale_fill_manual(values = c("grey", "chocolate")) +
+  scale_fill_manual(values = c("grey", "red")) +
   labs(y = "\nScore", x = "Women") +
   theme(axis.ticks = element_blank(),
         panel.grid.minor = element_blank())
@@ -307,4 +332,6 @@ mf_gg + wf_gg +
   plot_layout(nrow = 2)
 ```
 
-in-text citation @Hammond2007 @Westera2006 
+# Conclusion and Discussion
+
+Overall
