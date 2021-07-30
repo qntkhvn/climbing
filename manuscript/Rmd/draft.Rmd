@@ -199,7 +199,7 @@ We would expect that if a climber with a high combined ranking is removed from t
 
 ## Rank Correlation
 
-For our analysis on the relationship between the rankings of the events and the final result, we used data from the 2018 Youth Olympics Women's Qualification. Figure 2 is a scatterplot and correlation matrix between the ranks of the individual events and the final standings, with Kendall’s Tau [@kendall1938] as our measure of ordinal association between the quantities. It is evidently clear that there exists a strong and positive correlation between the ranks of bouldering and lead climbing, and as a results, the standings of these two events are highly correlated with the final rankings. On the other hand, the correlation with the final rank is not as strong for speed climbing. Thus, speed climbers are facing a huge disadvantage in this scoring system, compared to those that are specialized in the other two concentrations. This trend also holds for most of the past competitions. (add table in the appendix)
+For our analysis on the relationship between the rankings of the events and the final result, we used data from the 2018 Youth Olympics Women's Qualification. Figure 2 is a scatterplot and correlation matrix between the ranks of the individual events and the final standings, with Kendall’s Tau [@kendall1938] as our measure of ordinal association between the quantities. It is evidently clear that there exists a strong and positive correlation between the ranks of bouldering and lead climbing, and as a results, the standings of these two events are highly correlated with the final rankings. On the other hand, the correlation with the final rank is not as strong for speed climbing. Thus, speed climbers are facing a huge disadvantage in this scoring system, compared to those that are specialized in the other two concentrations. This trend also holds for most of the past competitions. (add table to the appendix)
 
 ```{r}
 library(GGally)
@@ -343,8 +343,9 @@ Overall
 
 Speed climbers   
 
-There is a great dependence on irrelevent party. 
+There is a great dependence on irrelevant party. 
 
+Future work
 
 # Supplementary Material {-}
 
