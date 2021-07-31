@@ -145,7 +145,8 @@ qual_final <- qual %>%
 ```{r}
 mosaic::favstats(score ~ round, data = qual_final)[-10] %>% 
   kable(caption = "Descriptive statistics of simulated scores for qualification and final rounds",
-        booktabs = TRUE)
+        booktabs = TRUE,
+        position = "H")
 ```
 
 ```{r, fig.cap = "Histogram of simulated scores for qualification and final rounds", fig.width = 6.4, fig.height = 3.2}
@@ -189,7 +190,8 @@ qual %>%
   summarize(`Average score` = mean(score)) %>% 
   filter(Rank <= 10) %>% 
   kable(caption = "The average scores for the top 10 qualification ranks according to our simulations. A climber will secure a finalist spot if they finish in the top 8.",
-        booktabs = TRUE)
+        booktabs = TRUE,
+        position = "H")
 ```
 
 Regarding the finals, a climber is very likely to finish in the top 3 and hence earn a medal if they win the first event (83.03% chance) or any event (85.01% chance). Furthermore, according to our final simulations, in order to obtain a climbing medal, the average scores (rounded down) that put an athlete in position to receive gold, silver, and bronze medals are 9, 20, and 33, respectively (see Table 3). 
