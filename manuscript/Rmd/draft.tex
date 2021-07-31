@@ -7,6 +7,9 @@
 \usepackage{textcomp}
 \usepackage[hyphens]{url} % not crucial - just used below for the URL
 \usepackage{hyperref}
+\usepackage{caption}
+\captionsetup[figure]{skip=3pt}
+\usepackage{float}
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
@@ -27,6 +30,20 @@
 
 % Pandoc citation processing
 
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
 
 \begin{document}
 
@@ -114,12 +131,6 @@ athlete gets one point for each hold that they reach, so whoever reaches
 the highest point on the wall is the winner. Each lead climber only gets
 one attempt and when they fall their attempt is over.
 
-These three different climbing disciplines demand different sets of
-skills and, often, athletes specialize in a single event. However, since
-only one set of Olympic medals is awarded to sport climbing, rather than
-choosing only one of these disciplines to include in the Olympics, all
-three events were chosen to be included as a sort of climbing triathlon.
-
 The decision to combine the three climbing events and only award one set
 of medals for both men's and women's events in the Olympics has received
 a large amount of criticism from climbing athletes all over the world
@@ -155,7 +166,7 @@ of the \(i\)-th competitor in speed climbing, bouldering, and lead
 climbing, respectively.
 
 The 8 climbers with the lowest score (i.e.~lowest product of ranks
-across the three discplines) in the qualification round advance to the
+across the three disciplines) in the qualification round advance to the
 finals where they once again compete in all three disciplines. The final
 score for each person in the final stage is determined by multiplying
 their ranks in each discipline, similar to the qualification round, with
@@ -180,11 +191,11 @@ winner. For more detail on rank sum scoring, see \citet{hammond2007} and
 
 Some individual sports such as the decathlon and heptathlon rely on a
 sum of scores from the ten or seven events, however, these scores are
-not determined based on the ranks of the competitiors. That is a
+not determined based on the ranks of the competitors. That is a
 decathlete's score is entirely based upon their times, distances, and
 heights, and their overall score will be exactly the same if the times,
 distances, and heights remain the same regardless of the performance of
-other individuals. Full details of dacathlon scoring can be found in
+other individuals. Full details of decathlon scoring can be found in
 \citet{westera2006}.
 
 There are other individual competitions consisted of several events
@@ -225,24 +236,27 @@ First of all, Table 1 and Figure 1 are numerical and visual summaries of
 climbing total score obtained from our simulated data for the
 qualification and final rounds.
 
-\begin{table}[ht]
+\begin{table}[H]
+
+\caption{\label{tab:unnamed-chunk-4}Descriptive statistics of simulated scores for qualification and final rounds}
 \centering
-\caption{Descriptive statistics of simulated scores for qualification and final rounds} 
-\begin{tabular}{lrrrrrrrr}
-  \hline
-round & min & Q1 & median & Q3 & max & mean & sd & n \\ 
-  \hline
-Qualification & 1.00 & 240.00 & 684.00 & 1638.00 & 8000.00 & 1158.84 & 1273.48 & 200000 \\ 
-  Final & 1.00 & 24.00 & 60.00 & 126.00 & 512.00 & 91.12 & 91.35 & 80000 \\ 
-   \hline
+\begin{tabular}[t]{lrrrrrrrr}
+\toprule
+round & min & Q1 & median & Q3 & max & mean & sd & n\\
+\midrule
+Qualification & 1 & 240 & 684 & 1638 & 8000 & 1158.84378 & 1273.47884 & 200000\\
+Final & 1 & 24 & 60 & 126 & 512 & 91.12077 & 91.35293 & 80000\\
+\bottomrule
 \end{tabular}
 \end{table}
 
-\begin{figure}
-\centering
-\includegraphics{draft_files/figure-latex/unnamed-chunk-5-1.pdf}
-\caption{Histogram of simulated scores for qualification and final
-rounds}
+\begin{figure}[H]
+
+{\centering \includegraphics{draft_files/figure-latex/unnamed-chunk-5-1} 
+
+}
+
+\caption{Histogram of simulated scores for qualification and final rounds}\label{fig:unnamed-chunk-5}
 \end{figure}
 
 Additionally, we rely historical results from major climbing
@@ -304,24 +318,26 @@ positions 1 to 8 are displayed in Table 2. We notice that on average,
 the minimum score that one should aim for in order to move on to the
 final round is about 434 (for 8th rank).
 
-\begin{table}[ht]
+\begin{table}[H]
+
+\caption{\label{tab:unnamed-chunk-6}The average scores for the top 10 qualification ranks according to our simulations. A climber will secure a finalist spot if they finish in the top 8.}
 \centering
-\caption{The average scores for the top 10 qualification ranks according to our simulations. A climber will secure a finalist spot if they finish in the top 8.} 
-\begin{tabular}{rr}
-  \hline
-Rank & Average score \\ 
-  \hline
-  1 & 36.02 \\ 
-    2 & 73.61 \\ 
-    3 & 115.40 \\ 
-    4 & 162.23 \\ 
-    5 & 216.00 \\ 
-    6 & 278.16 \\ 
-    7 & 350.33 \\ 
-    8 & 434.59 \\ 
-    9 & 532.14 \\ 
-   10 & 642.33 \\ 
-   \hline
+\begin{tabular}[t]{rr}
+\toprule
+Rank & Average score\\
+\midrule
+1 & 36.0187\\
+2 & 73.6111\\
+3 & 115.3954\\
+4 & 162.2263\\
+5 & 216.0041\\
+\addlinespace
+6 & 278.1649\\
+7 & 350.3272\\
+8 & 434.5932\\
+9 & 532.1383\\
+10 & 642.3298\\
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -332,22 +348,24 @@ simulations, in order to obtain a climbing medal, the average scores
 (rounded down) that put an athlete in position to receive gold, silver,
 and bronze medals are 9, 20, and 33, respectively (see Table 3).
 
-\begin{table}[ht]
+\begin{table}[H]
+
+\caption{\label{tab:unnamed-chunk-7}The average scores for all final ranks according to our simulations. Ranks 1, 2, and 3 are table positions that guarantee medalist status for climbers.}
 \centering
-\caption{The average scores for all final ranks according to our simulations. Ranks 1, 2, and 3 are table positions that guarantee medalist status for climbers.} 
-\begin{tabular}{rr}
-  \hline
-Rank & Average score \\ 
-  \hline
-  1 & 9.67 \\ 
-    2 & 20.41 \\ 
-    3 & 33.26 \\ 
-    4 & 50.59 \\ 
-    5 & 74.76 \\ 
-    6 & 110.05 \\ 
-    7 & 164.43 \\ 
-    8 & 265.78 \\ 
-   \hline
+\begin{tabular}[t]{rr}
+\toprule
+Rank & Average score\\
+\midrule
+1 & 9.6748\\
+2 & 20.4143\\
+3 & 33.2648\\
+4 & 50.5933\\
+5 & 74.7620\\
+\addlinespace
+6 & 110.0536\\
+7 & 164.4274\\
+8 & 265.7760\\
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -392,16 +410,18 @@ with the final rank is not as strong for speed climbing as the other two
 events. Thus, speed climbers are facing a huge disadvantage in this
 scoring system, compared to those that are specialized in the other two
 concentrations. This validates the concerns of climbers in the interview
-mentioned in Section \ref{introduction}
+mentioned in Section \ref{introduction}. We also have evidence for these
+correlations from the qualification rounds of the 2018 Asian Games
+(Table 4), 2019 World Championship (Table 5), 2020 European Championship
+(Table 6), and 2020 Pan-American Championships (Table 7).
 
-This trend also holds for most of the past competitions. (add table to
-the appendix)
+\begin{figure}[H]
 
-\begin{figure}
-\centering
-\includegraphics{draft_files/figure-latex/unnamed-chunk-9-1.pdf}
-\caption{Kendall's rank correlations - 2018 World Championship, Men's
-and Women's Qualifications}
+{\centering \includegraphics{draft_files/figure-latex/unnamed-chunk-9-1} 
+
+}
+
+\caption{Kendall's rank correlations - 2018 World Championship, Men's and Women's Qualifications}\label{fig:unnamed-chunk-9}
 \end{figure}
 
 \hypertarget{leave-one-climber-out-analysis}{%
@@ -432,15 +452,13 @@ become the gold medal winner. A similar situation occurs in the case
 where the second best competitor (Tanaka) was removed, which results in
 a jump from fourth place to second place for Pan.
 
-\begin{figure}
-\centering
-\includegraphics{draft_files/figure-latex/unnamed-chunk-12-1.pdf}
-\caption{This figure illustrates the changes to the final rankings of
-the 2018 Youth Olympics Men's and Women's Finals when we leave out one
-climber. For each gender competition, each panel represents the rank of
-the drop-out athlete, with 0 being the original final results. Each case
-with a change in rank orderings is highlighted by a black panel border,
-and any player with a rank change is represented by a red-filled bar}
+\begin{figure}[H]
+
+{\centering \includegraphics{draft_files/figure-latex/unnamed-chunk-12-1} 
+
+}
+
+\caption{This figure illustrates the changes to the final rankings of the 2018 Youth Olympics Men's and Women's Finals when we leave out one climber. For each gender competition, each panel represents the rank of the drop-out athlete, with 0 being the original final results. Each case with a change in rank orderings is highlighted by a black panel border, and any player with a rank change is represented by a red-filled bar}\label{fig:unnamed-chunk-12}
 \end{figure}
 
 \hypertarget{conclusion-and-discussion}{%
@@ -454,6 +472,8 @@ There is a great dependence on irrelevant party.
 
 Future work
 
+Recommendations: climbers were right, need a change in format
+
 \hypertarget{supplementary-material}{%
 \section*{Supplementary Material}\label{supplementary-material}}
 \addcontentsline{toc}{section}{Supplementary Material}
@@ -461,7 +481,87 @@ Future work
 All of the materials related to this manuscript are publicly available
 on GitHub at \newline \url{https://github.com/qntkhvn/climbing}.
 
+\newpage
+
 \bibliographystyle{agsm}
 \bibliography{references.bib}
+
+\newpage
+
+\begin{table}[H]
+
+\caption{\label{tab:unnamed-chunk-14}This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2018 Asian Games}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{lrrrrrrrr}
+\toprule
+\multicolumn{1}{c}{} & \multicolumn{4}{c}{Men} & \multicolumn{4}{c}{Women} \\
+\cmidrule(l{3pt}r{3pt}){2-5} \cmidrule(l{3pt}r{3pt}){6-9}
+  & Overall & Speed & Bouldering & Lead & Overall & Speed & Bouldering & Lead\\
+\midrule
+Overall & 1.0000 & 0.5731 & 0.6760 & 0.6126 & 1.0000 & 0.5474 & 0.6878 & 0.7053\\
+Speed & 0.5731 & 1.0000 & 0.3022 & 0.2174 & 0.5474 & 1.0000 & 0.2540 & 0.2947\\
+Bouldering & 0.6760 & 0.3022 & 1.0000 & 0.6203 & 0.6878 & 0.2540 & 1.0000 & 0.6878\\
+Lead & 0.6126 & 0.2174 & 0.6203 & 1.0000 & 0.7053 & 0.2947 & 0.6878 & 1.0000\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{table}[H]
+
+\caption{\label{tab:unnamed-chunk-15}This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2019 World Championships}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{lrrrrrrrr}
+\toprule
+\multicolumn{1}{c}{} & \multicolumn{4}{c}{Men} & \multicolumn{4}{c}{Women} \\
+\cmidrule(l{3pt}r{3pt}){2-5} \cmidrule(l{3pt}r{3pt}){6-9}
+  & Overall & Speed & Bouldering & Lead & Overall & Speed & Bouldering & Lead\\
+\midrule
+Overall & 1.0000 & 0.2632 & 0.3684 & 0.3474 & 1.0000 & 0.2316 & 0.5013 & 0.2526\\
+Speed & 0.2632 & 1.0000 & -0.0947 & -0.3263 & 0.2316 & 1.0000 & 0.0686 & -0.4526\\
+Bouldering & 0.3684 & -0.0947 & 1.0000 & 0.2000 & 0.5013 & 0.0686 & 1.0000 & 0.2902\\
+Lead & 0.3474 & -0.3263 & 0.2000 & 1.0000 & 0.2526 & -0.4526 & 0.2902 & 1.0000\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{table}[H]
+
+\caption{\label{tab:unnamed-chunk-16}This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2020 European Championship}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{lrrrrrrrr}
+\toprule
+\multicolumn{1}{c}{} & \multicolumn{4}{c}{Men} & \multicolumn{4}{c}{Women} \\
+\cmidrule(l{3pt}r{3pt}){2-5} \cmidrule(l{3pt}r{3pt}){6-9}
+  & Overall & Speed & Bouldering & Lead & Overall & Speed & Bouldering & Lead\\
+\midrule
+Overall & 1.0000 & 0.0947 & 0.3810 & 0.2632 & 1.0000 & 0.1847 & 0.5358 & 0.5368\\
+Speed & 0.0947 & 1.0000 & -0.1587 & -0.4316 & 0.1847 & 1.0000 & -0.1915 & -0.0897\\
+Bouldering & 0.3810 & -0.1587 & 1.0000 & 0.2751 & 0.5358 & -0.1915 & 1.0000 & 0.5040\\
+Lead & 0.2632 & -0.4316 & 0.2751 & 1.0000 & 0.5368 & -0.0897 & 0.5040 & 1.0000\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{table}[H]
+
+\caption{\label{tab:unnamed-chunk-17}This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2020 Pan American Championship}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{lrrrrrrrr}
+\toprule
+\multicolumn{1}{c}{} & \multicolumn{4}{c}{Men} & \multicolumn{4}{c}{Women} \\
+\cmidrule(l{3pt}r{3pt}){2-5} \cmidrule(l{3pt}r{3pt}){6-9}
+  & Overall & Speed & Bouldering & Lead & Overall & Speed & Bouldering & Lead\\
+\midrule
+Overall & 1.0000 & 0.5906 & 0.5556 & 0.6491 & 1.0000 & 0.5789 & 0.6140 & 0.5906\\
+Speed & 0.5906 & 1.0000 & 0.2164 & 0.4035 & 0.5789 & 1.0000 & 0.2632 & 0.3099\\
+Bouldering & 0.5556 & 0.2164 & 1.0000 & 0.2749 & 0.6140 & 0.2632 & 1.0000 & 0.3918\\
+Lead & 0.6491 & 0.4035 & 0.2749 & 1.0000 & 0.5906 & 0.3099 & 0.3918 & 1.0000\\
+\bottomrule
+\end{tabular}}
+\end{table}
 
 \end{document}

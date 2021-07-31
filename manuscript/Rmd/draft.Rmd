@@ -26,17 +26,15 @@ output: rticles::asa_article
 ---
 
 ```{r setup, include=FALSE}
-# install.packages(c("rticles", "xtable", "GGally", "patchwork", "cowplot"))
+# install.packages(c("rticles", "kableExtra", "GGally", "patchwork", "cowplot"))
 knitr::opts_chunk$set(echo = FALSE, 
                       message = FALSE, 
                       warning = FALSE,
                       comment = "",
                       fig.height = 4,
                       fig.width = 5,
-                      results = "asis")
-options(xtable.comment = FALSE,
-        xtable.caption.placement = "top", 
-        xtable.include.rownames = FALSE)
+                      fig.align = "center")
+options(scipen = 999)
 ```
 
 # Introduction
@@ -48,8 +46,11 @@ In 2016, the International Olympic Committee (IOC) announced the addition of fiv
 The three disciplines that comprise sport climbing at Tokyo 2020 are: speed climbing, bouldering, and lead climbing. Speed climbing takes place on a standardized course and competitors try to reach the top of the course as fast as possible. For Tokyo 2020, speed climbing is being contested in a head-to-head format with ranks determined by how far a competitor advances in the bracket. In bouldering, contestants have a fixed amount of time to complete as many courses as they can. Winners are determined based on who completes the most courses and ties are broken based on who had the fewest attempts. Ties are further broken by the competitor achieved the most "zone holds", which are holds approximately halfway through each course. Finally, in lead climbing, an athlete gets one point for each hold that they reach, so whoever reaches the highest point on the wall is the winner. Each lead climber only gets one attempt and when they fall their attempt is over. 
 
 
-[//]: (I think this paragraph and the next should get moved somewhere else (or removed)  Maybe in the conclusions?  Definitely for the blog post include this, but I'm not sure how much of this needs to be in the actual article)
-These three different climbing disciplines demand different sets of skills and, often, athletes specialize in a single event. However, since only one set of Olympic medals is awarded to sport climbing, rather than choosing only one of these disciplines to include in the Olympics, all three events were chosen to be included as a sort of climbing triathlon.
+<!-- 
+(I think this paragraph and the next should get moved somewhere else (or removed)  Maybe in the conclusions?  Definitely for the blog post include this, but I'm not sure how much of this needs to be in the actual article) 
+These three different climbing disciplines demand different sets of skills and, often, athletes specialize in a single event. However, since only one set of Olympic medals is awarded to sport climbing, rather than choosing only one of these disciplines to include in the Olympics, all three events were chosen to be included as a sort of climbing triathlon. 
+-->
+
 
 The decision to combine the three climbing events and only award one set of medals for both men's and women's events in the Olympics has received a large amount of criticism from climbing athletes all over the world (CITATION NEEDED). In a series of interviews conducted by Climbing Magazine in 2016, a number of climbers shared their thoughts and concerns about the new Olympics climbing format. Climber Lynn Hill compared the idea of combining speed climbing, bouldering, and lead climbing to "asking a middle distance runner to compete in the sprint" (CITATION NEEDED). She then added "Speed climbing is a sport within our sport". Other climbers also hold the same opinion as Hill regarding speed climbing, using words and phrases like "bogus", "a bummer", "less than ideal", "not in support", and "cheesy and unfair" to describe the new combined competition format. Courtney Woods stated "Speed climbers will have the biggest disadvantage because their realm isn’t based on difficult movements". Mike Doyle believed "Honestly, the people that will suffer the most are the ones that focus only on speed climbing. Those skills/abilities don’t transfer as well to the other disciplines". Most climbers also expressed their hope for a change in the format in future tournaments, with some calling for each discipline to have its own set of medals. See @blanchard2016 for more information on these interviews.
 
@@ -59,7 +60,7 @@ Score_i = R^S_i\times R^B_i\times R^L_i,
 \end{equation} 
 where $R^S_i$, $R^B_i$, and $R^L_i$ are the ranks of the $i$-th competitor in speed climbing, bouldering, and lead climbing, respectively.  
 
-The 8 climbers with the lowest score (i.e. lowest product of ranks across the three discplines) in the qualification round advance to the finals where they once again compete in all three disciplines. The final score for each person in the final stage is determined by multiplying their ranks in each discipline, similar to the qualification round, with the main difference being that there are only 8 competitors in the final as opposed to 20 in the qualification round.  The climbers with the lowest, second lowest, and third lowest product of ranks in the final wins the gold, silver, and bronze medal, respectively. 
+The 8 climbers with the lowest score (i.e. lowest product of ranks across the three disciplines) in the qualification round advance to the finals where they once again compete in all three disciplines. The final score for each person in the final stage is determined by multiplying their ranks in each discipline, similar to the qualification round, with the main difference being that there are only 8 competitors in the final as opposed to 20 in the qualification round.  The climbers with the lowest, second lowest, and third lowest product of ranks in the final wins the gold, silver, and bronze medal, respectively. 
 
 This type of scoring system heavily rewards high finishes and relatively ignores poor finishes.  For instance, if climber A finished 1st, 20th, and 20th and climber B finished 10th, 10th, and 10th, climber B would have a score of 1000 whereas climber A would have a much better score of 400, despite finishing last in 2 out of 3 of the events.
 
@@ -67,7 +68,7 @@ This type of scoring system heavily rewards high finishes and relatively ignores
 
 To the best of our knowledge, we know of no sporting event, team or individual, that uses the product of ranks to determine an overall rankings.  There are examples of team sports that use the sum of ranks to determine the winning team such as cross country, where the team with the lowest sum of ranks of the top five runners is determined to be the winner. For more detail on rank sum scoring, see @hammond2007 and @boudreau2018.
 
-Some individual sports such as the decathlon and heptathlon rely on a sum of scores from the ten or seven events, however, these scores are not determined based on the ranks of the competitiors.  That is a decathlete's score is entirely based upon their times, distances, and heights, and their overall score will be exactly the same if the times, distances, and heights remain the same regardless of the performance of other individuals.  Full details of dacathlon scoring can be found in @westera2006.  
+Some individual sports such as the decathlon and heptathlon rely on a sum of scores from the ten or seven events, however, these scores are not determined based on the ranks of the competitors.  That is a decathlete's score is entirely based upon their times, distances, and heights, and their overall score will be exactly the same if the times, distances, and heights remain the same regardless of the performance of other individuals.  Full details of decathlon scoring can be found in @westera2006.  
 
 There are other individual competitions consisted of several events combined that do base their scoring on ranks, such as crossfit competitions.  In each event, points are earned based on the competitor's rank in the event based on a scoring table. (https://games.crossfit.com/announcement/12940), and a competitors final score is based on the sum of their scores across all the events.  
 
@@ -84,7 +85,7 @@ Our first sets of data come from a simulation study that we conducted, with the 
 
 ```{r}
 library(tidyverse)
-library(xtable)
+library(kableExtra)
 theme_set(theme_minimal())
 ```
 
@@ -143,8 +144,8 @@ qual_final <- qual %>%
 
 ```{r}
 mosaic::favstats(score ~ round, data = qual_final)[-10] %>% 
-  xtable(caption = "Descriptive statistics of simulated scores for qualification and final rounds") %>% 
-  print()
+  kable(caption = "Descriptive statistics of simulated scores for qualification and final rounds",
+        booktabs = TRUE)
 ```
 
 ```{r, fig.cap = "Histogram of simulated scores for qualification and final rounds", fig.width = 6.4, fig.height = 3.2}
@@ -187,8 +188,8 @@ qual %>%
   group_by(Rank) %>% 
   summarize(`Average score` = mean(score)) %>% 
   filter(Rank <= 10) %>% 
-  xtable(caption = "The average scores for the top 10 qualification ranks according to our simulations. A climber will secure a finalist spot if they finish in the top 8.") %>% 
-  print()
+  kable(caption = "The average scores for the top 10 qualification ranks according to our simulations. A climber will secure a finalist spot if they finish in the top 8.",
+        booktabs = TRUE)
 ```
 
 Regarding the finals, a climber is very likely to finish in the top 3 and hence earn a medal if they win the first event (83.03% chance) or any event (85.01% chance). Furthermore, according to our final simulations, in order to obtain a climbing medal, the average scores (rounded down) that put an athlete in position to receive gold, silver, and bronze medals are 9, 20, and 33, respectively (see Table 3). 
@@ -198,8 +199,8 @@ final %>%
   rename(Rank = rank) %>% 
   group_by(Rank) %>% 
   summarize(`Average score` = mean(score)) %>% 
-  xtable(caption = "The average scores for all final ranks according to our simulations. Ranks 1, 2, and 3 are table positions that guarantee medalist status for climbers.") %>% 
-  print()
+  kable(caption = "The average scores for all final ranks according to our simulations. Ranks 1, 2, and 3 are table positions that guarantee medalist status for climbers.",
+        booktabs = TRUE)
 ```
 
 ## Leave-one-climber-out
@@ -214,10 +215,7 @@ We would expect that if a climber with a high combined ranking is removed from t
 
 ## Rank Correlation
 
-For our analysis on the relationship between the rankings of the events and the final result, we used data from the 2018 Youth Olympics Women's Qualification. Figure 2 is a scatterplot and correlation matrix between the ranks of the individual events and the final standings, with Kendall’s Tau [@kendall1938] as our measure of ordinal association between the quantities. It is evidently clear that there exists a strong and positive correlation between the ranks of bouldering and lead climbing, and as a results, the standings of these two events are highly correlated with the final rankings. On the other hand, the correlation with the final rank is not as strong for speed climbing as the other two events. Thus, speed climbers are facing a huge disadvantage in this scoring system, compared to those that are specialized in the other two concentrations. This validates the concerns of climbers in the interview mentioned in Section \ref{introduction}
-
-
-This trend also holds for most of the past competitions. (add table to the appendix)
+For our analysis on the relationship between the rankings of the events and the final result, we used data from the 2018 Youth Olympics Women's Qualification. Figure 2 is a scatterplot and correlation matrix between the ranks of the individual events and the final standings, with Kendall’s Tau [@kendall1938] as our measure of ordinal association between the quantities. It is evidently clear that there exists a strong and positive correlation between the ranks of bouldering and lead climbing, and as a results, the standings of these two events are highly correlated with the final rankings. On the other hand, the correlation with the final rank is not as strong for speed climbing as the other two events. Thus, speed climbers are facing a huge disadvantage in this scoring system, compared to those that are specialized in the other two concentrations. This validates the concerns of climbers in the interview mentioned in Section \ref{introduction}. We also have evidence for these correlations from the qualification rounds of the 2018 Asian Games (Table 4), 2019 World Championship (Table 5), 2020 European Championship (Table 6), and 2020 Pan-American Championships (Table 7).
 
 ```{r}
 library(GGally)
@@ -365,6 +363,49 @@ There is a great dependence on irrelevant party.
 
 Future work
 
+Recommendations: climbers were right, need a change in format
+
 # Supplementary Material {-}
 
 All of the materials related to this manuscript are publicly available on GitHub at \newline https://github.com/qntkhvn/climbing.
+
+```{r}
+print_cor <- function(event = "", 
+                      gender = c("men_qual", "women_qual"),
+                      title = "") {
+  path <- "https://raw.githubusercontent.com/qntkhvn/climbing/main/data/"
+  men <- read_csv(paste0(path, event, "/", gender[1], ".csv")) %>% 
+    select(Overall = rank, Speed = speed, Bouldering = bould, Lead = lead) %>% 
+    drop_na() %>% 
+    cor(method = "kendall") %>% 
+    as_tibble() %>% 
+    round(4)
+  women <- read_csv(paste0(path, event, "/", gender[2], ".csv")) %>% 
+    select(Overall = rank, Speed = speed, Bouldering = bould, Lead = lead) %>% 
+    drop_na() %>% 
+    cor(method = "kendall") %>% 
+    as_tibble() %>% 
+    round(4)
+  out <- cbind(men, women)
+  rownames(out) <- c("Overall", "Speed", "Bouldering", "Lead")
+  kable(out, caption = title, booktabs = TRUE, position = "H") %>% 
+    add_header_above(c("", "Men" = 4, "Women" = 4)) %>%
+    kable_styling(latex_options = c("repeat_header", "scale_down"))
+}
+```
+
+```{r}
+print_cor("2018_asiad", title = "This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2018 Asian Games")
+```
+
+```{r}
+print_cor("2019_world", title = "This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2019 World Championships")
+```
+
+```{r}
+print_cor("2020_europe", title = "This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2020 European Championship")
+```
+
+```{r}
+print_cor("2020_pan_american", title = "This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2020 Pan American Championship")
+```
