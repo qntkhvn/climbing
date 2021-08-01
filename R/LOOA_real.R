@@ -70,23 +70,33 @@ a <- rerank_df %>%
 animate(a, nframes = 100, fps = 20, height = 480, width = 600, res = 95)
 
 
-# Women qualification
+library(cowplot)
 
-women_qual <- read_csv("data/youth_olympics_2018/women_qual.csv")
-rerank <- list()
-for (i in 1:nrow(women_qual)){
-  rerank[[i]] <- women_qual[-i,] %>%
-    mutate(rank_drop = i)
-}
+a <- drop_rerank(wf) %>% 
+  ggplot(aes(x = rank_drop, y = rank, color = last)) +
+  geom_line(aes(color = last, alpha = 1), size = 2) +
+  geom_point(aes(color = last, alpha = 1), size = 4) +
+  # geom_text(aes(x = 7, label = last), hjust = -0.1, alpha = 0.7, size = 6) +
+  # geom_text(aes(x = rank_drop, y = 6.5, label = as.character(rank_drop)),
+  #           alpha = 0.5,  col = "gray", size = 10) +
+  # geom_segment(aes(xend = max(rank_drop), yend = rank), linetype = 2, size = 0.7) +
+  # geom_text(aes(x = 0, y = 0, label = paste("Leaving out climber with rank", floor(rank_drop))), hjust = 0, size = 5.5) +
+  scale_y_reverse(breaks = 1:6) + 
+  scale_x_continuous(breaks = 0:6) +
+  theme_minimal_grid(font_size = 14, line_size = 0) +
+  theme(
+    legend.position = "none",
+    # axis.title = element_blank(),
+    # axis.text = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.grid.major = element_blank(),
+  ) +
+  transition_reveal(rank_drop) +
+  enter_fade() +
+  exit_fade() +
+  labs(x = "Excluded Rank",
+       y = "Final Rank",
+       title = "Leave-one-climber-out Modified Rankings\n2018 Youth Olympics - Women's Event")
 
-rerank_df <- women_qual %>% 
-  mutate(rank_drop = 0) %>% 
-  bind_rows(rerank) %>% 
-  group_by(rank_drop) %>% 
-  mutate(speed = rank(speed),
-         bould = rank(bould),
-         lead = rank(lead),
-         total = speed * bould * lead) %>% 
-  arrange(total, .by_group = TRUE) %>% 
-  mutate(rank = row_number()) %>% 
-  ungroup()
+
+animate(a, res = 90, duration = 6, width = 550)
