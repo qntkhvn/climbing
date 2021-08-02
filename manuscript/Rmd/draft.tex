@@ -7,9 +7,6 @@
 \usepackage{textcomp}
 \usepackage[hyphens]{url} % not crucial - just used below for the URL
 \usepackage{hyperref}
-\usepackage{caption}
-\captionsetup[figure]{skip=3pt}
-\usepackage{float}
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
@@ -84,15 +81,21 @@ Scoring System}
 
 \bigskip
 \begin{abstract}
-The purpose of this paper is to investigate sport climbing, one of the
-sports making its debut on the Olympics stage at Tokyo 2020. In
-particular, we take a closer look at the controversial competition
-format and scoring system of sport climbing\ldots{} Simulation. Data
-Analysis: drop and re-rank, correlations
+The purpose of this paper is to investigate the controversial
+competition format and scoring system of sport climbing, which is one of
+the sports making its debut on the Olympics stage at Tokyo 2020.
+Climbing Olympians will participate in three disciplines (speed
+climbing, bouldering, and lead climbing) for a single set of medals, and
+a multiplied score of climbers' rankings in all three disciplines will
+be used to determine the overall standings. This work finds great
+evidence from historical data and simulations that speed climbing speed
+climbing should be separated from the combined format and have its own
+medals. Furthermore, it is shown that the product of ranks scoring
+system violates the independence of irrelevant alternatives property.
 \end{abstract}
 
 \noindent%
-{\it Keywords:} sport climbing, scoring system, 2020 Summer Olympics
+{\it Keywords:} sport climbing, rankings, 2020 Summer Olympics
 \vfill
 
 \newpage
@@ -134,24 +137,25 @@ one attempt and when they fall their attempt is over.
 The decision to combine the three climbing events and only award one set
 of medals for both men's and women's events in the Olympics has received
 a large amount of criticism from climbing athletes all over the world
-(CITATION NEEDED). In a series of interviews conducted by Climbing
-Magazine in 2016, a number of climbers shared their thoughts and
-concerns about the new Olympics climbing format. Climber Lynn Hill
-compared the idea of combining speed climbing, bouldering, and lead
-climbing to ``asking a middle distance runner to compete in the sprint''
-(CITATION NEEDED). She then added ``Speed climbing is a sport within our
-sport''. Other climbers also hold the same opinion as Hill regarding
-speed climbing, using words and phrases like ``bogus'', ``a bummer'',
-``less than ideal'', ``not in support'', and ``cheesy and unfair'' to
-describe the new combined competition format. Courtney Woods stated
-``Speed climbers will have the biggest disadvantage because their realm
-isn't based on difficult movements''. Mike Doyle believed ``Honestly,
-the people that will suffer the most are the ones that focus only on
-speed climbing. Those skills/abilities don't transfer as well to the
-other disciplines''. Most climbers also expressed their hope for a
-change in the format in future tournaments, with some calling for each
-discipline to have its own set of medals. See \citet{blanchard2016} for
-more information on these interviews.
+(CITATION NEEDED - I mentioned the article at the end of the paragrah).
+In a series of interviews conducted by Climbing Magazine in 2016, a
+number of climbers shared their thoughts and concerns about the new
+Olympics climbing format. Climber Lynn Hill compared the idea of
+combining speed climbing, bouldering, and lead climbing to ``asking a
+middle distance runner to compete in the sprint'' (CITATION NEEDED). She
+then added ``Speed climbing is a sport within our sport''. Other
+climbers also hold the same opinion as Hill regarding speed climbing,
+using words and phrases like ``bogus'', ``a bummer'', ``less than
+ideal'', ``not in support'', and ``cheesy and unfair'' to describe the
+new combined competition format. Courtney Woods stated ``Speed climbers
+will have the biggest disadvantage because their realm isn't based on
+difficult movements''. Mike Doyle believed ``Honestly, the people that
+will suffer the most are the ones that focus only on speed climbing.
+Those skills/abilities don't transfer as well to the other
+disciplines''. Most climbers also expressed their hope for a change in
+the format in future tournaments, with some calling for each discipline
+to have its own set of medals. See \citet{blanchard2016} for more
+information on these interviews.
 
 At the 2020 Summer Olympics, both sport climbing competitions for male
 and female at the begin with 20 climbers who has previously qualified
@@ -250,7 +254,7 @@ Final & 1 & 24 & 60 & 126 & 512 & 91.12077 & 91.35293 & 80000\\
 \end{tabular}
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}
 
 {\centering \includegraphics{draft_files/figure-latex/unnamed-chunk-5-1} 
 
@@ -348,7 +352,7 @@ simulations, in order to obtain a climbing medal, the average scores
 (rounded down) that put an athlete in position to receive gold, silver,
 and bronze medals are 9, 20, and 33, respectively (see Table 3).
 
-\begin{table}[H]
+\begin{table}
 
 \caption{\label{tab:unnamed-chunk-7}The average scores for all final ranks according to our simulations. Ranks 1, 2, and 3 are table positions that guarantee medalist status for climbers.}
 \centering
@@ -415,7 +419,7 @@ correlations from the qualification rounds of the 2018 Asian Games
 (Table 4), 2019 World Championship (Table 5), 2020 European Championship
 (Table 6), and 2020 Pan-American Championships (Table 7).
 
-\begin{figure}[H]
+\begin{figure}
 
 {\centering \includegraphics{draft_files/figure-latex/unnamed-chunk-9-1} 
 
@@ -452,7 +456,7 @@ become the gold medal winner. A similar situation occurs in the case
 where the second best competitor (Tanaka) was removed, which results in
 a jump from fourth place to second place for Pan.
 
-\begin{figure}[H]
+\begin{figure}
 
 {\centering \includegraphics{draft_files/figure-latex/unnamed-chunk-12-1} 
 
@@ -480,13 +484,6 @@ Recommendations: climbers were right, need a change in format
 
 All of the materials related to this manuscript are publicly available
 on GitHub at \newline \url{https://github.com/qntkhvn/climbing}.
-
-\newpage
-
-\bibliographystyle{agsm}
-\bibliography{references.bib}
-
-\newpage
 
 \begin{table}[H]
 
@@ -563,5 +560,8 @@ Lead & 0.6491 & 0.4035 & 0.2749 & 1.0000 & 0.5906 & 0.3099 & 0.3918 & 1.0000\\
 \bottomrule
 \end{tabular}}
 \end{table}
+
+\bibliographystyle{agsm}
+\bibliography{references.bib}
 
 \end{document}
