@@ -272,7 +272,9 @@ Another interesting question that we are interested in investigating is "What wo
 We would expect that if a climber with a high combined ranking is removed from the list of competitors, the placement of lower-ranked climbers will shift. In the most trivial case, if we were to remove the 3rd place climber, we would see 4th place climber shift to 3rd, 5th place climber shift to 4th, etc. It is maybe less trivial that when a climber is removed from the list, the placement of their higher-ranking competitors may also shift. In other words, there is a non-zero probability of seeing a change in the placement - particularly of medalists - regardless of the fact that no changes occurred in the performance of the remaining climbers. Real examples are given in Section \ref{data-analysis}. In this section, we conduct simulations to analyze the probability of seeing a reordering of medalists when one non-medalist is removed from the list of finalists.
 
 ### Probability of Reordering in Higher Ranks
+
 We first look at the rate at which the ranks above that of which is dropped are reordered.
+
 ```{r, echo = FALSE}
 load("draft_files/reorder_all_above_probs.rdata")
 
