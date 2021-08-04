@@ -271,7 +271,74 @@ Another interesting question that we are interested in investigating is "What wo
 
 We would expect that if a climber with a high combined ranking is removed from the list of competitors, the placement of lower-ranked climbers will shift. In the most trivial case, if we were to remove the 3rd place climber, we would see 4th place climber shift to 3rd, 5th place climber shift to 4th, etc. It is maybe less trivial that when a climber is removed from the list, the placement of their higher-ranking competitors may also shift. In other words, there is a non-zero probability of seeing a change in the placement - particularly of medalists - regardless of the fact that no changes occurred in the performance of the remaining climbers. Real examples are given in Section \ref{data-analysis}. In this section, we conduct simulations to analyze the probability of seeing a reordering of medalists when one non-medalist is removed from the list of finalists.
 
-<!-- In what percentage of the (6!)^3 orderings would the winner change if one of the 6 competitors was dropped and there were only 5 instead of 6? -->
+### Probability of Reordering in Higher Ranks
+We first look at the rate at which the ranks above that of which is dropped are reordered.
+```{r, echo = FALSE}
+load("draft_files/reorder_all_above_probs.rdata")
+
+sum_dat1 <- reorder_all_above %>%
+  group_by(dropped_rank) %>%
+  rename("Dropped Rank" = dropped_rank) %>%
+  summarize("Simulations" = n()
+            , "Avg. Probability" = mean(displ_prob)
+            , "Median Probability" = median(displ_prob)
+            , "St. Deviation" = sd(displ_prob)
+            )
+
+kable(sum_dat1)
+```
+
+### Probability of Change in Finalists
+
+A potential event of interest is the replacement of one finalist with another, taking the chance away from the original finalist to win a medal in the finals round. Here we compute the probability that a finalist will be replaced with a non-finalist after removing another non-finalist from the rankings. Below is a table summarizing the results.
+
+```{r, echo=FALSE}
+load("draft_files/drop_qualifier_sims.rdata")
+
+reorder_dat2 <- lapply(9:20
+                  , function(x) {
+                    data.frame(dropped_rank = x
+                               , displ_prob = pct_displace_finalists[[x-8]]
+                               )
+                    }
+                  ) %>%
+  do.call(rbind, .)
+
+sum_dat2 <- reorder_dat2 %>%
+  group_by(dropped_rank) %>%
+  rename("Dropped Rank" = dropped_rank) %>%
+  summarize("Simulations" = n()
+            , "Avg. Probability" = mean(displ_prob)
+            , "Median Probability" = median(displ_prob)
+            , "St. Deviation" = sd(displ_prob)
+            )
+
+kable(sum_dat2)
+  
+```
+
+as can be seen, the probability is relatively low when the 9th place competitor is removed. My hypothesis is that there is enough separation between the original finalists and the 10th+ ranking competitors in the individual events that there isn't a high chance that the total rankings of the finalists can be overtaken by 10+th place competitors. Note: it might be worth computing the probability of getting a low ranking in any of the individual events, given that a competitor is a finalist (ie: $P(r_1 > 8 \text{ or } r_2 > 8 \text{ or } r_3 > 8 \text{ }|\text{ } R_T \leq 8)$).
+
+### Probability that Medalists are Reordered or Changed
+
+The second scenario of interest is if a medalist is displaced by another medalist, or even a non-medalist. Below are the results summarizing the probability of this scenario occurring under uniform random ranking conditions.
+
+```{r, echo = FALSE}
+# probability that medalists are displaced (changed or reordered)
+load("draft_files/top3_displace_probs.rdata")
+
+displace_probs %>%
+  group_by(dropped_rank) %>%
+  rename("Dropped Rank" = dropped_rank) %>%
+  summarize("Simulations" = n()
+            , "Avg. Probability" = mean(displ_prob)
+            , "Median Probability" = median(displ_prob)
+            , "St. Deviation" = sd(displ_prob)
+            ) %>%
+ kable()
+
+```
+
 
 # Data Analysis
 

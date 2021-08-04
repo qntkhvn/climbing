@@ -136,7 +136,7 @@ save(pct_displace_finalists, file = "R/drop_qualifier_sims.rdata")
 # format data
 reorder_all_above <- lapply(4:8
                   , function(x) {
-                    data.frame(dropped_rank = x, displ_prob = pct_dispace_medalists[[x-3]])
+                    data.frame(dropped_rank = x, displ_prob = pct_displace_medalists[[x-3]])
                     }
                   ) %>%
   do.call(rbind, .)
