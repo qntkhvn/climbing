@@ -226,8 +226,8 @@ qualification and final rounds.
 \toprule
 round & min & Q1 & median & Q3 & max & mean & sd & n\\
 \midrule
-Qualification & 1 & 240 & 684 & 1638 & 8000 & 1158.84378 & 1273.47884 & 200000\\
-Final & 1 & 24 & 60 & 126 & 512 & 91.19935 & 91.11065 & 80000\\
+Qualification & 1 & 240 & 684 & 1638 & 8000 & 1158.84 & 1273.48 & 200000\\
+Final & 1 & 24 & 60 & 126 & 512 & 91.20 & 91.11 & 80000\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -287,22 +287,64 @@ Ray (1973) \url{https://www.jstor.org/stable/1913820}
 \subsection{Uniform Ranks}\label{uniform-ranks}}
 
 In this section, we discuss the results of our simulations described in
-Section \ref{data-and-methods}. For the qualification round, our
-simulation study shows that a climber is almost guaranteed to make the
-final round if they win the first event or if they win at least one of
-the three climbing concentrations (99.51\% and 99.48\% change of
-advancing, respectively). On the other hand, finishing last in the first
-event or in any event would certainly hurt an athlete's chance of
-finishing in the top 8, as the probabilities of a climber advancing
-given they finish last in the first and in any event are 0.1830 and
-0.1885, respectively. In addition, the average score for qualification
-positions 1 to 8 are displayed in Table 2. We notice that on average,
-the minimum score that one should aim for in order to move on to the
-final round is about 434 (for 8th rank).
+Section \ref{data-and-methods}. We first look at the chances of
+advancing to the final round for a qualifier, given that 1) they finish
+first in any of the three disciplines, and 2) they win the first event
+(which happens to be speed climbing in reality). Our simulation study
+shows that a climber is almost guaranteed to make the final round if
+they win at least one of the three climbing concentrations (99.51\%, see
+Table) or if they win the opening event (99.48\%, see Table). After
+winning the first event, a climber is also more likely to finish first
+overall (30\%, see Table) than any other positions in the overall
+qualification rankings. Therefore, this product of ranks scoring format
+highly rewards climbers who can get off to a strong start, which is a
+major strategy climbing athletes should take note of.
+
+In addition, the average score for qualification positions 1 to 8 are
+displayed in Table X. We notice that on average, the minimum score that
+one should aim for in order to move on to the final round is about 434
+(for 8th rank).
 
 \begin{table}[H]
 
-\caption{\label{tab:unnamed-chunk-6}The average scores for the top 10 qualification ranks according to our simulations. A climber will secure a finalist spot if they finish in the top 8.}
+\caption{\label{tab:unnamed-chunk-6}title}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{rrrrrrrr}
+\toprule
+\multicolumn{4}{c}{Win Any} & \multicolumn{4}{c}{Win First} \\
+\cmidrule(l{3pt}r{3pt}){1-4} \cmidrule(l{3pt}r{3pt}){5-8}
+Rank & Count & Probability & Cumulative & Rank & Count & Probability & Cumulative\\
+\midrule
+1 & 7890 & 0.2762 & 0.2762 & 1 & 2999 & 0.2999 & 0.2999\\
+2 & 5943 & 0.2080 & 0.4842 & 2 & 1963 & 0.1963 & 0.4962\\
+3 & 4644 & 0.1626 & 0.6467 & 3 & 1559 & 0.1559 & 0.6521\\
+4 & 3651 & 0.1278 & 0.7745 & 4 & 1269 & 0.1269 & 0.7790\\
+5 & 2766 & 0.0968 & 0.8714 & 5 & 957 & 0.0957 & 0.8747\\
+\addlinespace
+6 & 1960 & 0.0686 & 0.9400 & 6 & 686 & 0.0686 & 0.9433\\
+7 & 1118 & 0.0391 & 0.9791 & 7 & 363 & 0.0363 & 0.9796\\
+8 & 448 & 0.0157 & 0.9948 & 8 & 155 & 0.0155 & 0.9951\\
+9 & 127 & 0.0044 & 0.9992 & 9 & 42 & 0.0042 & 0.9993\\
+10 & 19 & 0.0007 & 0.9999 & 10 & 6 & 0.0006 & 0.9999\\
+\addlinespace
+11 & 3 & 0.0001 & 1.0000 & 11 & 1 & 0.0001 & 1.0000\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{figure}
+
+{\centering \includegraphics{draft_files/figure-latex/unnamed-chunk-7-1} 
+
+}
+
+\caption{Probability of finishing at every rank given}\label{fig:unnamed-chunk-7}
+\end{figure}
+
+\begin{table}[H]
+
+\caption{\label{tab:unnamed-chunk-8}The average scores for the top 10 qualification ranks according to our simulations. A climber will secure a finalist spot if they finish in the top 8.}
 \centering
 \begin{tabular}[t]{rr}
 \toprule
@@ -330,9 +372,41 @@ simulations, in order to obtain a climbing medal, the average scores
 (rounded down) that put an athlete in position to receive gold, silver,
 and bronze medals are 9, 20, and 33, respectively (see Table 3).
 
+\begin{table}[H]
+
+\caption{\label{tab:unnamed-chunk-9}title}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{rrrrrrrr}
+\toprule
+\multicolumn{4}{c}{Win Any} & \multicolumn{4}{c}{Win First} \\
+\cmidrule(l{3pt}r{3pt}){1-4} \cmidrule(l{3pt}r{3pt}){5-8}
+Rank & Count & Probability & Cumulative & Rank & Count & Probability & Cumulative\\
+\midrule
+1 & 9277 & 0.3512 & 0.3512 & 1 & 4295 & 0.4295 & 0.4295\\
+2 & 7409 & 0.2805 & 0.6317 & 2 & 2505 & 0.2505 & 0.6800\\
+3 & 5257 & 0.1990 & 0.8308 & 3 & 1702 & 0.1702 & 0.8502\\
+4 & 3078 & 0.1165 & 0.9473 & 4 & 1020 & 0.1020 & 0.9522\\
+5 & 1187 & 0.0449 & 0.9922 & 5 & 393 & 0.0393 & 0.9915\\
+\addlinespace
+6 & 198 & 0.0075 & 0.9997 & 6 & 83 & 0.0083 & 0.9998\\
+7 & 7 & 0.0003 & 1.0000 & 7 & 2 & 0.0002 & 1.0000\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{figure}
+
+{\centering \includegraphics{draft_files/figure-latex/unnamed-chunk-10-1} 
+
+}
+
+\caption{Probability of finishing at every rank given}\label{fig:unnamed-chunk-10}
+\end{figure}
+
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-7}The average scores for all final ranks according to our simulations. Ranks 1, 2, and 3 are table positions that guarantee medalist status for climbers.}
+\caption{\label{tab:unnamed-chunk-11}The average scores for all final ranks according to our simulations. Ranks 1, 2, and 3 are table positions that guarantee medalist status for climbers.}
 \centering
 \begin{tabular}[t]{rr}
 \toprule
@@ -399,11 +473,11 @@ correlations from the qualification rounds of the 2018 Asian Games
 
 \begin{figure}
 
-{\centering \includegraphics{draft_files/figure-latex/unnamed-chunk-9-1} 
+{\centering \includegraphics{draft_files/figure-latex/unnamed-chunk-13-1} 
 
 }
 
-\caption{Kendall's rank correlations - 2018 World Championship, Men's and Women's Qualifications}\label{fig:unnamed-chunk-9}
+\caption{Kendall's rank correlations - 2018 World Championship, Men's and Women's Qualifications}\label{fig:unnamed-chunk-13}
 \end{figure}
 
 \hypertarget{leave-one-climber-out-analysis}{%
@@ -436,11 +510,11 @@ a jump from fourth place to second place for Pan.
 
 \begin{figure}
 
-{\centering \includegraphics{draft_files/figure-latex/unnamed-chunk-12-1} 
+{\centering \includegraphics{draft_files/figure-latex/unnamed-chunk-16-1} 
 
 }
 
-\caption{This figure illustrates the changes to the final rankings of the 2018 Youth Olympics Men's and Women's Finals when we leave out one climber. For each gender competition, each panel represents the rank of the drop-out athlete, with 0 being the original final results. Each case with a change in rank orderings is highlighted by a black panel border, and any player with a rank change is represented by a red-filled bar}\label{fig:unnamed-chunk-12}
+\caption{This figure illustrates the changes to the final rankings of the 2018 Youth Olympics Men's and Women's Finals when we leave out one climber. For each gender competition, each panel represents the rank of the drop-out athlete, with 0 being the original final results. Each case with a change in rank orderings is highlighted by a black panel border, and any player with a rank change is represented by a red-filled bar}\label{fig:unnamed-chunk-16}
 \end{figure}
 
 \hypertarget{conclusion-and-discussion}{%
@@ -465,7 +539,7 @@ on GitHub at \newline \url{https://github.com/qntkhvn/climbing}.
 
 \begin{table}[H]
 
-\caption{\label{tab:unnamed-chunk-14}This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2018 Asian Games}
+\caption{\label{tab:unnamed-chunk-18}This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2018 Asian Games}
 \centering
 \resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lrrrrrrrr}
@@ -484,7 +558,7 @@ Lead & 0.6126 & 0.2174 & 0.6203 & 1.0000 & 0.7053 & 0.2947 & 0.6878 & 1.0000\\
 
 \begin{table}[H]
 
-\caption{\label{tab:unnamed-chunk-15}This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2019 World Championships}
+\caption{\label{tab:unnamed-chunk-19}This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2019 World Championships}
 \centering
 \resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lrrrrrrrr}
@@ -503,7 +577,7 @@ Lead & 0.3474 & -0.3263 & 0.2000 & 1.0000 & 0.2526 & -0.4526 & 0.2902 & 1.0000\\
 
 \begin{table}[H]
 
-\caption{\label{tab:unnamed-chunk-16}This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2020 European Championship}
+\caption{\label{tab:unnamed-chunk-20}This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2020 European Championship}
 \centering
 \resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lrrrrrrrr}
@@ -522,7 +596,7 @@ Lead & 0.2632 & -0.4316 & 0.2751 & 1.0000 & 0.5368 & -0.0897 & 0.5040 & 1.0000\\
 
 \begin{table}[H]
 
-\caption{\label{tab:unnamed-chunk-17}This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2020 Pan American Championship}
+\caption{\label{tab:unnamed-chunk-21}This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2020 Pan American Championship}
 \centering
 \resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lrrrrrrrr}

@@ -125,7 +125,8 @@ qual_final <- qual %>%
 mosaic::favstats(score ~ round, data = qual_final)[-10] %>% 
   kable(caption = "Descriptive statistics of simulated scores for qualification and final rounds",
         booktabs = TRUE,
-        position = "H")
+        position = "H",
+        digits = 2)
 ```
 
 ```{r, fig.cap = "Histogram of simulated scores for qualification and final rounds", fig.width = 6.4, fig.height = 3.2}
@@ -160,7 +161,50 @@ Ray (1973) https://www.jstor.org/stable/1913820
 
 ## Uniform Ranks
 
-In this section, we discuss the results of our simulations described in Section \ref{data-and-methods}. For the qualification round, our simulation study shows that a climber is almost guaranteed to make the final round if they win the first event or if they win at least one of the three climbing concentrations  (99.51% and 99.48% change of advancing, respectively). On the other hand, finishing last in the first event or in any event would certainly hurt an athlete's chance of finishing in the top 8, as the probabilities of a climber advancing given they finish last in the first and in any event are 0.1830 and 0.1885, respectively. In addition, the average score for qualification positions 1 to 8 are displayed in Table 2. We notice that on average, the minimum score that one should aim for in order to move on to the final round is about 434 (for 8th rank). 
+In this section, we discuss the results of our simulations described in Section \ref{data-and-methods}. We first look at the chances of advancing to the final round for a qualifier, given that 1) they finish first in any of the three disciplines, and 2) they win the first event (which happens to be speed climbing in reality). Our simulation study shows that a climber is almost guaranteed to make the final round if they win at least one of the three climbing concentrations (99.51%, see Table) or if they win the opening event (99.48%, see Table). After winning the first event, a climber is also more likely to finish first overall (30%, see Table) than any other positions in the overall qualification rankings. Therefore, this product of ranks scoring format highly rewards climbers who can get off to a strong start, which is a major strategy climbing athletes should take note of.
+
+In addition, the average score for qualification positions 1 to 8 are displayed in Table X. We notice that on average, the minimum score that one should aim for in order to move on to the final round is about 434 (for 8th rank). 
+
+```{r}
+win_any_qual <- qual %>% 
+  filter(e1 == 1 | e2 == 1 | e3 == 1) %>% 
+  count(rank) %>% 
+  mutate(prob = n / sum(n),
+         cum_prob = cumsum(prob))
+win_first_qual <- qual %>% 
+  filter(e1 == 1) %>% 
+  count(rank) %>% 
+  mutate(prob = n / sum(n),
+         cum_prob = cumsum(prob))
+
+cbind(win_any_qual, win_first_qual) %>% 
+  kable(col.names = rep(c("Rank", "Count", "Probability", "Cumulative"), 2),
+        caption = "title", 
+        booktabs = TRUE, 
+        position = "H",
+        digits = 4) %>% 
+  add_header_above(c("Win Any" = 4, "Win First" = 4)) %>%
+  kable_styling(latex_options = c("repeat_header", "scale_down"))
+```
+
+```{r, fig.cap="Probability of finishing at every rank given", fig.width = 6.4, fig.height = 3.2}
+win_any_qual %>% 
+  mutate(type = "Win Any") %>% 
+  bind_rows(mutate(win_first_qual, type = "Win First")) %>% 
+  mutate(finalist = ifelse(rank %in% 1:8, "Yes", "No")) %>% 
+  ggplot(aes(rank, weight = prob, fill = finalist)) +
+  geom_bar() +
+  geom_vline(xintercept = 8.5) +
+  scale_x_continuous() +
+  labs(x = "Rank",
+       y = "Probability",
+       fill = "Finalist") +
+  facet_wrap(~ type)
+```
+
+<!--
+On the other hand, finishing last in the first event or in any event would certainly hurt an athlete's chance of finishing in the top 8, as the probabilities of a climber advancing given they finish last in the first and in any event are 0.1830 and 0.1885, respectively.
+-->
 
 ```{r}
 qual %>% 
@@ -174,6 +218,43 @@ qual %>%
 ```
 
 Regarding the finals, a climber is very likely to finish in the top 3 and hence earn a medal if they win the first event (83.03% chance) or any event (85.01% chance). Furthermore, according to our final simulations, in order to obtain a climbing medal, the average scores (rounded down) that put an athlete in position to receive gold, silver, and bronze medals are 9, 20, and 33, respectively (see Table 3). 
+
+```{r}
+win_any_final <- final %>% 
+  filter(e1 == 1 | e2 == 1 | e3 == 1) %>% 
+  count(rank) %>% 
+  mutate(prob = n / sum(n),
+         cum_prob = cumsum(prob))
+win_first_final <- final %>% 
+  filter(e1 == 1) %>% 
+  count(rank) %>% 
+  mutate(prob = n / sum(n),
+         cum_prob = cumsum(prob))
+
+cbind(win_any_final, win_first_final) %>% 
+  kable(col.names = rep(c("Rank", "Count", "Probability", "Cumulative"), 2),
+        caption = "title", 
+        booktabs = TRUE, 
+        position = "H",
+        digits = 4) %>% 
+  add_header_above(c("Win Any" = 4, "Win First" = 4)) %>%
+  kable_styling(latex_options = c("repeat_header", "scale_down"))
+```
+
+```{r, fig.cap="Probability of finishing at every rank given", fig.width = 6.4, fig.height = 3.2}
+win_any_final %>% 
+  mutate(type = "Win Any") %>% 
+  bind_rows(mutate(win_first_final, type = "Win First")) %>% 
+  mutate(medalist = ifelse(rank %in% 1:3, "Yes", "No")) %>% 
+  ggplot(aes(rank, weight = prob, fill = medalist)) +
+  geom_bar() +
+  geom_vline(xintercept = 3.5) +
+  scale_x_continuous() +
+  labs(x = "Rank",
+       y = "Probability",
+       fill = "Medalist") +
+  facet_wrap(~ type)
+```
 
 ```{r}
 final %>% 
