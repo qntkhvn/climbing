@@ -53,7 +53,7 @@ These three different climbing disciplines demand different sets of skills and, 
 -->
 
 
-The decision to combine the three climbing events and only award one set of medals for both men's and women's events in the Olympics has received a large amount of criticism from climbing athletes all over the world (CITATION NEEDED - I mentioned the article at the end of the paragrah). In a series of interviews conducted by Climbing Magazine in 2016, a number of climbers shared their thoughts and concerns about the new Olympics climbing format. Climber Lynn Hill compared the idea of combining speed climbing, bouldering, and lead climbing to "asking a middle distance runner to compete in the sprint" (CITATION NEEDED). She then added "Speed climbing is a sport within our sport". Other climbers also hold the same opinion as Hill regarding speed climbing, using words and phrases like "bogus", "a bummer", "less than ideal", "not in support", and "cheesy and unfair" to describe the new combined competition format. Courtney Woods stated "Speed climbers will have the biggest disadvantage because their realm isn’t based on difficult movements". Mike Doyle believed "Honestly, the people that will suffer the most are the ones that focus only on speed climbing. Those skills/abilities don’t transfer as well to the other disciplines". Most climbers also expressed their hope for a change in the format in future tournaments, with some calling for each discipline to have its own set of medals. See @blanchard2016 for more information on these interviews.
+The decision to combine the three climbing events and only award one set of medals for both men's and women's events in the Olympics has received a large amount of criticism from climbing athletes all over the world (CITATION NEEDED). In a series of interviews conducted by Climbing Magazine in 2016, a number of climbers shared their thoughts and concerns about the new Olympics climbing format. Climber Lynn Hill compared the idea of combining speed climbing, bouldering, and lead climbing to "asking a middle distance runner to compete in the sprint" (CITATION NEEDED). She then added "Speed climbing is a sport within our sport". Other climbers also hold the same opinion as Hill regarding speed climbing, using words and phrases like "bogus", "a bummer", "less than ideal", "not in support", and "cheesy and unfair" to describe the new combined competition format. Courtney Woods stated "Speed climbers will have the biggest disadvantage because their realm isn’t based on difficult movements". Mike Doyle believed "Honestly, the people that will suffer the most are the ones that focus only on speed climbing. Those skills/abilities don’t transfer as well to the other disciplines". Most climbers also expressed their hope for a change in the format in future tournaments, with some calling for each discipline to have its own set of medals. See @blanchard2016 for more information on these interviews.
 
 At the 2020 Summer Olympics, both sport climbing competitions for male and female at the begin with 20 climbers who has previously qualified for the Olympics from qualifying events held in 2019 and 2020. All 20 athletes compete in each of the three disciplines in the qualification round, and their performances in each concentration are ranked from 1 to 20. A competitor's combined score is computed as the product of their ranks in the three events; specifically, 
 \begin{equation}
@@ -67,16 +67,15 @@ This type of scoring system heavily rewards high finishes and relatively ignores
 
 <!-- # https://www.climbing.com/competition/olympics/a-guide-to-the-olympic-climbing-format/ -->
 
-To the best of our knowledge, we know of no sporting event, team or individual, that uses the product of ranks to determine an overall rankings.  There are examples of team sports that use the sum of ranks to determine the winning team such as cross country, where the team with the lowest sum of ranks of the top five runners is determined to be the winner. For more detail on rank sum scoring, see @hammond2007 and @boudreau2018.
+To the best of our knowledge, we know of no sporting event, team or individual, that uses the product of ranks to determine an overall rankings.  There are examples of team sports that use the sum of ranks to determine the winning team such as cross country, where the team with the lowest sum of ranks of the top five runners is determined to be the winner. For more detail on rank sum scoring, see @hammond2007 and @boudreau2018. In addition, some individual sports such as the decathlon and heptathlon rely on a sum of scores from the ten or seven events, however, these scores are not determined based on the ranks of the competitors.  That is, a decathlete's score is entirely based upon their times, distances, and heights, and their overall score will be exactly the same if the times, distances, and heights remain the same regardless of the performance of other individuals.  Full details of decathlon scoring can be found in @westera2006.  
 
-Some individual sports such as the decathlon and heptathlon rely on a sum of scores from the ten or seven events, however, these scores are not determined based on the ranks of the competitors.  That is a decathlete's score is entirely based upon their times, distances, and heights, and their overall score will be exactly the same if the times, distances, and heights remain the same regardless of the performance of other individuals.  Full details of decathlon scoring can be found in @westera2006.  
-
-There are other individual competitions consisted of several events combined that do base their scoring on ranks, such as crossfit competitions.  In each event, points are earned based on the competitor's rank in the event based on a scoring table. (https://games.crossfit.com/announcement/12940), and a competitors final score is based on the sum of their scores across all the events.  
+<!-- 
+here are other individual competitions consisted of several events combined that do base their scoring on ranks, such as crossfit competitions.  In each event, points are earned based on the competitor's rank in the event based on a scoring table. (https://games.crossfit.com/announcement/12940), and a competitors final score is based on the sum of their scores across all the events.
 
 Paragraph on scoring methods in other sports: Soccer points: @haugen2008; Cross country scoring: @hammond2007, @boudreau2018; Decathlon scoring: @westera2006
 
-
-As a side note, rank product, genes
+As a side note, rank product, genes 
+-->
 
 The manuscript is outlined as follows. We first begin with some descriptions of the data and methods in Section \ref{data-and-methods}. Our analyses and results are then presented in Sections \ref{simulations} and \ref{data-analysis}. Finally, in Section \ref{conclusion-and-discussion}, we summarize up our main findings and provide a discussion to close out the paper.
 
@@ -91,52 +90,33 @@ theme_set(theme_minimal())
 ```
 
 ```{r}
-set.seed(1)
-nsim <- 10000
-nplay <- 20
-qual_sim <- list()
-for (i in 1:nsim) {
-  qual_sim[[i]] <-
-    bind_cols(
-      player = 1:nplay,
-      e1 = sample(1:nplay, replace = FALSE),
-      e2 = sample(1:nplay, replace = FALSE),
-      e3 = sample(1:nplay, replace = FALSE)
-    ) %>%
-    mutate(sim = i)
+climbing_sim <- function(nsim = 10000, nplay) {
+  sims <- list()
+  for (i in 1:nsim) {
+    sims[[i]] <-
+      bind_cols(
+        player = 1:nplay,
+        e1 = sample(1:nplay, replace = FALSE),
+        e2 = sample(1:nplay, replace = FALSE),
+        e3 = sample(1:nplay, replace = FALSE)
+      ) %>%
+      mutate(sim = i)
+  }
+  results <- bind_rows(sims) %>% 
+    mutate(score = e1 * e2 * e3) %>% 
+    group_by(sim) %>% 
+    mutate(rank = rank(score, ties.method = "random")) %>%
+    ungroup()
+  
+  return(results)
 }
 
-qual <- bind_rows(qual_sim) %>% 
-  mutate(score = e1 * e2 * e3) %>% 
-  group_by(sim) %>% 
-  mutate(rank = rank(score, ties.method = "random")) %>%
-  ungroup()
+set.seed(1)
+qual <- climbing_sim(nsim = 10000, nplay = 20)
+final <- climbing_sim(nsim = 10000, nplay = 8)
 ```
 
 ```{r}
-set.seed(1)
-nsim <- 10000
-nplay <- 8
-final_sim <- list()
-for (i in 1:nsim) {
-  final_sim[[i]] <-
-    bind_cols(
-      player = 1:nplay,
-      e1 = sample(1:nplay, replace = FALSE),
-      e2 = sample(1:nplay, replace = FALSE),
-      e3 = sample(1:nplay, replace = FALSE)
-    ) %>%
-    mutate(sim = i)
-}
-
-final <- bind_rows(final_sim) 
-
-final <- final %>% 
-  mutate(score = e1 * e2 * e3) %>% 
-  group_by(sim) %>% 
-  mutate(rank = rank(score, ties.method = "random")) %>%
-  ungroup()
-
 qual_final <- qual %>% 
   mutate(round = "Qualification") %>% 
   bind_rows(mutate(final, round = "Final")) %>% 
