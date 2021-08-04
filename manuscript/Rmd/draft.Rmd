@@ -84,7 +84,7 @@ Our first sets of data come from a simulation study that we conducted, with the 
 ```{r}
 library(tidyverse)
 library(kableExtra)
-theme_set(theme_minimal())
+theme_set(theme_bw())
 ```
 
 ```{r}
@@ -354,21 +354,23 @@ mq <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/201
 wq <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2018_youth_olympics/women_qual.csv")
 ```
 
-```{r, fig.cap = "Kendall's rank correlations - 2018 World Championship, Men's and Women's Qualifications", fig.height=8, fig.width=6.5}
+```{r, fig.cap = "Kendall's rank correlations - 2018 World Championship, Men's and Women's Qualifications", fig.height=8, fig.width=5}
 mcor <- mq %>% 
   select(Overall = rank, Speed = speed, Bouldering = bould, Lead = lead) %>% 
   ggpairs(diag = "blank",
-          axisLabels = "internal",
-          upper = list(continuous = wrap("cor", method = "kendall", stars = FALSE))) +
-  theme(panel.grid.major = element_blank()) +
-  labs(y = "Men\n")
+          lower = list(continuous = wrap("points", size = 1)),
+          upper = list(continuous = wrap("cor", method = "kendall", stars = FALSE, size = 3))) +
+  theme(panel.grid.major = element_blank(),
+        axis.text = element_text(size = 6)) +
+  labs(y = "Men\n") 
 
 wcor <- wq %>% 
   select(Overall = rank, Speed = speed, Bouldering = bould, Lead = lead) %>% 
   ggpairs(diag = "blank",
-          axisLabels = "internal",
-          upper = list(continuous = wrap("cor", method = "kendall", stars = FALSE))) +
-  theme(panel.grid.major = element_blank())  +
+          lower = list(continuous = wrap("points", size = 1)),
+          upper = list(continuous = wrap("cor", method = "kendall", stars = FALSE, size = 3))) +
+  theme(panel.grid.major = element_blank(),
+        axis.text = element_text(size = 6))  +
   labs(y = "Women\n")
 
 library(cowplot)

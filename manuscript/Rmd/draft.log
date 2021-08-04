@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2021.7.26)  4 AUG 2021 15:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2021.7.26)  4 AUG 2021 15:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -557,18 +557,12 @@ Overfull \hbox (8.50078pt too wide) in paragraph at lines 533--548
  []
 
 [12]
-<draft_files/figure-latex/unnamed-chunk-16-1.pdf, id=184, 469.755pt x 578.16pt>
-
+<draft_files/figure-latex/unnamed-chunk-16-1.pdf, id=184, 361.35pt x 578.16pt>
 File: draft_files/figure-latex/unnamed-chunk-16-1.pdf Graphic file (type pdf)
 <use draft_files/figure-latex/unnamed-chunk-16-1.pdf>
 Package pdftex.def Info: draft_files/figure-latex/unnamed-chunk-16-1.pdf  used 
 on input line 575.
-(pdftex.def)             Requested size: 469.75386pt x 578.15858pt.
-
-Overfull \hbox (7.48387pt too wide) in paragraph at lines 575--576
- [][] 
- []
-
+(pdftex.def)             Requested size: 361.34912pt x 578.15858pt.
 [13] [14pdfTeX warning (ext4): destination with the same identifier (name{figur
 e.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
@@ -645,7 +639,7 @@ onts/type1/public/amsfonts/cm/cmr8.pfb></Users/qntkhvn/Library/TinyTeX/texmf-di
 st/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/qntkhvn/Library/TinyTeX/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></Users/qntkhvn/Library/Tiny
 TeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on draft.pdf (18 pages, 201426 bytes).
+Output written on draft.pdf (18 pages, 202965 bytes).
 PDF statistics:
  295 PDF objects out of 1000 (max. 8388607)
  242 compressed objects within 3 object streams
