@@ -53,8 +53,7 @@
 
 \if0\blind
 {
-  \title{\bf An Examination of Sport Climbing Competition Format and
-Scoring System}
+  \title{\bf An Examination of Sport Climbing Competition Format and Scoring System}
 
   \author{
         Quang Nguyen \\
@@ -73,8 +72,7 @@ Scoring System}
   \bigskip
   \bigskip
   \begin{center}
-    {\LARGE\bf An Examination of Sport Climbing Competition Format and
-Scoring System}
+    {\LARGE\bf An Examination of Sport Climbing Competition Format and Scoring System}
   \end{center}
   \medskip
 } \fi
@@ -226,8 +224,8 @@ qualification and final rounds.
 \toprule
 round & min & Q1 & median & Q3 & max & mean & sd & n\\
 \midrule
-Qualification & 1 & 240 & 684 & 1638 & 8000 & 1158.84378 & 1273.47884 & 200000\\
-Final & 1 & 24 & 60 & 126 & 512 & 91.19935 & 91.11065 & 80000\\
+Qualification & 1 & 240 & 684 & 1638 & 8000 & 1158.23077 & 1269.92888 & 200000\\
+Final & 1 & 24 & 60 & 126 & 512 & 91.02296 & 90.68192 & 80000\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -308,17 +306,17 @@ final round is about 434 (for 8th rank).
 \toprule
 Rank & Average score\\
 \midrule
-1 & 36.0187\\
-2 & 73.6111\\
-3 & 115.3954\\
-4 & 162.2263\\
-5 & 216.0041\\
+1 & 35.8986\\
+2 & 73.6254\\
+3 & 115.0981\\
+4 & 162.6459\\
+5 & 216.5088\\
 \addlinespace
-6 & 278.1649\\
-7 & 350.3272\\
-8 & 434.5932\\
-9 & 532.1383\\
-10 & 642.3298\\
+6 & 278.7528\\
+7 & 351.4263\\
+8 & 435.0092\\
+9 & 532.5390\\
+10 & 642.8740\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -338,15 +336,15 @@ and bronze medals are 9, 20, and 33, respectively (see Table 3).
 \toprule
 Rank & Average score\\
 \midrule
-1 & 9.6687\\
-2 & 20.1844\\
-3 & 33.3658\\
-4 & 50.5734\\
-5 & 75.2499\\
+1 & 9.6823\\
+2 & 20.3044\\
+3 & 33.3976\\
+4 & 50.5062\\
+5 & 74.9904\\
 \addlinespace
-6 & 110.7070\\
-7 & 164.8258\\
-8 & 265.0198\\
+6 & 110.3614\\
+7 & 164.9222\\
+8 & 264.0192\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -372,6 +370,104 @@ performance of the remaining climbers. Real examples are given in
 Section \ref{data-analysis}. In this section, we conduct simulations to
 analyze the probability of seeing a reordering of medalists when one
 non-medalist is removed from the list of finalists.
+
+\hypertarget{probability-of-reordering-in-higher-ranks}{%
+\subsubsection{Probability of Reordering in Higher
+Ranks}\label{probability-of-reordering-in-higher-ranks}}
+
+We first look at the rate at which the ranks above that of which is
+dropped are reordered.
+
+\begin{tabular}{r|r|r|r|r}
+\hline
+Dropped Rank & Simulations & Avg. Probability & Median Probability & St. Deviation\\
+\hline
+4 & 100 & 0.25869 & 0.2590 & 0.0145433\\
+\hline
+5 & 100 & 0.34032 & 0.3405 & 0.0151263\\
+\hline
+6 & 100 & 0.38012 & 0.3820 & 0.0152430\\
+\hline
+7 & 100 & 0.40636 & 0.4060 & 0.0149582\\
+\hline
+8 & 100 & 0.39439 & 0.3930 & 0.0151023\\
+\hline
+\end{tabular}
+
+\hypertarget{probability-of-change-in-finalists}{%
+\subsubsection{Probability of Change in
+Finalists}\label{probability-of-change-in-finalists}}
+
+A potential event of interest is the replacement of one finalist with
+another, taking the chance away from the original finalist to win a
+medal in the finals round. Here we compute the probability that a
+finalist will be replaced with a non-finalist after removing another
+non-finalist from the rankings. Below is a table summarizing the
+results.
+
+\begin{tabular}{r|r|r|r|r}
+\hline
+Dropped Rank & Simulations & Avg. Probability & Median Probability & St. Deviation\\
+\hline
+9 & 100 & 0.0505 & 0.050 & 0.0217597\\
+\hline
+10 & 100 & 0.1538 & 0.150 & 0.0318386\\
+\hline
+11 & 100 & 0.1603 & 0.160 & 0.0343616\\
+\hline
+12 & 100 & 0.1416 & 0.140 & 0.0353259\\
+\hline
+13 & 100 & 0.1365 & 0.140 & 0.0336162\\
+\hline
+14 & 100 & 0.1217 & 0.120 & 0.0344965\\
+\hline
+15 & 100 & 0.1213 & 0.120 & 0.0308353\\
+\hline
+16 & 100 & 0.1159 & 0.120 & 0.0306197\\
+\hline
+17 & 100 & 0.1086 & 0.105 & 0.0314312\\
+\hline
+18 & 100 & 0.1026 & 0.100 & 0.0329867\\
+\hline
+19 & 100 & 0.0886 & 0.090 & 0.0291641\\
+\hline
+20 & 100 & 0.0700 & 0.070 & 0.0258590\\
+\hline
+\end{tabular}
+
+as can be seen, the probability is relatively low when the 9th place
+competitor is removed. My hypothesis is that there is enough separation
+between the original finalists and the 10th+ ranking competitors in the
+individual events that there isn't a high chance that the total rankings
+of the finalists can be overtaken by 10+th place competitors. Note: it
+might be worth computing the probability of getting a low ranking in any
+of the individual events, given that a competitor is a finalist (ie:
+\(P(r_1 > 8 \text{ or } r_2 > 8 \text{ or } r_3 > 8 \text{ }|\text{ } R_T \leq 8)\)).
+
+\hypertarget{probability-that-medalists-are-reordered-or-changed}{%
+\subsubsection{Probability that Medalists are Reordered or
+Changed}\label{probability-that-medalists-are-reordered-or-changed}}
+
+The second scenario of interest is if a medalist is displaced by another
+medalist, or even a non-medalist. Below are the results summarizing the
+probability of this scenario occurring under uniform random ranking
+conditions.
+
+\begin{tabular}{r|r|r|r|r}
+\hline
+Dropped Rank & Simulations & Avg. Probability & Median Probability & St. Deviation\\
+\hline
+4 & 100 & 0.25872 & 0.2580 & 0.0137106\\
+\hline
+5 & 100 & 0.31988 & 0.3190 & 0.0161416\\
+\hline
+6 & 100 & 0.28741 & 0.2870 & 0.0127969\\
+\hline
+7 & 100 & 0.25631 & 0.2545 & 0.0145301\\
+\hline
+8 & 100 & 0.20631 & 0.2050 & 0.0120283\\
+\hline
+\end{tabular}
 
 \hypertarget{data-analysis}{%
 \section{Data Analysis}\label{data-analysis}}
@@ -399,11 +495,11 @@ correlations from the qualification rounds of the 2018 Asian Games
 
 \begin{figure}
 
-{\centering \includegraphics{draft_files/figure-latex/unnamed-chunk-9-1} 
+{\centering \includegraphics{draft_files/figure-latex/unnamed-chunk-12-1} 
 
 }
 
-\caption{Kendall's rank correlations - 2018 World Championship, Men's and Women's Qualifications}\label{fig:unnamed-chunk-9}
+\caption{Kendall's rank correlations - 2018 World Championship, Men's and Women's Qualifications}\label{fig:unnamed-chunk-12}
 \end{figure}
 
 \hypertarget{leave-one-climber-out-analysis}{%
@@ -436,11 +532,11 @@ a jump from fourth place to second place for Pan.
 
 \begin{figure}
 
-{\centering \includegraphics{draft_files/figure-latex/unnamed-chunk-12-1} 
+{\centering \includegraphics{draft_files/figure-latex/unnamed-chunk-15-1} 
 
 }
 
-\caption{This figure illustrates the changes to the final rankings of the 2018 Youth Olympics Men's and Women's Finals when we leave out one climber. For each gender competition, each panel represents the rank of the drop-out athlete, with 0 being the original final results. Each case with a change in rank orderings is highlighted by a black panel border, and any player with a rank change is represented by a red-filled bar}\label{fig:unnamed-chunk-12}
+\caption{This figure illustrates the changes to the final rankings of the 2018 Youth Olympics Men's and Women's Finals when we leave out one climber. For each gender competition, each panel represents the rank of the drop-out athlete, with 0 being the original final results. Each case with a change in rank orderings is highlighted by a black panel border, and any player with a rank change is represented by a red-filled bar}\label{fig:unnamed-chunk-15}
 \end{figure}
 
 \hypertarget{conclusion-and-discussion}{%
@@ -465,7 +561,7 @@ on GitHub at \newline \url{https://github.com/qntkhvn/climbing}.
 
 \begin{table}[H]
 
-\caption{\label{tab:unnamed-chunk-14}This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2018 Asian Games}
+\caption{\label{tab:unnamed-chunk-17}This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2018 Asian Games}
 \centering
 \resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lrrrrrrrr}
@@ -484,7 +580,7 @@ Lead & 0.6126 & 0.2174 & 0.6203 & 1.0000 & 0.7053 & 0.2947 & 0.6878 & 1.0000\\
 
 \begin{table}[H]
 
-\caption{\label{tab:unnamed-chunk-15}This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2019 World Championships}
+\caption{\label{tab:unnamed-chunk-18}This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2019 World Championships}
 \centering
 \resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lrrrrrrrr}
@@ -503,7 +599,7 @@ Lead & 0.3474 & -0.3263 & 0.2000 & 1.0000 & 0.2526 & -0.4526 & 0.2902 & 1.0000\\
 
 \begin{table}[H]
 
-\caption{\label{tab:unnamed-chunk-16}This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2020 European Championship}
+\caption{\label{tab:unnamed-chunk-19}This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2020 European Championship}
 \centering
 \resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lrrrrrrrr}
@@ -522,7 +618,7 @@ Lead & 0.2632 & -0.4316 & 0.2751 & 1.0000 & 0.5368 & -0.0897 & 0.5040 & 1.0000\\
 
 \begin{table}[H]
 
-\caption{\label{tab:unnamed-chunk-17}This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2020 Pan American Championship}
+\caption{\label{tab:unnamed-chunk-20}This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2020 Pan American Championship}
 \centering
 \resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lrrrrrrrr}
