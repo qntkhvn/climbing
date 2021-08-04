@@ -152,7 +152,7 @@ knitr::kable(sum_dat2)
   
 ```
 
-as can be seen, the probability is relatively low when the 9th place competitor is removed. My hypothesis is that there is enough separation between the original finalists and the 10th+ ranking competitors in the individual events that there isn't a high chance that the total rankings of the finalists can be overtaken by 10+th place competitors. Note: it might be worth computing the probability of getting a low ranking in any of the individual events, given that a competitor is a finalist.
+as can be seen, the probability is relatively low when the 9th place competitor is removed. My hypothesis is that there is enough separation between the original finalists and the 10th+ ranking competitors in the individual events that there isn't a high chance that the total rankings of the finalists can be overtaken by 10+th place competitors. Note: it might be worth computing the probability of getting a low ranking in any of the individual events, given that a competitor is a finalist (ie: $P(r_1 > 8 \text{ or } r_2 > 8 \text{ or } r_3 > 8 \text{ }|\text{ } R_T \leq 8)$).
 
 ## Probability that Medalists are Reordered or Changed
 
@@ -190,22 +190,33 @@ remove_c4_df <- lapply(5:20
   do.call(rbind, .)
 #save(remove_c4_df, "R/remove_c4_sims.rdata")
 
-remove_c5 <- lapply(5:20, function(x) replicate(100, displace_climber(nsim = 100, drop_rank = 5, nc = x)))
+remove_c5 <- lapply(5:20, function(x) replicate(100, displace_medalist(nsim = 100, drop_rank = 5, nc = x)))
 
 remove_c5_df <- lapply(5:20
                   , function(x) {
                     data.frame(n_climbers = x
                                , dropped_rank = 5
-                               , displ_prob = remove_c4[[x-4]]
+                               , displ_prob = remove_c5[[x-4]]
                                )
                     }
                   ) %>%
   do.call(rbind, .)
-#save(remove_c5_df, "R/remove_c5_sims.rdata")
+#save(remove_c5_df, file = "R/remove_c5_sims.rdata")
+
+remove_c6 <- lapply(6:20, function(x) replicate(100, displace_medalist(nsim = 100, drop_rank = 6, nc = x)))
+remove_c6_df <- lapply(6:20
+                  , function(x) {
+                    data.frame(n_climbers = x
+                               , dropped_rank = 6
+                               , displ_prob = remove_c6[[x-5]]
+                               )
+                    }
+                  ) %>%
+  do.call(rbind, .)
 ```
 
 ### Removing 4th Place
-```{r, echo = FALSE}
+```{r, include=FALSE}
 load("remove_c4_sims.rdata")
 remove_c4_df %>%
   ggplot(aes(x = n_climbers, y = displ_prob)) +
@@ -215,9 +226,19 @@ remove_c4_df %>%
   xlab("Number of Original Climbers")
 ```
 
+```{r, echo = FALSE}
+load("remove_c5_sims.rdata")
+load("remove_c6_sims.rdata")
+remove_c456 <- rbind(remove_c4_df, remove_c5_df, remove_c6_df)
+remove_c456 %>%
+  group_by(n_climbers, dropped_rank) %>%
+  summarize(av_disp_prob = mean(displ_prob)) %>%
+  ggplot(aes(x = n_climbers, y = av_disp_prob)) +
+  geom_line(aes(color = as.factor(dropped_rank))) +
+  theme_minimal()
+```
+
 # Questions: 
-- How often would a finalist be replaced
-- How often does someone who wasn't a medalist before become a medalist 
 - How often do we see a flip (two consecutive climbers switch places), jump (a climber jumps up more than one rank), drop (a climber drops down more than one rank)
 - how do the simulations compare to doing the same with actual data?
 

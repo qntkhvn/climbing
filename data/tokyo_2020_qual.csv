@@ -1,0 +1,41 @@
+first,last,group,country,speed,bould,lead,speed_time_A,speed_time_B,bould_top,bould_zone,lead_hold,lead_pos,lead_time,total,rank
+J,Garnbret,women,Slovenia,14,1,4,9.44,10.32,4,4,30,0,NA,56,1
+C,Seo,women,South Korea,17,5,1,10.01,11.74,2,4,40,1,NA,85,2
+M,Nonaka,women,Japan,4,8,3,7.55,7.74,1,3,30,1,NA,96,3
+A,Noguchi,women,Japan,9,3,6,8.27,8.23,3,4,27,1,NA,162,4
+B,Raboutou,women,United States,12,2,8,8.67,8.81,3,4,26,1,220,192,5
+J,Pilz,women,Austria,11,9,2,8.51,8.63,1,3,33,1,NA,198,6
+A,Miroslaw,women,Poland,1,20,19,6.97,7.01,0,0,12,0,NA,380,7
+A,Jaubert,women,France,2,13,15,7.12,7.29,1,1,16,1,134,390,8
+V,Meshkova,women,ROC,15,6,5,9.54,9.73,2,4,29,1,NA,450,9
+S,Coxsey,women,Great Britain,16,4,13,9.65,10.07,2,4,21,1,143,832,10
+K,Condie,women,United States,7,11,11,8.12,8.08,1,3,22,1,NA,847,11
+YL,Song,women,China,3,19,18,8.74,7.46,0,1,13,1,NA,1026,12
+J,Chanourdie,women,France,8,15,9,8.43,8.17,0,3,25,1,NA,1080,13
+A,Yip,women,Canada,6,16,12,8.17,7.99,0,2,21,1,134,1152,14
+L,Rogora,women,Italy,19,7,10,10.5,NA,1,4,25,0,NA,1330,15
+P,Klingler,women,Switzerland,10,10,14,8.42,8.67,1,3,16,1,109,1400,16
+I,Kaplina,women,ROC,5,18,17,7.56,NA,0,1,14,1,NA,1530,17
+M,Krampl,women,Slovenia,18,14,7,10.44,10.43,0,4,26,1,196,1764,18
+O,Mackenzie,women,Austria,13,12,16,8.83,9.38,1,2,15,1,NA,2496,19
+E,Sterkenburg,women,South Africa,20,17,20,NA,11.1,0,1,7,1,NA,6800,20
+M,Mawem,men,France,3,1,11,5.95,7.75,3,4,28,1,144,33,1
+T,Narasaki,men,Japan,2,2,14,NA,5.94,2,4,26,1,131,56,2
+C,Duffy,men,United States,6,5,2,6.23,6.85,2,2,42,1,284,60,3
+J,Schubert,men,Austria,12,7,1,6.7,6.94,1,3,42,1,242,84,4
+A,Ondra,men,Czech Republic,18,3,4,7.46,8.16,2,3,39,1,NA,216,5
+A,Ginez Lopez,men,Spain,7,14,3,6.48,6.32,1,1,41,1,NA,294,6
+B,Mawem,men,France,1,18,20,5.45,5.67,0,1,7,0,NA,360,7
+N,Coleman,men,United States,10,11,5,6.51,6.52,1,3,39,0,NA,550,8
+A,Megos,men,Germany,19,6,6,9.89,7.47,1,4,36,1,NA,684,9
+J,Chon,men,South Korea,5,10,16,6.21,NA,1,3,26,1,154,800,10
+R,Khaibullin,men,Kazakhstan,4,17,13,6.9,6.19,0,2,28,1,189,884,11
+J,Hojer,men,Germany,11,9,9,6.63,NA,1,3,29,1,NA,891,12
+A,Rubtsov,men,ROC,16,4,15,8.09,7.23,2,2,26,1,149,960,13
+YF,Pan,men,China,20,8,7,8.63,7.59,1,3,36,0,NA,1120,14
+M,Piccolruaz,men,Italy,8,13,12,6.33,6.46,1,2,28,1,153,1248,15
+C,Cosser,men,South Africa,9,16,10,6.48,7.55,0,2,29,0,NA,1440,16
+S,McColl,men,Canada,14,15,8,9.18,6.93,0,2,35,1,NA,1680,17
+K,Harada,men,Japan,15,12,17,NA,7.08,1,2,25,1,NA,3060,18
+L,Fossali,men,Italy,13,19.5,18,6.71,7.39,0,0,25,0,168,4563,19
+T,O'Halloran,men,Australia,17,19.5,19,7.34,12.2,0,0,25,0,238,6298.5,20
