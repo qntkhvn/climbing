@@ -32,12 +32,22 @@ url <- "https://en.wikipedia.org/wiki/Sport_climbing_at_the_2020_Summer_Olympics
 
 
 
-mq <- url %>% 
-  read_html() %>% 
-  html_table() %>% 
-  .[[3]] %>% 
-  row_to_names(row_number = 1) %>% 
-  clean_names() 
+# mq <- url %>% 
+#   read_html() %>% 
+#   html_table() %>% 
+#   .[[3]] %>% 
+#   row_to_names(row_number = 1) %>% 
+#   clean_names() 
+
+mf <- url %>%
+  read_html() %>%
+  html_table() %>%
+  .[[7]] %>%
+  row_to_names(row_number = 1) %>%
+  clean_names() %>% 
+  filter(climber != "Climber") %>% 
+  mutate(rank = 1:8)
+
 
 mq %>% 
   select(climber,
@@ -57,11 +67,12 @@ mq %>%
 
 
 
-df <- mq %>% 
+df <- mf %>% 
   select(climber,
          speed = cp,
          bould = cp_2,
-         lead = cp_3)
+         lead = cp_3) %>% 
+  filter(climber != "Bassa Mawem")
 
 rerank <- list()
 for (i in 1:nrow(df)) {
@@ -115,9 +126,9 @@ rerank_df %>%
   geom_col(show.legend = FALSE) +
   geom_text(aes(label = rank), hjust = -0.2, size = 3) +
   coord_flip() +
-  # geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf),
-  #           data = ~ filter(., rank_drop %in% c(1, 2, 3, 5, 6)), 
-  #           color = "black", size = 1.5, fill = NA, inherit.aes = FALSE) +
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf),
+            data = ~ filter(., rank_drop %in% 1:6),
+            color = "black", size = 1.5, fill = NA, inherit.aes = FALSE) +
   facet_wrap(~ rank_drop, nrow = 2) +
   expand_limits(y = 150, x = 0:7) +
   # scale_fill_manual(values = c("grey", "chocolate")) +
