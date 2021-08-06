@@ -65,7 +65,7 @@ wf <- women_url %>%
          lead = cp_3)
 
 
-write_csv(wf, "data/2020_olympics/wf.csv")
+write_csv(mf, "data/2020_olympics/mf.csv")
 
 
 
