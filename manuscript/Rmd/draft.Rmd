@@ -312,6 +312,23 @@ reorder_dat2 %>%
 
 as can be seen, the probability is relatively low when the 9th place competitor is removed. My hypothesis is that there is enough separation between the original finalists and the 10th+ ranking competitors in the individual events that there isn't a high chance that the total rankings of the finalists can be overtaken by 10+th place competitors. Note: it might be worth computing the probability of getting a low ranking in any of the individual events, given that a competitor is a finalist (ie: $P(r_1 > 8 \text{ or } r_2 > 8 \text{ or } r_3 > 8 \text{ }|\text{ } R_T \leq 8)$).
 
+Olympic Finalist Bassa Mawem pulled out of the sport climbing finals due to an injury in his left arm. Reuters reported that Megos, originally 9th in the total qualification rankings would not be replacing him. We suspect that this might be part of the unclear format of the Olympic Sport Climbing format. However, according to the climber's rankings, Megos technically should not have been next in line to fill in the missing finalist spot. Upon removing B. Mawem from the list and reranking the remaining competitors, we find that Chon would have moved into 8th place with a 640 combined score and Megos would have remained in 9th with 648. B. Mawem originally ranked first in the speed climbing, and Megos did comparatively poorly with 19th place. Both performed better than Mawem in bouldering and lead, leaving those rankings unchanged.
+
+Prior, we considered a change in finalists if a non-finalist was removed. It is clear now though that the more interesting scenario is would would replace an original finalist who is removed from the rankings. Should it be the original 9th place competitor, or does it make more sense with such a scoring system to rerank? Surely Chon should be rewarded for his superior performance in speed compared to Megos with the chance to win a medal?
+
+The next set of simulations will evaluate the probability that a removed finalist is replaced with someone other than the original 9th place competitor.
+
+```{r, echo = FALSE}
+load("draft_files/nineth_to_finals.rdata")
+
+nineth_to_finals %>%
+  ggplot(aes(x = dropped_rank, y = nineth_to_fin)) +
+  geom_boxplot(aes(group = dropped_rank)) +
+  theme_minimal() +
+  xlab("Dropped Finalist Rank") +
+  ylab("Probability that 9th Place Moves to Finals")
+```
+
 ### Probability that Medalists are Reordered or Changed
 
 The second scenario of interest is if a medalist is displaced by another medalist, or even a non-medalist. Below are the results summarizing the probability of this scenario occurring under uniform random ranking conditions.
