@@ -1,52 +1,76 @@
 
-
-Overall <- 1:20
-Speed <- c(3, 2, 6, 12, 18, 7, 1, 10, 19, 5, 4, 11, 16, 20, 8, 9, 14, 15, 13, 17)
-Bouldering <- c(1, 2, 5, 7, 3, 14, 18, 11, 6, 10, 17, 9, 4, 8, 13, 16, 15, 12, 19.5, 19.5)
-Lead <- c(11, 14, 2, 1, 4, 3, 20, 5, 6, 16, 13, 9, 15, 7, 12, 10, 8, 17, 18, 19)
-
-
-tibble(Overall, Speed, Bouldering, Lead) %>% 
-  ggpairs(diag = "blank",
-          axisLabels = "none",
-          upper = list(continuous = wrap("cor", method = "kendall", stars = FALSE))) +
-  theme_light() + ggtitle("2020 Olympics - Men's Qualification")
-
-
-tibble(Overall, Speed, Bouldering, Lead) %>% 
-  # mutate(Score = Speed * Bouldering * Lead)
-  pivot_longer(!Overall) %>% 
-  ggplot(aes(x = name, y = value)) +
-  geom_bar(stat = "identity", position = "dodge")
   
-
+# DATA
 
 
 library(tidyverse)
 library(rvest)
 library(janitor)
-library(viridis)
 
 
-url <- "https://en.wikipedia.org/wiki/Sport_climbing_at_the_2020_Summer_Olympics_%E2%80%93_Men%27s"
+men_url <- "https://en.wikipedia.org/wiki/Sport_climbing_at_the_2020_Summer_Olympics_%E2%80%93_Men%27s"
 
-
-
-# mq <- url %>% 
-#   read_html() %>% 
-#   html_table() %>% 
-#   .[[3]] %>% 
-#   row_to_names(row_number = 1) %>% 
-#   clean_names() 
-
-mf <- url %>%
+mq <- men_url %>%
   read_html() %>%
   html_table() %>%
   .[[7]] %>%
   row_to_names(row_number = 1) %>%
   clean_names() %>% 
+  rename(overall = rank, 
+         speed = cp,
+         bouldering = cp_2,
+         lead = cp_3,
+         total = total_11)
+  
+
+mf <- men_url %>%
+  read_html() %>%
+  html_table() %>%
+  .[[8]] %>%
+  row_to_names(row_number = 1) %>%
+  clean_names() %>% 
   filter(climber != "Climber") %>% 
-  mutate(rank = 1:8)
+  mutate(rank = 1:8) %>% 
+  rename(overall = rank, 
+         speed = cp,
+         bouldering = cp_2,
+         lead = cp_3,
+         total = total_16)
+
+women_url <- "https://en.wikipedia.org/wiki/Sport_climbing_at_the_2020_Summer_Olympics_%E2%80%93_Women%27s_combined"
+
+wq <- women_url %>% 
+  read_html() %>% 
+  html_table() %>% 
+  .[[7]] %>% 
+  row_to_names(row_number = 1) %>% 
+  clean_names() %>% 
+  rename(overall = rank, 
+         speed = cp,
+         bouldering = cp_2,
+         lead = cp_3,
+         total = total_10)
+
+wf <- women_url %>% 
+  read_html() %>% 
+  html_table() %>% 
+  .[[8]] %>% 
+  row_to_names(row_number = 1) %>% 
+  clean_names() %>% 
+  filter(climber != "Climber") %>% 
+  mutate(rank = 1:8) %>% 
+  rename(overall = rank, 
+         speed = cp,
+         bouldering = cp_2,
+         lead = cp_3)
+
+
+write_csv(wf, "data/2020_olympics/wf.csv")
+
+
+
+
+#####
 
 
 mq %>% 
@@ -143,21 +167,28 @@ rerank_df %>%
 
 url <- "https://en.wikipedia.org/wiki/Sport_climbing_at_the_2020_Summer_Olympics_%E2%80%93_Women%27s_combined"
 
-wq <- url %>% 
+wf <- url %>% 
   read_html() %>% 
   html_table() %>% 
-  .[[5]] %>% 
+  .[[8]] %>% 
   row_to_names(row_number = 1) %>% 
-  clean_names() 
+  clean_names() %>% 
+  filter(climber != "Climber") %>% 
+  mutate(rank = 1:8)
 
-df <- wq %>% 
+df <- wf %>% 
   select(climber,
          speed = cp,
          bould = cp_2,
          lead = cp_3)
 
 
-wq %>% 
+
+
+
+
+
+wf %>% 
   select(overall = rank,
          speed = cp,
          bould = cp_2,
