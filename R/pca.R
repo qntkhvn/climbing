@@ -20,12 +20,13 @@ wq_cleaned <- wq %>%
   select(climber, speed_best, bould_tops, lead_hr) %>%
   column_to_rownames(var = "climber")
 
+# SOME EDA
+
 # pca fit
 wq_pca <- wq_cleaned %>%
   prcomp(scale = TRUE)
 
 # plot
-
 library(ggfortify)
 wq_pca %>% 
   autoplot(label = TRUE, 
