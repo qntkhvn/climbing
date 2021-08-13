@@ -1,0 +1,115 @@
+---
+title: "swaps"
+author: "Hannah Butler"
+date: "8/13/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ggplot2)
+load(file = "2020_olympics.rdata")
+```
+
+### Men's Olympic Finals
+
+```{r, echo = FALSE}
+mens_finals_events <- mens_finals %>%
+  select(climber, og_speed = speed, og_bould = bouldering, og_lead = lead)
+
+mens_swaps12 <- mens_finals_events %>%
+  mutate(swap_speed = ifelse(climber == "Alberto Ginés López", 2, og_speed)
+         , swap_speed = ifelse(climber == "Tomoa Narasaki", 1, swap_speed)
+         , swap_bould = ifelse(climber == "Nathaniel Coleman", 2, og_bould)
+         , swap_bould = ifelse(climber == "Mickaël Mawem", 1, swap_bould)
+         , swap_lead = ifelse(climber == "Jakob Schubert", 2, og_lead)
+         , swap_lead = ifelse(climber == "Adam Ondra", 1, swap_lead)
+         ) %>%
+  pivot_longer(og_speed:swap_lead) %>%
+  rename(swap = name) %>%
+  mutate(event = sub(".*_", "", swap)) %>%
+  mutate(swap = ifelse(substr(swap, 1,2) == "og", "original", sub(".*_", "", swap))) %>%
+  pivot_wider(names_from = event, values_from = value) %>%
+  group_by(climber) %>%
+  mutate(speed = ifelse(is.na(speed), speed[swap == "original"], speed)
+         , bould = ifelse(is.na(bould), bould[swap == "original"], bould)
+         , lead = ifelse(is.na(lead), lead[swap == "original"], lead)
+         ) %>%
+  ungroup() %>%
+  group_by(swap) %>%
+  mutate(total = speed*bould*lead
+         , total_rank = rank(total)
+         ) %>%
+  arrange(swap, total_rank)
+  
+
+mens_swaps12 %>% 
+  filter(swap == "original") %>%
+  knitr::kable()
+
+mens_swaps12 %>% 
+  filter(swap == "speed") %>%
+  knitr::kable()
+
+mens_swaps12 %>% 
+  filter(swap == "bould") %>%
+  knitr::kable()
+
+mens_swaps12 %>% 
+  filter(swap == "lead") %>%
+  knitr::kable()
+```
+
+
+### Women's Olympic Finals
+
+```{r, echo = FALSE}
+womens_finals_events <- womens_finals %>%
+  select(climber, og_speed = speed, og_bould = bouldering, og_lead = lead)
+
+womens_swaps12 <- womens_finals_events %>%
+  mutate(swap_speed = ifelse(climber == "Aleksandra Mirosław", 2, og_speed)
+         , swap_speed = ifelse(climber == "Anouck Jaubert", 1, swap_speed)
+         , swap_bould = ifelse(climber == "Janja Garnbret", 2, og_bould)
+         , swap_bould = ifelse(climber == "Brooke Raboutou", 1, swap_bould)
+         , swap_lead = ifelse(climber == "Janja Garnbret", 2, og_lead)
+         , swap_lead = ifelse(climber == "Seo Chae-hyun", 1, swap_lead)
+         ) %>%
+  pivot_longer(og_speed:swap_lead) %>%
+  rename(swap = name) %>%
+  mutate(event = sub(".*_", "", swap)) %>%
+  mutate(swap = ifelse(substr(swap, 1,2) == "og", "original", sub(".*_", "", swap))) %>%
+  pivot_wider(names_from = event, values_from = value) %>%
+  group_by(climber) %>%
+  mutate(speed = ifelse(is.na(speed), speed[swap == "original"], speed)
+         , bould = ifelse(is.na(bould), bould[swap == "original"], bould)
+         , lead = ifelse(is.na(lead), lead[swap == "original"], lead)
+         ) %>%
+  ungroup() %>%
+  group_by(swap) %>%
+  mutate(total = speed*bould*lead
+         , total_rank = rank(total)
+         ) %>%
+  arrange(swap, total_rank)
+  
+
+womens_swaps12 %>% 
+  filter(swap == "original") %>%
+  knitr::kable()
+
+womens_swaps12 %>% 
+  filter(swap == "speed") %>%
+  knitr::kable()
+
+womens_swaps12 %>% 
+  filter(swap == "bould") %>%
+  knitr::kable()
+
+womens_swaps12 %>% 
+  filter(swap == "lead") %>%
+  knitr::kable()
+```
+
+
+### How unstable are the medalists in their positions?
