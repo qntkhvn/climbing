@@ -128,7 +128,7 @@ swap_cons <- function(n, n1, n2) {
 }
 ```
 
-below is a table summarizing the results for all consecutive ranking swaps in each event, holding the other 2 events constant.
+below is a table summarizing the results for all consecutive ranking swaps in each event, holding the other 2 events constant as original rankings.
 
 ```{r, echo = FALSE}
 mens_swaps_all <- 
