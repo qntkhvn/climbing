@@ -286,6 +286,10 @@ the results of a climbing competition, specifically how a
 disqualification can affect the standings of medalists in the final
 round.
 
+Paragraph on rank swapping
+
+Paragraph on PCA
+
 \hypertarget{simulations}{%
 \section{Simulations}\label{simulations}}
 
@@ -462,6 +466,8 @@ Ranks}\label{probability-of-reordering-in-higher-ranks}}
 We first look at the rate at which the ranks above that of which is
 dropped are reordered.
 
+(Need a more detailed description)
+
 \begin{tabular}{rrrrr}
 \toprule
 Dropped Rank & Simulations & Avg. Probability & Median Probability & St. Deviation\\
@@ -515,6 +521,34 @@ might be worth computing the probability of getting a low ranking in any
 of the individual events, given that a competitor is a finalist (ie:
 \(P(r_1 > 8 \text{ or } r_2 > 8 \text{ or } r_3 > 8 \text{ }|\text{ } R_T \leq 8)\)).
 
+Olympic Finalist Bassa Mawem pulled out of the sport climbing finals due
+to an injury in his left arm. Reuters reported that Megos, originally
+9th in the total qualification rankings would not be replacing him. We
+suspect that this might be part of the unclear format of the Olympic
+Sport Climbing format. However, according to the climber's rankings,
+Megos technically should not have been next in line to fill in the
+missing finalist spot. Upon removing B. Mawem from the list and
+reranking the remaining competitors, we find that Chon would have moved
+into 8th place with a 640 combined score and Megos would have remained
+in 9th with 648. B. Mawem originally ranked first in the speed climbing,
+and Megos did comparatively poorly with 19th place. Both performed
+better than Mawem in bouldering and lead, leaving those rankings
+unchanged.
+
+Prior, we considered a change in finalists if a non-finalist was
+removed. It is clear now though that the more interesting scenario is
+would would replace an original finalist who is removed from the
+rankings. Should it be the original 9th place competitor, or does it
+make more sense with such a scoring system to rerank? Surely Chon should
+be rewarded for his superior performance in speed compared to Megos with
+the chance to win a medal?
+
+The next set of simulations will evaluate the probability that a removed
+finalist is replaced with someone other than the original 9th place
+competitor.
+
+\begin{center}\includegraphics{draft_files/figure-latex/unnamed-chunk-14-1} \end{center}
+
 \hypertarget{probability-that-medalists-are-reordered-or-changed}{%
 \subsubsection{Probability that Medalists are Reordered or
 Changed}\label{probability-that-medalists-are-reordered-or-changed}}
@@ -562,11 +596,11 @@ correlations from the qualification rounds of the 2018 Asian Games
 
 \begin{figure}
 
-{\centering \includegraphics{draft_files/figure-latex/unnamed-chunk-16-1} 
+{\centering \includegraphics{draft_files/figure-latex/unnamed-chunk-17-1} 
 
 }
 
-\caption{Kendall's rank correlations - 2018 World Championship, Men's and Women's Qualifications}\label{fig:unnamed-chunk-16}
+\caption{Kendall's rank correlations - 2018 World Championship, Men's and Women's Qualifications}\label{fig:unnamed-chunk-17}
 \end{figure}
 
 \hypertarget{leave-one-climber-out-analysis}{%
@@ -601,11 +635,38 @@ a jump from fourth place to second place for Pan.
 
 \begin{figure}
 
-{\centering \includegraphics{draft_files/figure-latex/unnamed-chunk-19-1} 
+{\centering \includegraphics{draft_files/figure-latex/unnamed-chunk-20-1} 
 
 }
 
-\caption{This figure illustrates the changes to the final rankings of the 2018 Youth Olympics Men's and Women's Finals when we leave out one climber. For each gender competition, each panel represents the rank of the drop-out athlete, with 0 being the original final results. Each case with a change in rank orderings is highlighted by a black panel border, and any player with a rank change is represented by a red-filled bar}\label{fig:unnamed-chunk-19}
+\caption{This figure illustrates the changes to the final rankings of the 2018 Youth Olympics Men's and Women's Finals when we leave out one climber. For each gender competition, each panel represents the rank of the drop-out athlete, with 0 being the original final results. Each case with a change in rank orderings is highlighted by a black panel border, and any player with a rank change is represented by a red-filled bar}\label{fig:unnamed-chunk-20}
+\end{figure}
+
+\hypertarget{rank-swapping-analysis}{%
+\subsection{Rank Swapping Analysis}\label{rank-swapping-analysis}}
+
+\hypertarget{principal-component-analysis}{%
+\subsection{Principal Component
+Analysis}\label{principal-component-analysis}}
+
+Olympic results
+
+\begin{figure}
+
+{\centering \includegraphics{draft_files/figure-latex/unnamed-chunk-23-1} 
+
+}
+
+\caption{Women's Qualification PCA}\label{fig:unnamed-chunk-23}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics{draft_files/figure-latex/unnamed-chunk-24-1} 
+
+}
+
+\caption{Men's Qualification PCA}\label{fig:unnamed-chunk-24}
 \end{figure}
 
 \hypertarget{conclusion-and-discussion}{%
@@ -630,7 +691,7 @@ on GitHub at \newline \url{https://github.com/qntkhvn/climbing}.
 
 \begin{table}[H]
 
-\caption{\label{tab:unnamed-chunk-21}This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2018 Asian Games}
+\caption{\label{tab:unnamed-chunk-26}This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2018 Asian Games}
 \centering
 \resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lrrrrrrrr}
@@ -649,7 +710,7 @@ Lead & 0.6126 & 0.2174 & 0.6203 & 1.0000 & 0.7053 & 0.2947 & 0.6878 & 1.0000\\
 
 \begin{table}[H]
 
-\caption{\label{tab:unnamed-chunk-22}This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2019 World Championships}
+\caption{\label{tab:unnamed-chunk-27}This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2019 World Championships}
 \centering
 \resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lrrrrrrrr}
@@ -668,7 +729,7 @@ Lead & 0.3474 & -0.3263 & 0.2000 & 1.0000 & 0.2526 & -0.4526 & 0.2902 & 1.0000\\
 
 \begin{table}[H]
 
-\caption{\label{tab:unnamed-chunk-23}This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2020 European Championship}
+\caption{\label{tab:unnamed-chunk-28}This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2020 European Championship}
 \centering
 \resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lrrrrrrrr}
@@ -687,7 +748,7 @@ Lead & 0.2632 & -0.4316 & 0.2751 & 1.0000 & 0.5368 & -0.0897 & 0.5040 & 1.0000\\
 
 \begin{table}[H]
 
-\caption{\label{tab:unnamed-chunk-24}This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2020 Pan American Championship}
+\caption{\label{tab:unnamed-chunk-29}This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2020 Pan American Championship}
 \centering
 \resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lrrrrrrrr}
