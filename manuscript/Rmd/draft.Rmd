@@ -502,9 +502,16 @@ mf_gg + wf_gg +
 ## Rank Swapping Analysis
 
 
+
 ## Principal Component Analysis
 
 Olympic results
+
+Women: lead and bouldering belong to the same component, the other is speed.
+
+"overall ability"
+
+"power"
 
 ```{r}
 # Women's qual
@@ -566,6 +573,15 @@ wq_pca %>%
            loadings.label.size = 5)
 ```
 
+How each variable contributes to each principal component
+
+```{r}
+tidy(wq_pca, matrix = "loadings") %>%
+  ggplot(aes(value, column)) +
+  facet_wrap(~ PC) +
+  geom_col()
+```
+
 
 
 ```{r, fig.cap= "Men's Qualification PCA", fig.width = 6, fig.height = 5}
@@ -584,6 +600,13 @@ mq_pca %>%
            loadings.label.size = 5)
 ```
 
+
+```{r}
+tidy(mq_pca, matrix = "loadings") %>%
+  ggplot(aes(value, column)) +
+  facet_wrap(~ PC) +
+  geom_col()
+```
 
 # Conclusion and Discussion
 
@@ -625,6 +648,8 @@ print_cor <- function(event = "",
     kable_styling(latex_options = c("repeat_header", "scale_down"))
 }
 ```
+
+
 
 ```{r}
 print_cor("2018_asiad", title = "This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2018 Asian Games")

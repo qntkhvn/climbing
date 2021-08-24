@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2021.8.11)  23 AUG 2021 17:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2021.8.11)  24 AUG 2021 12:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -588,70 +588,84 @@ LaTeX Warning: Float too large for page by 17.0305pt on input line 643.
 File: draft_files/figure-latex/unnamed-chunk-23-1.pdf Graphic file (type pdf)
 <use draft_files/figure-latex/unnamed-chunk-23-1.pdf>
 Package pdftex.def Info: draft_files/figure-latex/unnamed-chunk-23-1.pdf  used 
-on input line 656.
+on input line 663.
 (pdftex.def)             Requested size: 433.61894pt x 361.34912pt.
-<draft_files/figure-latex/unnamed-chunk-24-1.pdf, id=225, 433.62pt x 361.35pt>
+<draft_files/figure-latex/unnamed-chunk-24-1.pdf, id=225, 361.35pt x 289.08pt>
 File: draft_files/figure-latex/unnamed-chunk-24-1.pdf Graphic file (type pdf)
 <use draft_files/figure-latex/unnamed-chunk-24-1.pdf>
 Package pdftex.def Info: draft_files/figure-latex/unnamed-chunk-24-1.pdf  used 
-on input line 665.
-(pdftex.def)             Requested size: 433.61894pt x 361.34912pt.
+on input line 672.
+(pdftex.def)             Requested size: 361.34912pt x 289.07928pt.
 [16] [17pdfTeX warning (ext4): destination with the same identifier (name{figur
 e.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.709 \end{table}
-                  <./draft_files/figure-latex/unnamed-chunk-20-1.pdf>] [18pdfTe
-X warning (ext4): destination with the same identifier (name{figure.6}) has bee
-n already used, duplicate ignored
+l.672 ...re-latex/unnamed-chunk-24-1} \end{center}
+                                                   <./draft_files/figure-latex/
+unnamed-chunk-20-1.pdf>] [18pdfTeX warning (ext4): destination with the same id
+entifier (name{figure.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.709 \end{table}
-                  <./draft_files/figure-latex/unnamed-chunk-23-1.pdf>] [19pdfTe
-X warning (ext4): destination with the same identifier (name{figure.7}) has bee
-n already used, duplicate ignored
+l.672 ...re-latex/unnamed-chunk-24-1} \end{center}
+                                                   <./draft_files/figure-latex/
+unnamed-chunk-23-1.pdf>]
+<draft_files/figure-latex/unnamed-chunk-25-1.pdf, id=252, 433.62pt x 361.35pt>
+File: draft_files/figure-latex/unnamed-chunk-25-1.pdf Graphic file (type pdf)
+<use draft_files/figure-latex/unnamed-chunk-25-1.pdf>
+Package pdftex.def Info: draft_files/figure-latex/unnamed-chunk-25-1.pdf  used 
+on input line 676.
+(pdftex.def)             Requested size: 433.61894pt x 361.34912pt.
+<draft_files/figure-latex/unnamed-chunk-26-1.pdf, id=253, 361.35pt x 289.08pt>
+File: draft_files/figure-latex/unnamed-chunk-26-1.pdf Graphic file (type pdf)
+<use draft_files/figure-latex/unnamed-chunk-26-1.pdf>
+Package pdftex.def Info: draft_files/figure-latex/unnamed-chunk-26-1.pdf  used 
+on input line 683.
+(pdftex.def)             Requested size: 361.34912pt x 289.07928pt.
+[19 <./draft_files/figure-latex/unnamed-chunk-24-1.pdf> <./draft_files/figure-l
+atex/unnamed-chunk-26-1.pdf>] [20pdfTeX warning (ext4): destination with the sa
+me identifier (name{figure.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.709 \end{table}
-                  <./draft_files/figure-latex/unnamed-chunk-24-1.pdf>] [20pdfTe
-X warning (ext4): destination with the same identifier (name{table.6}) has been
- already used, duplicate ignored
+l.690 S
+       peed climbers <./draft_files/figure-latex/unnamed-chunk-25-1.pdf>] [21pd
+fTeX warning (ext4): destination with the same identifier (name{table.6}) has b
+een already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.748 
-      pdfTeX warning (ext4): destination with the same identifier (name{table.7
+l.742 
+      ] [22pdfTeX warning (ext4): destination with the same identifier (name{ta
+ble.7}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.780 
+      pdfTeX warning (ext4): destination with the same identifier (name{table.8
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.748 
-      ] (./draft.bbl [21pdfTeX warning (ext4): destination with the same identi
-fier (name{table.8}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.18 
-     pdfTeX warning (ext4): destination with the same identifier (name{table.9}
-) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.18 
-     ]
+l.780 
+      ] (./draft.bbl
 Underfull \hbox (badness 1603) in paragraph at lines 29--32
 \OT1/cmr/bx/n/12 URL: \OT1/cmr/m/it/12 https://olympics.com/ioc/news/ioc-approv
 es-five-new-sports-for-olympic-games-
  []
 
-) [22] (./draft.aux)
+[23pdfTeX warning (ext4): destination with the same identifier (name{table.9}) 
+has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.37 \harvarditem{Luce}{1959}{luce1959}
+                                       ]) [24] (./draft.aux)
 Package rerunfilecheck Info: File `draft.out' has not changed.
 (rerunfilecheck)             Checksum: E80477C83B89A1ABFF9F930BD1EDCDF3;2667.
  ) 
 Here is how much of TeX's memory you used:
- 10932 strings out of 480502
- 162931 string characters out of 5898752
- 488940 words of memory out of 5000000
- 28345 multiletter control sequences out of 15000+600000
+ 10952 strings out of 480502
+ 163859 string characters out of 5898752
+ 487940 words of memory out of 5000000
+ 28361 multiletter control sequences out of 15000+600000
  411607 words of font info for 56 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 60i,10n,66p,562b,441s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,10n,66p,562b,449s stack positions out of 5000i,500n,10000p,200000b,80000s
 </Users/qntkhvn/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmb
 x10.pfb></Users/qntkhvn/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmbx12.pfb></Users/qntkhvn/Library/TinyTeX/texmf-dist/fonts/type1/public/ams
@@ -663,10 +677,10 @@ onts/type1/public/amsfonts/cm/cmr8.pfb></Users/qntkhvn/Library/TinyTeX/texmf-di
 st/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/qntkhvn/Library/TinyTeX/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></Users/qntkhvn/Library/Tiny
 TeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on draft.pdf (22 pages, 220044 bytes).
+Output written on draft.pdf (24 pages, 229181 bytes).
 PDF statistics:
- 348 PDF objects out of 1000 (max. 8388607)
- 285 compressed objects within 3 object streams
- 80 named destinations out of 1000 (max. 500000)
- 161 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 368 PDF objects out of 1000 (max. 8388607)
+ 299 compressed objects within 3 object streams
+ 82 named destinations out of 1000 (max. 500000)
+ 171 words of extra memory for PDF output out of 10000 (max. 10000000)
 
