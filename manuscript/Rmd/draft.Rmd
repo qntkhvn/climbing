@@ -145,6 +145,10 @@ Since we are interested in applying the "leave-one-climber-out" type of analysis
 
 We notice a link between the concept of IIA and the topic of ranking system in sports. As an illustration, suppose we have 3 players A, B, and C participating in a competition. If A finishes in the first place and C is later disqualified and removed, A should still win. If the original winner (A) loses the modified competition (with C removed), then the Independence of Irrelevant Alternatives has been violated. For our particular case, this sort of analysis can be helpful in examining the results of a climbing competition, specifically how a disqualification can affect the standings of medalists in the final round.
 
+Paragraph on rank swapping
+
+Paragraph on PCA
+
 
 <!--
 First mentioned by Arrow (1951) https://cowles.yale.edu/sites/default/files/files/pub/mon/m12-all.pdf
@@ -273,6 +277,8 @@ We would expect that if a climber with a high combined ranking is removed from t
 ### Probability of Reordering in Higher Ranks
 
 We first look at the rate at which the ranks above that of which is dropped are reordered.
+
+(Need a more detailed description)
 
 ```{r, echo = FALSE}
 load("draft_files/reorder_all_above_probs.rdata")
@@ -493,6 +499,115 @@ mf_gg + wf_gg +
   plot_layout(nrow = 2)
 ```
 
+## Rank Swapping Analysis
+
+
+
+## Principal Component Analysis
+
+Olympic results
+
+Women: lead and bouldering belong to the same component, the other is speed.
+
+"overall ability"
+
+"power"
+
+```{r}
+# Women's qual
+wq <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2020_olympics/wq.csv")
+wq_cleaned <- wq %>%
+  mutate(
+    a = as.numeric(str_remove_all(a, "[A-z]")),
+    b = as.numeric(str_remove_all(b, "[A-z]")),
+    speed_best = ifelse(is.na(a), b,
+                        ifelse(is.na(b), a,
+                               ifelse(a < b, a, b))),
+    bould_tops = as.numeric(str_sub(results, 1, 1)),
+    lead_hr = ifelse(
+      str_detect(hr, "\\+"),
+      as.numeric(str_sub(hr, 1, nchar(hr) - 1)) + 0.5,
+      as.numeric(hr)
+    )
+  ) %>%
+  select(climber, speed_best, bould_tops, lead_hr) %>%
+  column_to_rownames(var = "climber")
+
+# Men's qual
+mq <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2020_olympics/mq.csv")
+mq_cleaned <- mq %>%
+  mutate(
+    a = as.numeric(str_remove_all(a, "[A-z]")),
+    b = as.numeric(str_remove_all(b, "[A-z]")),
+    speed_best = ifelse(is.na(a), b,
+                        ifelse(is.na(b), a,
+                               ifelse(a < b, a, b))),
+    bould_tops = as.numeric(str_sub(results, 1, 1)),
+    lead_hr = ifelse(
+      str_detect(hr, "\\+"),
+      as.numeric(str_sub(hr, 1, nchar(hr) - 1)) + 0.5,
+      as.numeric(hr)
+    )
+  ) %>%
+  select(climber, speed_best, bould_tops, lead_hr) %>%
+  column_to_rownames(var = "climber")
+```
+
+```{r}
+library(broom)
+```
+
+```{r, fig.cap= "Women's Qualification PCA", fig.width = 6, fig.height = 5}
+# pca fit
+wq_pca <- wq_cleaned %>%
+  prcomp(scale = TRUE)
+
+# plot
+library(ggfortify)
+wq_pca %>% 
+  autoplot(label = TRUE, 
+           label.size = 3,
+           label.repel = TRUE,
+           loadings = TRUE,
+           loadings.label = TRUE, 
+           loadings.label.size = 5)
+```
+
+How each variable contributes to each principal component
+
+```{r}
+tidy(wq_pca, matrix = "loadings") %>%
+  ggplot(aes(value, column)) +
+  facet_wrap(~ PC) +
+  geom_col()
+```
+
+
+
+```{r, fig.cap= "Men's Qualification PCA", fig.width = 6, fig.height = 5}
+# pca fit
+mq_pca <- mq_cleaned %>%
+  prcomp(scale = TRUE)
+
+# plot
+library(ggfortify)
+mq_pca %>% 
+  autoplot(label = TRUE, 
+           label.size = 3,
+           label.repel = TRUE,
+           loadings = TRUE,
+           loadings.label = TRUE, 
+           loadings.label.size = 5)
+```
+
+
+```{r}
+tidy(mq_pca, matrix = "loadings") %>%
+  ggplot(aes(value, column)) +
+  facet_wrap(~ PC) +
+  geom_col()
+```
+
 # Conclusion and Discussion
 
 Overall
@@ -533,6 +648,8 @@ print_cor <- function(event = "",
     kable_styling(latex_options = c("repeat_header", "scale_down"))
 }
 ```
+
+
 
 ```{r}
 print_cor("2018_asiad", title = "This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2018 Asian Games")
