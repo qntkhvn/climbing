@@ -20,7 +20,7 @@ keywords:
 - 2020 Summer Olympics
 
 abstract: |
-  The purpose of this paper is to investigate the controversial competition format and scoring system of sport climbing, which is one of the sports making its debut on the Olympics stage at Tokyo 2020. Climbing Olympians are required to participate in three disciplines: speed climbing, bouldering, and lead climbing for only a single set of medals, and a multiplied score of climbers' rankings in all three disciplines will be used to determine the overall standings. This work finds great evidence from historical data and simulations that the current competition format is putting speed climbers at a disadvantage. Furthermore, it is shown that the product of ranks scoring system violates the independence of irrelevant alternatives property.
+  Sport climbing, which made its Olympic debut at the 2020 Summer Games, generally consists of three separate disciplines: speed climbing, bouldering, and lead climbing.  However, the International Olympic Committee (IOC) only allowed one set of medals per gender for sport climbing at Tokyo 2020. As a result, the governing body of sport climbing, rather than choosing only one of the three disciplines to include in the Olympics, decided to create a competition combining all three disciplines. In order to determine a winner, a combined scoring system was created using the product of the ranks across the three disciplines to determine an overall score for each climber. In this work, the sport climbing scoring system is evaluated through simulations to investigate its general features such as the advancement probabilities given certain placements and the sensitivity of the scoring system to small changes. In addition, analyses of historical climbing contest results are presented and real examples of violations of the independence of irrelevant alternatives are illustrated. Finally, this work finds evidence that the current competition format is putting speed climbers at a disadvantage.  
   
 bibliography: references.bib
 output: rticles::asa_article
@@ -666,3 +666,20 @@ print_cor("2020_europe", title = "This table shows Kendall's rank correlation co
 ```{r}
 print_cor("2020_pan_american", title = "This table shows Kendall's rank correlation coefficients between the overall and individual discipline ranks for men's and women's sport climbing qualifications at the 2020 Pan American Championship")
 ```
+
+gold medal
+
+order of medalists
+
+3 medalists
+
+any rankings
+
+
+Structure:
+
+sensitivity to:
+
+results
+
+tournament format
