@@ -53,8 +53,6 @@ The three disciplines that comprise sport climbing at Tokyo 2020 are: speed clim
 These three different climbing disciplines demand different sets of skills and, often, athletes specialize in a single event. However, since only one set of Olympic medals is awarded to sport climbing, rather than choosing only one of these disciplines to include in the Olympics, all three events were chosen to be included as a sort of climbing triathlon. 
 -->
 
-The decision to combine the three climbing events and only award one set of medals for both men's and women's events in the Olympics has received a large amount of criticism from climbing athletes all over the world. In a series of interviews conducted by Climbing Magazine in 2016, a number of climbers shared their thoughts and concerns about the new Olympics climbing format. Climber Lynn Hill compared the idea of combining speed climbing, bouldering, and lead climbing to "asking a middle distance runner to compete in the sprint". She then added "Speed climbing is a sport within our sport". Other climbers also hold the same opinion as Hill regarding speed climbing, using words and phrases like "bogus", "a bummer", "less than ideal", "not in support", and "cheesy and unfair" to describe the new combined competition format. Courtney Woods stated "Speed climbers will have the biggest disadvantage because their realm isn’t based on difficult movements". Mike Doyle believed "Honestly, the people that will suffer the most are the ones that focus only on speed climbing. Those skills/abilities don’t transfer as well to the other disciplines". Most climbers also expressed their hope for a change in the format in future tournaments, with some calling for each discipline to have its own set of medals. See @blanchard2016 for more information on these interviews.
-
 At the 2020 Summer Olympics, both sport climbing competitions for male and female at the begin with 20 climbers who has previously qualified for the Olympics from qualifying events held in 2019 and 2020. All 20 athletes compete in each of the three disciplines in the qualification round, and their performances in each concentration are ranked from 1 to 20. A competitor's combined score is computed as the product of their ranks in the three events; specifically, 
 \begin{equation}
 Score_i = R^S_i\times R^B_i\times R^L_i,
@@ -73,6 +71,8 @@ As a side note, rank product, genes
 
 In particular, we show how this format is putting speed climbers at a disadvantage, as well as address the 
 -->
+
+The decision to combine the three climbing events and only award one set of medals for both men's and women's events in the Olympics has received a large amount of criticism from climbing athletes all over the world. In a series of interviews conducted by Climbing Magazine in 2016, a number of climbers shared their thoughts and concerns about the new Olympics climbing format. Climber Lynn Hill compared the idea of combining speed climbing, bouldering, and lead climbing to "asking a middle distance runner to compete in the sprint". She then added "Speed climbing is a sport within our sport". Other climbers also hold the same opinion as Hill regarding speed climbing, using words and phrases like "bogus", "a bummer", "less than ideal", "not in support", and "cheesy and unfair" to describe the new combined competition format. Courtney Woods stated "Speed climbers will have the biggest disadvantage because their realm isn’t based on difficult movements". Mike Doyle believed "Honestly, the people that will suffer the most are the ones that focus only on speed climbing. Those skills/abilities don’t transfer as well to the other disciplines". Most climbers also expressed their hope for a change in the format in future tournaments, with some calling for each discipline to have its own set of medals. See @blanchard2016 for more information on these interviews.
 
 In this paper, we attempt to use simple statistical analysis to address the limitations of sport climbing's combined competition format and ranking system.  The manuscript is outlined as follows. We first begin with some descriptions of the data and methods in Section \ref{data-and-methods}. Our analyses and results are then presented in Sections \ref{simulations} and \ref{data-analysis}. Finally, in Section \ref{conclusion-and-discussion}, we summarize up our main findings and provide a discussion to close out the paper.
 
@@ -357,7 +357,9 @@ displace_probs %>%
 
 # Data Analysis
 
-## Rank Correlation
+## Correlation Analysis
+
+### Rank Correlation
 
 For our analysis on the relationship between the rankings of the events and the final result, we used data from the 2018 Youth Olympics Women's Qualification. Figure 2 is a scatterplot and correlation matrix between the ranks of the individual events and the final standings, with Kendall’s Tau [@kendall1938] as our measure of ordinal association between the quantities. It is evidently clear that there exists a strong and positive correlation between the ranks of bouldering and lead climbing, and as a results, the standings of these two events are highly correlated with the final rankings. On the other hand, the correlation with the final rank is not as strong for speed climbing as the other two events. Thus, speed climbers are facing a huge disadvantage in this scoring system, compared to those that are specialized in the other two concentrations. This validates the concerns of climbers in the interview mentioned in Section \ref{introduction}. We also have evidence for these correlations from the qualification rounds of the 2018 Asian Games (Table 4), 2019 World Championship (Table 5), 2020 European Championship (Table 6), and 2020 Pan-American Championships (Table 7).
 
@@ -395,115 +397,7 @@ plot_grid(
 )
 ```
 
-## Leave-one-climber-out Analysis
-
-Next, we perform analysis on the situations where a climber is dropped from the original standings. We once again make use of data from the 2018 Youth Olympics for this analysis, but this time we examine the final round of both men's and women's competitions.
-
-Figure 3 shows the modified versions of the rankings after each ranked climber is excluded for both gender events. We have clear evidence from this plot that removing a single climber changes the rankings drastically, especially order of medalists. One particular interesting case is where an athlete's position change when someone who originally finished behind them drops out. This situation is illustrated by panel 5 of the women's competition, where the fifth-place climber, Krasovskaia, was excluded; and Meul, whose actual final rank was fourth, moved up to the second spot and claim the silver medal. Furthermore, this implies that the ranking system of Olympics sport climbing violates the IIA criterion.
-
-Likewise, dropping a higher-ranked athlete could also result in a major shake-up to the new orderings of players. This type of ranking change is demonstrated by panel 1 and 2 of the men's facet. After dropping the first ranked male contestant, Dohi; Schenk, who previously finished fourth and outside of the medalist group now has the lowest score and become the gold medal winner. A similar situation occurs in the case where the second best competitor (Tanaka) was removed, which results in a jump from fourth place to second place for Pan.
-
-```{r}
-wf <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2018_youth_olympics/women_final.csv")
-mf <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2018_youth_olympics/men_final.csv")
-
-drop_rerank <- function(df) {
-  rerank <- list()
-  for (i in 1:nrow(df)) {
-    rerank[[i]] <- df[-i, ] %>%
-      mutate(rank_drop = i)
-  }
-  
-  rerank_df <- df %>%
-    mutate(rank_drop = 0) %>%
-    bind_rows(rerank) %>%
-    group_by(rank_drop) %>%
-    mutate(
-      speed = rank(speed),
-      bould = rank(bould),
-      lead = rank(lead),
-      total = speed * bould * lead
-    ) %>%
-    arrange(total, .by_group = TRUE) %>%
-    ungroup() %>%
-    group_by(rank_drop, total) %>%
-    mutate(
-      speed_tb = ifelse(speed < lag(speed), 1, 0),
-      bould_tb = ifelse(bould < lag(bould), 1, 0),
-      lead_tb = ifelse(lead < lag(lead), 1, 0),
-      tb = speed_tb + bould_tb + lead_tb,
-      tb = ifelse(is.na(tb), 1, tb)
-    ) %>%
-    ungroup() %>%
-    group_by(rank_drop) %>%
-    arrange(total,-tb, .by_group = TRUE) %>%
-    mutate(rank = row_number(),
-           last = str_to_title(last))
-  
-  return(rerank_df)
-}
-```
-
-```{r}
-mf_gg <- drop_rerank(mf) %>% 
-  mutate(last = fct_reorder(last, -rank),
-         rank = as.factor(rank),
-         rank_change = ifelse(
-           rank_drop %in% c(0, 4) | 
-             rank_drop == 1 & rank %in% 4:5 |
-              rank_drop == 2 & rank %in% c(1, 5) |
-                rank_drop %in% c(3, 5) & rank %in% c(1, 2, 5) |
-                  rank_drop == 6 & rank %in% 1:3, 
-           "no", "yes")) %>% 
-  ggplot(aes(x = last, y = total, fill = rank_change)) +
-  geom_col(show.legend = FALSE) +
-  geom_text(aes(label = rank), hjust = -0.2, size = 3) +
-  coord_flip() +
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf),
-            data = ~ filter(., rank_drop %in% c(1, 2, 3, 5, 6)), 
-            color = "black", size = 1.5, fill = NA, inherit.aes = FALSE) +
-  facet_wrap(~ rank_drop, nrow = 2) +
-  expand_limits(y = 104, x = 0:7) +
-  scale_fill_manual(values = c("grey", "chocolate")) +
-  labs(x = "Men", y = "") +
-  theme(axis.ticks = element_blank(),
-        panel.grid.minor = element_blank())
-
-wf_gg <- drop_rerank(wf) %>% 
-  mutate(last = fct_reorder(last, -rank),
-         rank = as.factor(rank),
-         rank_change = ifelse(
-           rank_drop %in% c(0, 1, 4, 6) |
-             rank_drop == 2 & rank %in% 1:3 |
-              rank_drop == 3 & rank %in% c(1, 4, 5) |
-                rank_drop == 5 & rank %in% c(1, 5),
-           "no", "yes")) %>%
-  ggplot(aes(x = last, y = total, fill = rank_change)) +
-  geom_col(show.legend = FALSE) +
-  geom_text(aes(label = rank), hjust = -0.2, size = 3) +
-  coord_flip() +
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf),
-            data = ~ filter(., rank_drop %in% c(2, 3, 5)), 
-            color = "black", size = 1.5, fill = NA, inherit.aes = FALSE) +
-  facet_wrap(~ rank_drop, nrow = 2, ncol = 4) +
-  expand_limits(y = 62, x = 0:7) +
-  scale_fill_manual(values = c("grey", "red")) +
-  labs(y = "\nScore", x = "Women") +
-  theme(axis.ticks = element_blank(),
-        panel.grid.minor = element_blank())
-```
-
-```{r, fig.cap = "This figure illustrates the changes to the final rankings of the 2018 Youth Olympics Men's and Women's Finals when we leave out one climber. For each gender competition, each panel represents the rank of the drop-out athlete, with 0 being the original final results. Each case with a change in rank orderings is highlighted by a black panel border, and any player with a rank change is represented by a red-filled bar", fig.width = 6.5, fig.height = 7.5}
-library(patchwork)
-mf_gg + wf_gg +
-  plot_layout(nrow = 2)
-```
-
-## Rank Swapping Analysis
-
-
-
-## Principal Component Analysis
+### Principal Component Analysis
 
 Olympic results
 
@@ -607,6 +501,118 @@ tidy(mq_pca, matrix = "loadings") %>%
   facet_wrap(~ PC) +
   geom_col()
 ```
+
+## Sensitivity Analysis
+
+### Leave-one-climber-out Analysis
+
+Next, we perform analysis on the situations where a climber is dropped from the original standings. We once again make use of data from the 2018 Youth Olympics for this analysis, but this time we examine the final round of both men's and women's competitions.
+
+Figure 3 shows the modified versions of the rankings after each ranked climber is excluded for both gender events. We have clear evidence from this plot that removing a single climber changes the rankings drastically, especially order of medalists. One particular interesting case is where an athlete's position change when someone who originally finished behind them drops out. This situation is illustrated by panel 5 of the women's competition, where the fifth-place climber, Krasovskaia, was excluded; and Meul, whose actual final rank was fourth, moved up to the second spot and claim the silver medal. Furthermore, this implies that the ranking system of Olympics sport climbing violates the IIA criterion.
+
+Likewise, dropping a higher-ranked athlete could also result in a major shake-up to the new orderings of players. This type of ranking change is demonstrated by panel 1 and 2 of the men's facet. After dropping the first ranked male contestant, Dohi; Schenk, who previously finished fourth and outside of the medalist group now has the lowest score and become the gold medal winner. A similar situation occurs in the case where the second best competitor (Tanaka) was removed, which results in a jump from fourth place to second place for Pan.
+
+```{r}
+wf <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2018_youth_olympics/women_final.csv")
+mf <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2018_youth_olympics/men_final.csv")
+
+drop_rerank <- function(df) {
+  rerank <- list()
+  for (i in 1:nrow(df)) {
+    rerank[[i]] <- df[-i, ] %>%
+      mutate(rank_drop = i)
+  }
+  
+  rerank_df <- df %>%
+    mutate(rank_drop = 0) %>%
+    bind_rows(rerank) %>%
+    group_by(rank_drop) %>%
+    mutate(
+      speed = rank(speed),
+      bould = rank(bould),
+      lead = rank(lead),
+      total = speed * bould * lead
+    ) %>%
+    arrange(total, .by_group = TRUE) %>%
+    ungroup() %>%
+    group_by(rank_drop, total) %>%
+    mutate(
+      speed_tb = ifelse(speed < lag(speed), 1, 0),
+      bould_tb = ifelse(bould < lag(bould), 1, 0),
+      lead_tb = ifelse(lead < lag(lead), 1, 0),
+      tb = speed_tb + bould_tb + lead_tb,
+      tb = ifelse(is.na(tb), 1, tb)
+    ) %>%
+    ungroup() %>%
+    group_by(rank_drop) %>%
+    arrange(total,-tb, .by_group = TRUE) %>%
+    mutate(rank = row_number(),
+           last = str_to_title(last))
+  
+  return(rerank_df)
+}
+```
+
+```{r}
+mf_gg <- drop_rerank(mf) %>% 
+  mutate(last = fct_reorder(last, -rank),
+         rank = as.factor(rank),
+         rank_change = ifelse(
+           rank_drop %in% c(0, 4) | 
+             rank_drop == 1 & rank %in% 4:5 |
+              rank_drop == 2 & rank %in% c(1, 5) |
+                rank_drop %in% c(3, 5) & rank %in% c(1, 2, 5) |
+                  rank_drop == 6 & rank %in% 1:3, 
+           "no", "yes")) %>% 
+  ggplot(aes(x = last, y = total, fill = rank_change)) +
+  geom_col(show.legend = FALSE) +
+  geom_text(aes(label = rank), hjust = -0.2, size = 3) +
+  coord_flip() +
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf),
+            data = ~ filter(., rank_drop %in% c(1, 2, 3, 5, 6)), 
+            color = "black", size = 1.5, fill = NA, inherit.aes = FALSE) +
+  facet_wrap(~ rank_drop, nrow = 2) +
+  expand_limits(y = 104, x = 0:7) +
+  scale_fill_manual(values = c("grey", "chocolate")) +
+  labs(x = "Men", y = "") +
+  theme(axis.ticks = element_blank(),
+        panel.grid.minor = element_blank())
+
+wf_gg <- drop_rerank(wf) %>% 
+  mutate(last = fct_reorder(last, -rank),
+         rank = as.factor(rank),
+         rank_change = ifelse(
+           rank_drop %in% c(0, 1, 4, 6) |
+             rank_drop == 2 & rank %in% 1:3 |
+              rank_drop == 3 & rank %in% c(1, 4, 5) |
+                rank_drop == 5 & rank %in% c(1, 5),
+           "no", "yes")) %>%
+  ggplot(aes(x = last, y = total, fill = rank_change)) +
+  geom_col(show.legend = FALSE) +
+  geom_text(aes(label = rank), hjust = -0.2, size = 3) +
+  coord_flip() +
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf),
+            data = ~ filter(., rank_drop %in% c(2, 3, 5)), 
+            color = "black", size = 1.5, fill = NA, inherit.aes = FALSE) +
+  facet_wrap(~ rank_drop, nrow = 2, ncol = 4) +
+  expand_limits(y = 62, x = 0:7) +
+  scale_fill_manual(values = c("grey", "red")) +
+  labs(y = "\nScore", x = "Women") +
+  theme(axis.ticks = element_blank(),
+        panel.grid.minor = element_blank())
+```
+
+```{r, fig.cap = "This figure illustrates the changes to the final rankings of the 2018 Youth Olympics Men's and Women's Finals when we leave out one climber. For each gender competition, each panel represents the rank of the drop-out athlete, with 0 being the original final results. Each case with a change in rank orderings is highlighted by a black panel border, and any player with a rank change is represented by a red-filled bar", fig.width = 6.5, fig.height = 7.5}
+library(patchwork)
+mf_gg + wf_gg +
+  plot_layout(nrow = 2)
+```
+
+### Rank Swapping Analysis
+
+
+
+
 
 # Conclusion and Discussion
 
