@@ -421,11 +421,8 @@ wq_cleaned <- wq %>%
     lead_hr = ifelse(
       str_detect(hr, "\\+"),
       as.numeric(str_sub(hr, 1, nchar(hr) - 1)) + 0.5,
-      as.numeric(hr)
-    )
-  ) %>%
-  select(climber, speed_best, bould_tops, lead_hr) %>%
-  column_to_rownames(var = "climber")
+      as.numeric(hr)),
+    qualified = ifelse(overall < 9, "yes", "no"))
 
 # Men's qual
 mq <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2020_olympics/mq.csv")
@@ -440,11 +437,8 @@ mq_cleaned <- mq %>%
     lead_hr = ifelse(
       str_detect(hr, "\\+"),
       as.numeric(str_sub(hr, 1, nchar(hr) - 1)) + 0.5,
-      as.numeric(hr)
-    )
-  ) %>%
-  select(climber, speed_best, bould_tops, lead_hr) %>%
-  column_to_rownames(var = "climber")
+      as.numeric(hr)),
+    qualified = ifelse(overall < 9, "yes", "no"))
 ```
 
 ```{r}
@@ -454,6 +448,8 @@ library(broom)
 ```{r, fig.cap= "Women's Qualification PCA", fig.width = 6, fig.height = 5}
 # pca fit
 wq_pca <- wq_cleaned %>%
+  select(climber, speed_best, bould_tops, lead_hr) %>%
+  column_to_rownames(var = "climber") %>% 
   prcomp(scale = TRUE)
 
 # plot
@@ -464,7 +460,9 @@ wq_pca %>%
            label.repel = TRUE,
            loadings = TRUE,
            loadings.label = TRUE, 
-           loadings.label.size = 5)
+           loadings.label.size = 5,
+           data = wq_cleaned,
+           colour = "qualified")
 ```
 
 How each variable contributes to each principal component
@@ -481,6 +479,8 @@ tidy(wq_pca, matrix = "loadings") %>%
 ```{r, fig.cap= "Men's Qualification PCA", fig.width = 6, fig.height = 5}
 # pca fit
 mq_pca <- mq_cleaned %>%
+  select(climber, speed_best, bould_tops, lead_hr) %>%
+  column_to_rownames(var = "climber") %>% 
   prcomp(scale = TRUE)
 
 # plot
@@ -491,7 +491,9 @@ mq_pca %>%
            label.repel = TRUE,
            loadings = TRUE,
            loadings.label = TRUE, 
-           loadings.label.size = 5)
+           loadings.label.size = 5,
+           data = mq_cleaned,
+           colour = "qualified")
 ```
 
 
