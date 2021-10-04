@@ -196,12 +196,16 @@ load("nineth_to_finals.rdata")
 
 nineth_to_finals %>%
   ggplot(aes(x = dropped_rank, y = nineth_to_fin)) +
-  geom_boxplot(aes(group = dropped_rank)) +
+  geom_boxplot(aes(group = dropped_rank, fill = dropped_rank, col = -dropped_rank)) +
   theme_minimal() +
   xlab("Dropped Finalist Rank") +
-  ylab("Probability that 9th Place Moves to Finals")
+  ylab("Probability that 9th Place Moves to Finals") +
+  theme(legend.position = "None")
+
+nineth_to_finals %>% group_by(dropped_rank) %>% summarize(av_9th_to_fin = mean(nineth_to_fin), med_9th_to_fin = median(nineth_to_fin)) %>% knitr::kable()
 ```
 
+How likely is it that 9th will move to finals if someone who won first in any event drops out.
 
 ## Probability that Medalists are Reordered or Changed
 

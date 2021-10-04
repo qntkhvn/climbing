@@ -129,7 +129,7 @@ set.seed(80085)
 pct_dispace_medalists <- lapply(4:8, function(x) replicate(100, displace_climber(drop_rank = x)))
 names(pct_dispace_medalists) <- c("drop_r4", "drop_r5", "drop_r6", "drop_r7", "drop_r8")
 
-pct_displace_finalists <- lapply(9:20, function(x) replicate(100, displace_finalist(drop_rank = x)))
+pct_displace_finalists <- lapply(9:20, function(x) replicate(10000, displace_finalist(drop_rank = x)))
 names(pct_displace_finalists) <- paste0("drop", 9:20)
 save(pct_displace_finalists, file = "R/drop_qualifier_sims.rdata")
 ####################################
