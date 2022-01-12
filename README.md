@@ -1,3 +1,3 @@
 # climbing
 
-An Examination of Sport Climbing Combined Scoring Format
+An Examination of Sport Climbing Competition Format and Scoring System
