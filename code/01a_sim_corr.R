@@ -10,7 +10,7 @@ qual_dist_list <- final_dist_list <- list()
 # and returns a simulated data frame with the following attributes: 
 # player ID, the discipline ranks, overall score, final rank, sim number
 # Here we add in correlation between bouldering and lead. 
-# We test 3 values 0.25, 0.5, and 0.75
+# We test 5 values 0, 0.25, 0.5, 0.75, 1
 
 climbing_sim_cor <- function(nsim = 10000, nplay, rho = 0) {
   sims <- list()
@@ -91,13 +91,6 @@ for (rrr in 1:length(cor_vec)) {
 sim_corr_results <- bind_rows(qual_dist_list) %>% 
   bind_rows(final_dist_list)
 
-# write_rds(sim_corr_results, "paper/sim_corr_results.rds")
-
-# ggplot(aes(x = rho, y = value, color = factor(rank)), data = subset(final_dist_stack, type == "Probability")) + 
-#   geom_point() +
-#   geom_line()
-
-
 bind_rows(final_dist_list) %>% 
   bind_rows(tibble(rank = 7, type = c("Probability", "Cumulative"), value = 0:1, round = "Final", rho = 1)) %>%
   filter(type == "Probability") %>% 
@@ -133,42 +126,4 @@ bind_rows(qual_dist_list) %>%
         legend.key.size = unit(0.4, "cm")) +
   transition_states(rho) +
   labs(title = "Spearman correlation between lead and bouldering: {closest_state}")
-  
-
-# Question: What's the expected score for each rank in both qualification and final?
-
-# get expected final scores
-# also create color code for gold, silver, bronze
-final_score <- final %>% 
-  group_by(rank) %>% 
-  summarize(avg_score = mean(score)) %>%
-  mutate(round = "Final",
-         color = ifelse(rank == 1, "gold",
-                        ifelse(rank == 2, "#C0C0C0",
-                               ifelse(rank == 3, "#A77044", "lightblue"))))
-
-# get expected qualification scores (top 10)
-# color code for finalists (top 8) and non-finalists
-qual_score <- qual %>% 
-  group_by(rank) %>% 
-  summarize(avg_score = mean(score)) %>%
-  filter(rank <= 10) %>% 
-  mutate(round = "Qualification",
-         color = ifelse(rank < 9, "maroon", "lightblue"))
-
-
-
-# scoring visualization (faceted by round)
-final_score %>% 
-  bind_rows(qual_score) %>% 
-  mutate(round = fct_relevel(round, "Qualification")) %>% 
-  ggplot(aes(rank, avg_score, fill = color)) +
-  geom_col() +
-  geom_text(aes(label = ceiling(avg_score)), color = "black", size = 3, vjust = -0.3) +
-  facet_wrap(~ round, scales = "free") +
-  scale_x_continuous(breaks = 1:10) +
-  scale_fill_identity() +
-  labs(x = "Rank",
-       y = "Average Score") +
-  theme(panel.grid.major.x = element_blank())
 
