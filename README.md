@@ -8,7 +8,7 @@ Data were collected for past climbing contests that took place between 2018 and 
 
 ### Code
 
-`R` scripts for reproducing the following sections in our paper are provided:
+`R` scripts are provided for reproducing the following sections in our paper:
 
 * Simulation study: examining the general features of the rank-product scoring method of sport climbing such as win probability and advancement scores.
 * Data analysis: correlation analysis of the climbing event ranks, and "leave-one-climber-out" analysis using ideas from social choice theory.
