@@ -15,5 +15,5 @@ Data were collected for past climbing contests that took place between 2018 and 
 
 ### Paper
 
-[A pre-print of the paper is available on arXiv](https://arxiv.org/abs/2111.05310)
+[A pre-print of the paper is available on arXiv](https://arxiv.org/abs/2111.05310).
 
