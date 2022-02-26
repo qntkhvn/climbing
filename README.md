@@ -4,6 +4,6 @@ This GitHub repository contains the code and data for the paper **An Examination
 
 * Data
 
-Data were collected for past climbing contests that took place between 2018 and 2021, where the combined format was used to determine the rankings of climbers. The competitions include the 2020 Tokyo Olympics, 2020 Continental Championships of Europe, Africa, Oceania, Pan-America; 2019 and 2018 World Championships; 2018 Asian Games; and 2018 Youth Olympics. The data for these events were obtained from Wikipedia and the official website of International Federation of Sport Climbing (​​https://www.ifsc-climbing.org/index.php/world-competition). Each competition has its own event page, and the data are available in pdf format. We downloaded the pdf files and either wrote code to scrape the data or entered the data manually (for the pdf files that were difficult to scrape).
+Data were collected for past climbing contests that took place between 2018 and 2021, where the combined format was used to determine the rankings of climbers. The competitions include the 2020 Tokyo Olympics, 2020 Continental Championships of Europe, Africa, Oceania, Pan-America; 2019 and 2018 World Championships; 2018 Asian Games; and 2018 Youth Olympics. The data for these events were obtained from Wikipedia and the official website of International Federation of Sport Climbing (<https://www.ifsc-climbing.org/index.php/world-competition>). 
 
 * Code
