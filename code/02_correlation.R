@@ -1,7 +1,8 @@
 # Rank correlation analysis
 
 # Tokyo 2020 women's qualification data
-wq <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2020_olympics/wq.csv")
+
+wq <- read_csv("https://raw.githubusercontent.com/qntkhvn/cmsac_rrc/main/data/2020_olympics/wq.csv")
 
 # scatterplots of overall rank vs ranks of speed, bouldering, lead
 wq %>% 
@@ -75,4 +76,4 @@ wq_pca %>%
            loadings.label.repel = TRUE,
            data = wq_cleaned,
            colour = "Qualified") +
-  scale_color_manual(values = c("maroon", "#b79906"))
+  scale_color_manual(values = c("#E69F00", "#0072B2"))
