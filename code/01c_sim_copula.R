@@ -91,7 +91,7 @@ sim_results %>%
         panel.grid.minor = element_blank()) +
   expand_limits(y = c(0, 1))
   
-  qcor <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2020_olympics/wq.csv") %>% 
+qcor <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2020_olympics/wq.csv") %>% 
   summarize(qcor = cor(bouldering, lead, method = "kendall")) %>% 
   pull(qcor)
   
@@ -135,3 +135,34 @@ final_dist %>%
         legend.position = "bottom",
         legend.margin = margin(-5),
         legend.key.size = unit(0.4, "cm"))
+
+final %>%
+  group_by(rank) %>%
+  summarize(avg_score = mean(score),
+            low_lim = quantile(score, 0.025),
+            high_lim = quantile(score, 0.975)) %>%
+  mutate(round = "Final",
+         color = ifelse(rank == 1, "gold",
+                        ifelse(rank == 2, "#C0C0C0",
+                               ifelse(rank == 3, "#A77044", "#0072B2")))) %>%
+  bind_rows(
+    qual %>%
+      group_by(rank) %>%
+      summarize(avg_score = mean(score),
+                low_lim = quantile(score, 0.025),
+                high_lim = quantile(score, 0.975)) %>%
+      filter(rank <= 10) %>%
+      mutate(round = "Qualification",
+             color = ifelse(rank < 9, "#E69F00", "#0072B2"))
+  ) %>%
+  mutate(round = fct_relevel(round, "Qualification")) %>%
+  ggplot(aes(rank, avg_score, fill = color)) +
+  geom_col() +
+  geom_errorbar(aes(ymin = low_lim, ymax = high_lim), width = 0.3, alpha = 0.7) +
+  geom_text(aes(label = ceiling(avg_score)), color = "black", size = 2.7, vjust = -0.3) +
+  facet_wrap(~ round, scales = "free") +
+  scale_x_continuous(breaks = 1:10) +
+  scale_fill_identity() +
+  labs(x = "Rank",
+       y = "Average Score") +
+  theme(panel.grid.major.x = element_blank())  
