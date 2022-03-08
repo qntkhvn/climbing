@@ -10,7 +10,7 @@ Data were collected for past climbing contests that took place between 2018 and 
 
 `R` scripts are provided for reproducing the following sections in our paper:
 
-* Simulation study: examining the general features of the rank-product scoring method of sport climbing such as win probability and advancement scores.
+* Simulation study: examining the general features of the rank-product scoring method of sport climbing such as win probability and advancement scores. The method we ended up implementing for our simulations in copulas (see [`01c_sim_copula.R`](https://github.com/qntkhvn/climbing/blob/main/code/01c_sim_copula.R)).
 * Data analysis: correlation analysis of the climbing event ranks (see [`02_correlation.R`](https://github.com/qntkhvn/climbing/blob/main/code/02_correlation.R)), and "leave-one-climber-out" analysis using ideas from social choice theory (see [`03_leave_one_out.R`](https://github.com/qntkhvn/climbing/blob/main/code/03_leave_one_out.R)).
 
 ### Paper
