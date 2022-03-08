@@ -5,7 +5,6 @@ wf <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/201
 
 # kendall distribution
 kend <- c()
-
 for(i in 1:6) {
   d <- wf %>%
     filter(rank != i) %>%
@@ -19,6 +18,7 @@ for(i in 1:6) {
   
   kend[i] <- cor(d$rank, d$nr, method = "kendall")
 }
+kend
 
 # function to drop and re-rank the climbers
 drop_rerank <- function(df) {
