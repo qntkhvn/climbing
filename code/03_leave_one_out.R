@@ -3,6 +3,23 @@
 # 2018 Youth Olympics women's final data
 wf <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2018_youth_olympics/women_final.csv")
 
+# kendall distribution
+kend <- c()
+
+for(i in 1:6) {
+  d <- wf %>%
+    filter(rank != i) %>%
+    mutate(
+      speed = rank(speed),
+      bould = rank(bould),
+      lead = rank(lead),
+      total = speed * bould * lead,
+      nr = rank(total, ties.method = "first")
+    )
+  
+  kend[i] <- cor(d$rank, d$nr, method = "kendall")
+}
+
 # function to drop and re-rank the climbers
 drop_rerank <- function(df) {
   rerank <- list()
