@@ -49,7 +49,9 @@ for (c in 1:length(cor_vec)) {
 }  
 
 sim_results <- bind_rows(qual) %>% 
-  bind_rows(final) %>% 
+  bind_rows(final) 
+
+sim_results <- sim_results %>% 
   group_by(rho, round) %>% 
   filter(e1 == 1) %>%
   count(rank) %>%
