@@ -138,6 +138,26 @@ final_dist %>%
         legend.margin = margin(-5),
         legend.key.size = unit(0.4, "cm"))
 
+# check for variability between simulations
+set.seed(1)
+qq <- list()
+tic()
+for (i in 1:100) {
+  print(i)
+  qq[[i]] <- climbing_sim(nsim = 10000, nplay = 20, rho = qcor) %>% 
+    mutate(segment = i)
+}
+qq %>% 
+  bind_rows() %>% 
+  filter(e1 == 1 | e2 == 1 | e3 == 1) %>%
+  group_by(segment) %>% 
+  count(rank) %>%
+  mutate(Probability = n / sum(n),
+         Cumulative = cumsum(Probability)) %>% 
+  group_by(rank) %>% 
+  summarize(variance = var(Probability))
+# small variance
+
 final %>%
   group_by(rank) %>%
   summarize(avg_score = mean(score),
