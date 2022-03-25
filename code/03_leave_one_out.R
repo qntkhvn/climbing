@@ -18,7 +18,63 @@ for(i in 1:6) {
   
   kend[i] <- cor(d$rank, d$nr, method = "kendall")
 }
-kend
+
+# distribution plot
+wq <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2018_youth_olympics/women_qual.csv")
+
+kend_qual <- c()
+for(i in 1:21) {
+  d <- wq %>%
+    filter(rank != i) %>%
+    mutate(
+      speed = rank(speed),
+      bould = rank(bould),
+      lead = rank(lead),
+      total = speed * bould * lead,
+      nr = rank(total, ties.method = "first")
+    )
+  
+  kend_qual[i] <- cor(d$rank, d$nr, method = "kendall")
+}
+kend13 <- wq %>%
+  filter(rank != 13) %>%
+  mutate(
+    speed = rank(speed),
+    bould = rank(bould),
+    lead = rank(lead),
+    total = speed * bould * lead,
+    nr = rank(total, ties.method = "last")
+  ) %>% 
+  select(rank, nr) %>% 
+  cor(method = "kendall")
+
+kend_qual[13] <- kend13[1,2]
+
+kend_qual
+
+library(cowplot)
+kend_p1 <- tibble(kend = c(1, 0.8, 0.8, 0.6, 1)) %>% 
+  ggplot(aes(kend)) +
+  geom_bar(width = 0.1, fill = "gray") +
+  scale_y_continuous(breaks = 0:2) +
+  labs(subtitle = "Final",
+       x = NULL,
+       y = "") +
+  theme(plot.subtitle = element_text(hjust = 0.5),
+        panel.grid.minor = element_blank())
+
+kend_p2 <- tibble(kend = kend_qual) %>% 
+  ggplot(aes(kend)) +
+  geom_bar(fill = "gray") +
+  scale_x_continuous(breaks = round(unique(kend_qual), 3)) +
+  labs(subtitle = "Qualification",
+       x = NULL,
+       y = "Frequency") +
+  theme(plot.subtitle = element_text(hjust = 0.5),
+        panel.grid.minor = element_blank(),
+        axis.title = element_text(size = 12.5))
+
+ggdraw(add_sub(plot_grid(kend_p2, kend_p1), "Kendall's Tau", size = 12.5))
 
 # function to drop and re-rank the climbers
 drop_rerank <- function(df) {
