@@ -1,5 +1,6 @@
 # Rank correlation analysis
 library(tidyverse)
+theme_set(theme_minimal())
 
 # Tokyo 2020 women's qualification data
 
