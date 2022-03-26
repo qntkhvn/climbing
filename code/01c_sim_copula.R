@@ -2,13 +2,20 @@ library(tidyverse)
 theme_set(theme_minimal())
 library(copula)
 
+# Greg's old-man base R code
 # theta <- iRho(normalCopula(), rho = c(0, 0, 1))
-
 # U <- rCopula(10000, copula = normalCopula(theta, dim = 3, dispstr = "un"))
 # cor(U, method = "kendall")
 # U <- apply(U, 2, rank)
 # cor(U, method = "kendall")
 # apply(U, 1, prod)
+
+# simulation, assuming uniform ranks
+# this function takes in the number of simulations and players 
+# and returns a simulated data frame with the following attributes: 
+# player ID, the discipline ranks, overall score, final rank, sim number
+# Here we add in correlation between bouldering and lead. 
+# We test 5 values 0, 0.25, 0.5, 0.75, 1
 
 climbing_sim_cop <- function(nsim, nplay, rho) { 
   
@@ -51,6 +58,7 @@ for (c in 1:length(cor_vec)) {
 sim_results <- bind_rows(qual) %>% 
   bind_rows(final) 
 
+# prob of winning qual and final, given speed 1st vs boulder/lead 1st
 sim_results <- sim_results %>% 
   group_by(rho, round) %>% 
   filter(e1 == 1) %>%
@@ -92,15 +100,22 @@ sim_results %>%
         legend.key.size = unit(0.4, "cm"),
         panel.grid.minor = element_blank()) +
   expand_limits(y = c(0, 1))
-  
+
+# Question: Given that a climber wins any event, what's the probability...
+# 1) of advancing to the final for a qualifier?
+# 2) of winning a medal for a finalist?
+
+# qualification lead-boulder correlation
 qcor <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2020_olympics/wq.csv") %>% 
   summarize(qcor = cor(bouldering, lead, method = "kendall")) %>% 
   pull(qcor)
-  
+
+# final lead-boulder correlation
 fcor <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2020_olympics/wf.csv") %>% 
   summarize(fcor = cor(bouldering, lead, method = "kendall")) %>% 
   pull(fcor)
 
+# generate sims and obtain probabilities
 set.seed(1)
 qual <- climbing_sim_cop(nsim = 10000, nplay = 20, rho = qcor)
 final <- climbing_sim_cop(nsim = 10000, nplay = 8, rho = fcor)
@@ -139,24 +154,26 @@ final_dist %>%
         legend.key.size = unit(0.4, "cm"))
 
 # check for variability between simulations
-set.seed(1)
-qq <- list()
-tic()
-for (i in 1:100) {
-  print(i)
-  qq[[i]] <- climbing_sim(nsim = 10000, nplay = 20, rho = qcor) %>% 
-    mutate(segment = i)
-}
-qq %>% 
-  bind_rows() %>% 
-  filter(e1 == 1 | e2 == 1 | e3 == 1) %>%
-  group_by(segment) %>% 
-  count(rank) %>%
-  mutate(Probability = n / sum(n),
-         Cumulative = cumsum(Probability)) %>% 
-  group_by(rank) %>% 
-  summarize(variance = var(Probability))
+# set.seed(1)
+# qq <- list()
+# for (i in 1:100) {
+#  print(i)
+#  qq[[i]] <- climbing_sim(nsim = 10000, nplay = 20, rho = qcor) %>% 
+#    mutate(segment = i)
+# }
+# qq %>% 
+#  bind_rows() %>% 
+#  filter(e1 == 1 | e2 == 1 | e3 == 1) %>%
+#  group_by(segment) %>% 
+#  count(rank) %>%
+#  mutate(Probability = n / sum(n),
+#         Cumulative = cumsum(Probability)) %>% 
+#  group_by(rank) %>% 
+#  summarize(variance = var(Probability))
+
 # small variance
+
+# Question: What's the expected score for each rank in both qualification and final?
 
 final %>%
   group_by(rank) %>%
