@@ -198,7 +198,7 @@ final %>%
   ggplot(aes(rank, avg_score, fill = color)) +
   geom_col() +
   geom_errorbar(aes(ymin = low_lim, ymax = high_lim), width = 0.3, alpha = 0.7) +
-  geom_text(aes(label = ceiling(avg_score)), color = "black", size = 2.7, vjust = -0.3) +
+  # geom_text(aes(label = ceiling(avg_score)), color = "black", size = 2.7, vjust = -0.3) +
   facet_wrap(~ round, scales = "free") +
   scale_x_continuous(breaks = 1:10) +
   scale_fill_identity() +
