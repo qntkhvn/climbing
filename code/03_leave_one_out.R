@@ -3,7 +3,7 @@
 # 2018 Youth Olympics women's final data
 wf <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2018_youth_olympics/women_final.csv")
 
-# kendall distribution
+# kendall distribution for final
 kend <- c()
 for(i in 1:6) {
   d <- wf %>%
@@ -19,7 +19,7 @@ for(i in 1:6) {
   kend[i] <- cor(d$rank, d$nr, method = "kendall")
 }
 
-# distribution plot
+# kendall distribution for qualification
 wq <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2018_youth_olympics/women_qual.csv")
 
 kend_qual <- c()
@@ -49,18 +49,18 @@ kend13 <- wq %>%
   cor(method = "kendall")
 
 kend_qual[13] <- kend13[1,2]
-
 kend_qual
 
+# distribution plot, faceted by round
 library(cowplot)
-kend_p1 <- tibble(kend = c(1, 0.8, 0.8, 0.6, 1)) %>% 
+kend_p1 <- tibble(kend = c(1, 0.8, 0.8, 1, 0.6, 1)) %>% 
   ggplot(aes(kend)) +
   geom_bar(width = 0.1, fill = "gray") +
-  scale_y_continuous(breaks = 0:2) +
+  scale_y_continuous(breaks = 0:3) +
   labs(subtitle = "Final",
        x = NULL,
        y = "") +
-  theme(plot.subtitle = element_text(hjust = 0.5),
+  theme(plot.subtitle = element_text(hjust = 0.5, size = 10),
         panel.grid.minor = element_blank())
 
 kend_p2 <- tibble(kend = kend_qual) %>% 
@@ -70,11 +70,11 @@ kend_p2 <- tibble(kend = kend_qual) %>%
   labs(subtitle = "Qualification",
        x = NULL,
        y = "Frequency") +
-  theme(plot.subtitle = element_text(hjust = 0.5),
+  theme(plot.subtitle = element_text(hjust = 0.5, size = 10),
         panel.grid.minor = element_blank(),
-        axis.title = element_text(size = 12.5))
+        axis.title = element_text(size = 11.5))
 
-ggdraw(add_sub(plot_grid(kend_p2, kend_p1), "Kendall's Tau", size = 12.5))
+ggdraw(add_sub(plot_grid(kend_p2, kend_p1), "Kendall's Tau", size = 11.5))
 
 # function to drop and re-rank the climbers
 drop_rerank <- function(df) {
@@ -118,7 +118,7 @@ drop_rerank <- function(df) {
   return(rerank_df)
 }
 
-
+# IIA plot
 # plot all cases of modified rankings
 drop_rerank(wf) %>%
   mutate(
