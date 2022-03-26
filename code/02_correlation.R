@@ -1,4 +1,5 @@
 # Rank correlation analysis
+library(tidyverse)
 
 # Tokyo 2020 women's qualification data
 
