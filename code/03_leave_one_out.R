@@ -1,80 +1,10 @@
 # Leave-one-climber-out Analysis
+library(tidyverse)
+theme_set(theme_minimal())
 
-# 2018 Youth Olympics women's final data
-wf <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2018_youth_olympics/women_final.csv")
-
-# kendall distribution for final
-kend <- c()
-for(i in 1:6) {
-  d <- wf %>%
-    filter(rank != i) %>%
-    mutate(
-      speed = rank(speed),
-      bould = rank(bould),
-      lead = rank(lead),
-      total = speed * bould * lead,
-      nr = rank(total, ties.method = "first")
-    )
-  
-  kend[i] <- cor(d$rank, d$nr, method = "kendall")
-}
-
-# kendall distribution for qualification
+# 2018 Youth Olympics women's qualification and final data
 wq <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2018_youth_olympics/women_qual.csv")
-
-kend_qual <- c()
-for(i in 1:21) {
-  d <- wq %>%
-    filter(rank != i) %>%
-    mutate(
-      speed = rank(speed),
-      bould = rank(bould),
-      lead = rank(lead),
-      total = speed * bould * lead,
-      nr = rank(total, ties.method = "first")
-    )
-  
-  kend_qual[i] <- cor(d$rank, d$nr, method = "kendall")
-}
-kend13 <- wq %>%
-  filter(rank != 13) %>%
-  mutate(
-    speed = rank(speed),
-    bould = rank(bould),
-    lead = rank(lead),
-    total = speed * bould * lead,
-    nr = rank(total, ties.method = "last")
-  ) %>% 
-  select(rank, nr) %>% 
-  cor(method = "kendall")
-
-kend_qual[13] <- kend13[1,2]
-kend_qual
-
-# distribution plot, faceted by round
-library(cowplot)
-kend_p1 <- tibble(kend = c(1, 0.8, 0.8, 1, 0.6, 1)) %>% 
-  ggplot(aes(kend)) +
-  geom_bar(width = 0.1, fill = "gray") +
-  scale_y_continuous(breaks = 0:3) +
-  labs(subtitle = "Final",
-       x = NULL,
-       y = "") +
-  theme(plot.subtitle = element_text(hjust = 0.5, size = 10),
-        panel.grid.minor = element_blank())
-
-kend_p2 <- tibble(kend = kend_qual) %>% 
-  ggplot(aes(kend)) +
-  geom_bar(fill = "gray") +
-  scale_x_continuous(breaks = round(unique(kend_qual), 3)) +
-  labs(subtitle = "Qualification",
-       x = NULL,
-       y = "Frequency") +
-  theme(plot.subtitle = element_text(hjust = 0.5, size = 10),
-        panel.grid.minor = element_blank(),
-        axis.title = element_text(size = 11.5))
-
-ggdraw(add_sub(plot_grid(kend_p2, kend_p1), "Kendall's Tau", size = 11.5))
+wf <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2018_youth_olympics/women_final.csv")
 
 # function to drop and re-rank the climbers
 drop_rerank <- function(df) {
@@ -101,7 +31,7 @@ drop_rerank <- function(df) {
     ungroup() %>%
     group_by(rank_drop, total) %>%
     
-    # dealing with ties
+    # dealing with (two-way) ties
     mutate(
       speed_tb = ifelse(speed < lag(speed), 1, 0),
       bould_tb = ifelse(bould < lag(bould), 1, 0),
@@ -112,11 +42,50 @@ drop_rerank <- function(df) {
     ungroup() %>%
     group_by(rank_drop) %>%
     arrange(total, -tb, .by_group = TRUE) %>%
-    mutate(rank = row_number(),
+    mutate(nr = row_number(),
            last = str_to_title(last))
   
   return(rerank_df)
 }
+
+# get kendall distribution for qualification and final
+qkend <- drop_rerank(wq) %>% 
+  filter(rank_drop != 0) %>% 
+  group_by(rank_drop) %>% 
+  summarize(kend = cor(rank, nr, method = "kendall")) %>% 
+  pull(kend)
+
+fkend <- drop_rerank(wf) %>% 
+  filter(rank_drop != 0) %>% 
+  group_by(rank_drop) %>% 
+  summarize(kend = cor(rank, nr, method = "kendall")) %>% 
+  pull(kend)
+
+# distribution plot, faceted by round
+library(cowplot)
+
+kend_qual <- tibble(kend = qkend) %>% 
+  ggplot(aes(kend)) +
+  geom_bar(fill = "gray") +
+  scale_x_continuous(breaks = round(unique(qkend), 3)) +
+  labs(subtitle = "Qualification",
+       x = NULL,
+       y = "Frequency") +
+  theme(plot.subtitle = element_text(hjust = 0.5, size = 10),
+        panel.grid.minor = element_blank(),
+        axis.title = element_text(size = 11.5))
+
+kend_final <- tibble(kend = fkend) %>% 
+  ggplot(aes(kend)) +
+  geom_bar(width = 0.1, fill = "gray") +
+  scale_y_continuous(breaks = 0:3) +
+  labs(subtitle = "Final",
+       x = NULL,
+       y = "") +
+  theme(plot.subtitle = element_text(hjust = 0.5, size = 10),
+        panel.grid.minor = element_blank())
+
+ggdraw(add_sub(plot_grid(kend_qual, kend_final), "Kendall's Tau", size = 11.5))
 
 # IIA plot
 # plot all cases of modified rankings
