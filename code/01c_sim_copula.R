@@ -1,127 +1,208 @@
-# Leave-one-climber-out Analysis
 library(tidyverse)
 theme_set(theme_minimal())
+library(copula)
 
-# 2018 Youth Olympics women's qualification and final data
-wq <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2018_youth_olympics/women_qual.csv")
-wf <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2018_youth_olympics/women_final.csv")
+# Greg's old-man base R code
+# theta <- iRho(normalCopula(), rho = c(0, 0, 1))
+# U <- rCopula(10000, copula = normalCopula(theta, dim = 3, dispstr = "un"))
+# cor(U, method = "kendall")
+# U <- apply(U, 2, rank)
+# cor(U, method = "kendall")
+# apply(U, 1, prod)
 
-# function to drop and re-rank the climbers
-drop_rerank <- function(df) {
-  rerank <- list()
+# simulation, assuming uniform ranks
+# this function takes in the number of simulations and players 
+# and returns a simulated data frame with the following attributes: 
+# player ID, the discipline ranks, overall score, final rank, sim number
+# Here we add in correlation between bouldering and lead. 
+# We test 5 values 0, 0.25, 0.5, 0.75, 1
+
+climbing_sim_cop <- function(nsim, nplay, rho) { 
   
-  # drop each rank
-  for (i in 1:nrow(df)) {
-    rerank[[i]] <- df[-i,] %>%
-      mutate(rank_drop = i)
+  theta <- iTau(normalCopula(), tau = c(0, 0, rho))
+  
+  sims <- list()
+  
+  for(i in 1:nsim) {
+    
+    cop <- rCopula(nplay, copula = normalCopula(theta, dim = 3, dispstr = "un"))
+    
+    sims[[i]] <- bind_cols(player = 1:nplay,
+                           e1 = rank(cop[, 1]),
+                           e2 = rank(cop[, 2]),
+                           e3 = rank(cop[, 3])) %>% 
+      mutate(sim = i) 
   }
   
-  # new data with all cases of rank dropped
-  rerank_df <- df %>%
-    mutate(rank_drop = 0) %>%
-    bind_rows(rerank) %>%
-    group_by(rank_drop) %>%
-    mutate(
-      speed = rank(speed),
-      bould = rank(bould),
-      lead = rank(lead),
-      total = speed * bould * lead
-    ) %>%
-    arrange(total, .by_group = TRUE) %>%
-    ungroup() %>%
-    group_by(rank_drop, total) %>%
-    
-    # dealing with ties
-    mutate(
-      speed_tb = ifelse(speed < lag(speed), 1, 0),
-      bould_tb = ifelse(bould < lag(bould), 1, 0),
-      lead_tb = ifelse(lead < lag(lead), 1, 0),
-      tb = speed_tb + bould_tb + lead_tb,
-      tb = ifelse(is.na(tb), 1, tb)
-    ) %>%
-    ungroup() %>%
-    group_by(rank_drop) %>%
-    arrange(total, -tb, .by_group = TRUE) %>%
-    mutate(nr = row_number(),
-           last = str_to_title(last))
+  results <- bind_rows(sims) %>% 
+    mutate(score = e1 * e2 * e3) %>% 
+    group_by(sim) %>% 
+    mutate(rank = rank(score, ties.method = "random")) %>% 
+    ungroup()
   
-  return(rerank_df)
+  return(results)
 }
 
-# get kendall distribution for qualification and final
-qkend <- drop_rerank(wq) %>% 
-  filter(rank_drop != 0) %>% 
-  group_by(rank_drop) %>% 
-  summarize(kend = cor(rank, nr, method = "kendall")) %>% 
-  pull(kend)
-
-fkend <- drop_rerank(wf) %>% 
-  filter(rank_drop != 0) %>% 
-  group_by(rank_drop) %>% 
-  summarize(kend = cor(rank, nr, method = "kendall")) %>% 
-  pull(kend)
-
-
-# distribution plot, faceted by round
-library(cowplot)
-kend_qual <- tibble(kend = qkend) %>% 
-  ggplot(aes(kend)) +
-  geom_bar(fill = "gray") +
-  scale_x_continuous(breaks = round(unique(qkend), 3)) +
-  labs(subtitle = "Qualification",
-       x = NULL,
-       y = "Frequency") +
-  theme(plot.subtitle = element_text(hjust = 0.5, size = 10),
-        panel.grid.minor = element_blank(),
-        axis.title = element_text(size = 11.5))
-
-kend_final <- tibble(kend = fkend) %>% 
-  ggplot(aes(kend)) +
-  geom_bar(width = 0.1, fill = "gray") +
-  scale_y_continuous(breaks = 0:3) +
-  labs(subtitle = "Final",
-       x = NULL,
-       y = "") +
-  theme(plot.subtitle = element_text(hjust = 0.5, size = 10),
-        panel.grid.minor = element_blank())
-
-
-ggdraw(add_sub(plot_grid(kend_qual, kend_final), "Kendall's Tau", size = 11.5))
-
-
-# IIA plot
-# plot all cases of modified rankings
-drop_rerank(wf) %>%
-  mutate(
-    last = fct_reorder(last,-rank),
-    rank = as.factor(rank),
-    
-    # indicator for climber with rank change, for viz (color filling) purpose
-    rank_change = ifelse(
-      rank_drop %in% c(0, 1, 4, 6) | rank_drop == 2 & rank %in% 1:3 |
-        rank_drop == 3 & rank %in% c(1, 4, 5) | rank_drop == 5 & rank %in% c(1, 5),
-      "no",
-      "yes")) %>%
-  ggplot(aes(x = last, y = total, fill = rank_change)) +
-  geom_col(show.legend = FALSE) +
-  geom_text(aes(label = rank),
-            hjust = -0.2,
-            size = 3,
-            color = "black") +
-  coord_flip() +
+set.seed(1)
+cor_vec <- seq(0, 1, length = 5)
+qual <- final <- list()
+for (c in 1:length(cor_vec)) {
   
-  # create black panel border for cases with change in rank orderings
-  geom_rect(
-    aes(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf),
-    data = ~ filter(., rank_drop %in% c(2, 3, 5)),
-    color = "black",
-    size = 1.5,
-    fill = NA,
-    inherit.aes = FALSE
-  ) +
-  facet_wrap( ~ rank_drop, nrow = 2, ncol = 4) +
-  expand_limits(y = 62, x = 0:7) +
-  scale_fill_manual(values = c("grey", "red")) +
-  labs(y = "Score", x = NULL) +
-  theme(axis.ticks = element_blank(),
-        panel.grid.minor = element_blank())
+  qual[[c]] <- climbing_sim_cop(nsim = 10000, nplay = 20, rho = cor_vec[c]) %>% 
+    mutate(rho = cor_vec[c], round = "Qualification")
+  final[[c]] <- climbing_sim_cop(nsim = 10000, nplay = 8, rho = cor_vec[c]) %>% 
+    mutate(rho = cor_vec[c], round = "Final")
+}  
+
+sim_results <- bind_rows(qual) %>% 
+  bind_rows(final) 
+
+# prob of winning qual and final, given speed 1st vs boulder/lead 1st
+sim_results <- sim_results %>% 
+  group_by(rho, round) %>% 
+  filter(e1 == 1) %>%
+  count(rank) %>%
+  mutate(Probability = n / sum(n),
+         Cumulative = cumsum(Probability)) %>%
+  ungroup() %>% 
+  select(-n) %>% 
+  pivot_longer(Probability:Cumulative, names_to = "prob") %>% 
+  mutate(type = "Win Speed") %>% 
+  bind_rows(
+    sim_results %>% 
+      group_by(rho, round) %>% 
+      filter(e2 == 1 | e3 == 1) %>%
+      count(rank) %>%
+      mutate(Probability = n / sum(n),
+             Cumulative = cumsum(Probability)) %>%
+      ungroup() %>% 
+      select(-n) %>% 
+      pivot_longer(Probability:Cumulative, names_to = "prob") %>% 
+      mutate(type = "Win Bouldering or Lead")
+  ) %>% 
+  filter(rank == 1 & prob == "Cumulative")
+
+sim_results %>% 
+  mutate(round = fct_rev(round),
+         type = fct_rev(type)) %>%
+  ggplot(aes(rho, value, color = type)) +
+  geom_line(size = 1) +
+  geom_point(size = 2) +
+  facet_wrap(~ round) +
+  scale_y_continuous(breaks = seq(0, 1, 0.1)) +
+  scale_color_manual(values = c("#E69F00", "#0072B2")) +
+  labs(color = "Probability",
+       x = "Spearman Correlation",
+       y = "Win Probability") +
+  theme(legend.margin = margin(-5),
+        legend.position = "bottom",
+        legend.key.size = unit(0.4, "cm"),
+        panel.grid.minor = element_blank()) +
+  expand_limits(y = c(0, 1))
+
+# Question: Given that a climber wins any event, what's the probability...
+# 1) of advancing to the final for a qualifier?
+# 2) of winning a medal for a finalist?
+
+# qualification lead-boulder correlation
+qcor <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2020_olympics/wq.csv") %>% 
+  summarize(qcor = cor(bouldering, lead, method = "kendall")) %>% 
+  pull(qcor)
+
+# final lead-boulder correlation
+fcor <- read_csv("https://raw.githubusercontent.com/qntkhvn/climbing/main/data/2020_olympics/wf.csv") %>% 
+  summarize(fcor = cor(bouldering, lead, method = "kendall")) %>% 
+  pull(fcor)
+
+# generate sims and obtain probabilities
+set.seed(1)
+qual <- climbing_sim_cop(nsim = 10000, nplay = 20, rho = qcor)
+final <- climbing_sim_cop(nsim = 10000, nplay = 8, rho = fcor)
+
+final_dist <- final %>%
+  filter(e1 == 1 | e2 == 1 | e3 == 1) %>%
+  count(rank) %>%
+  mutate(Probability = n / sum(n),
+         Cumulative = cumsum(Probability)) %>%
+  select(-n) %>%
+  pivot_longer(!rank, names_to = "type") %>%
+  mutate(round = "Final")
+
+qual_dist <- qual %>%
+  filter(e1 == 1 | e2 == 1 | e3 == 1) %>%
+  count(rank) %>%
+  mutate(Probability = n / sum(n),
+         Cumulative = cumsum(Probability)) %>%
+  select(-n) %>%
+  pivot_longer(!rank, names_to = "type") %>%
+  mutate(round = "Qualification")
+
+final_dist %>%
+  bind_rows(qual_dist) %>%
+  mutate(round = fct_relevel(round, "Qualification")) %>%
+  ggplot(aes(rank, value, fill = type)) +
+  geom_col(position = "dodge") +
+  facet_wrap(~ round, scales = "free") +
+  scale_x_reverse(breaks = 1:11) +
+  coord_flip() +
+  labs(x = "Rank",
+       y = "Probability Density",
+       fill = "Distribution") +
+  scale_fill_manual(values = c("#E69F00", "#0072B2")) +
+  theme(panel.grid.major.y = element_blank(),
+        legend.position = "bottom",
+        legend.margin = margin(-5),
+        legend.key.size = unit(0.4, "cm"))
+
+# check for variability between simulations
+# set.seed(1)
+# qq <- list()
+# for (i in 1:100) {
+#  print(i)
+#  qq[[i]] <- climbing_sim(nsim = 10000, nplay = 20, rho = qcor) %>% 
+#    mutate(segment = i)
+# }
+# qq %>% 
+#  bind_rows() %>% 
+#  filter(e1 == 1 | e2 == 1 | e3 == 1) %>%
+#  group_by(segment) %>% 
+#  count(rank) %>%
+#  mutate(Probability = n / sum(n),
+#         Cumulative = cumsum(Probability)) %>% 
+#  group_by(rank) %>% 
+#  summarize(variance = var(Probability))
+
+# small variance
+
+# Question: What's the expected score for each rank in both qualification and final?
+
+final %>%
+  group_by(rank) %>%
+  summarize(avg_score = mean(score),
+            low_lim = quantile(score, 0.025),
+            high_lim = quantile(score, 0.975)) %>%
+  mutate(round = "Final",
+         color = ifelse(rank == 1, "gold",
+                        ifelse(rank == 2, "#C0C0C0",
+                               ifelse(rank == 3, "#A77044", "#0072B2")))) %>%
+  bind_rows(
+    qual %>%
+      group_by(rank) %>%
+      summarize(avg_score = mean(score),
+                low_lim = quantile(score, 0.025),
+                high_lim = quantile(score, 0.975)) %>%
+      filter(rank <= 10) %>%
+      mutate(round = "Qualification",
+             color = ifelse(rank < 9, "#E69F00", "#0072B2"))
+  ) %>%
+  mutate(round = fct_relevel(round, "Qualification")) %>%
+  ggplot(aes(rank, avg_score, fill = color)) +
+  geom_col() +
+  geom_errorbar(aes(ymin = low_lim, ymax = high_lim), width = 0.3, alpha = 0.7) +
+  # geom_text(aes(label = ceiling(avg_score)), color = "black", size = 2.7, vjust = -0.3) +
+  facet_wrap(~ round, scales = "free") +
+  scale_x_continuous(breaks = 1:10) +
+  scale_fill_identity() +
+  labs(x = "Rank",
+       y = "Average Score") +
+  theme(panel.grid.major.x = element_blank())  
