@@ -183,24 +183,3 @@ final %>%
   labs(x = "Rank",
        y = "Average Score") +
   theme(panel.grid.major.x = element_blank())   
-
-# plot distributions, faceted by round
-library(gganimate)
-bind_rows(qual_dist_list) %>%
-  bind_rows(final_dist_list) %>%
-  mutate(round = fct_relevel(round, "Qualification")) %>%
-  ggplot(aes(rank, value, fill = type)) +
-  geom_col(position = "dodge") +
-  facet_wrap(~ round, scales = "free") +
-  scale_x_reverse(breaks = 1:12) +
-  coord_flip() +
-  labs(x = "Rank",
-       y = "Probability Density",
-       fill = "Distribution") +
-  scale_fill_manual(values = c("maroon", "midnightblue")) +
-  theme(panel.grid.major.y = element_blank()) +
-  theme(legend.position = "bottom",
-        legend.margin = margin(-5),
-        legend.key.size = unit(0.4, "cm")) +
-  transition_states(rho) +
-  labs(title = "Spearman correlation between lead and bouldering: {closest_state}")
