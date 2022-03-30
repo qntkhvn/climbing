@@ -1,6 +1,6 @@
 ## `climbing`
 
-This GitHub repository contains the code and data for the paper **An Examination of Sport Climbing Competition Format and Scoring System** by Quang Nguyen, Hannah Butler, and Gregory J. Matthews.
+This GitHub repository contains the code and data for the paper **An Examination of Olympic Sport Climbing Competition Format and Scoring System** by Quang Nguyen, Hannah Butler, and Gregory J. Matthews.
 
 ### Data
 
